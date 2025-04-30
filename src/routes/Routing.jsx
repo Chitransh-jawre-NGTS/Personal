@@ -13,6 +13,9 @@ import ProductDetails from '../pages/ProductDetails';
 import { Toaster } from 'react-hot-toast';
 import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
+import AccountPage from '../pages/AccountPage';
+import HelpPage from '../pages/HelpPage';
+// import Wishlist from '../pages/Wishlist';
 
 const Routing = () => {
   return (
@@ -24,10 +27,12 @@ const Routing = () => {
       <Route path="/offers" element={<Offers />} />
       <Route path='/carts'element={<Cart/>}/>
       <Route path='/login' element={<Login/>}/>
-      {/* <Route path='/favourate' element={<Favourate/>}/> */}
+      {/* <Route path='/favourate' element={<Wishlist/>}/> */}
       <Route path='/supplier' element={<BecomeSeller/>} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path='/checkout'  element={<Checkout/>} />
+      <Route path='/accounts' element={<AccountPage/>}/>
+      <Route path='/help' element={<HelpPage/>}/>
     </Routes>
 
 

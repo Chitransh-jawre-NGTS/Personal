@@ -89,7 +89,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-0 w-50 z-50 font-sans">
+    <div className="fixed bottom-6 hidden lg:flex right-0 w-50 z-50 font-sans">
       <button
         onClick={toggleChat}
         className="bg-purple-600 text-white py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition"
