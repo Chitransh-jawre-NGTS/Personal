@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../Features/carts/Cartslice";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Footer from "./Footer";
+import TopFilterBar from "./TopFilterBar";
 
 
 const reviewsData = {
@@ -98,6 +99,7 @@ const ProductDescription = () => {
 
   return (
     <>
+    <TopFilterBar/>
  <div className="max-w-7xl mx-auto p-4 md:p-10 bg-white rounded-md shadow-md mt-24">
   <div className="flex flex-col md:flex-row gap-10">
     
