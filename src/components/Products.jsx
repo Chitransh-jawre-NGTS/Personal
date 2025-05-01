@@ -1,11 +1,11 @@
-// // ProductGrid.jsx
+// // // ProductGrid.jsx
 
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import TopFilterBar from "./TopFilterBar";
-import { fetchProducts } from '../Features/Produtcs/productSlice'; // update the path as needed
-import { useDispatch, useSelector } from "react-redux";
+// import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+// import { motion } from "framer-motion";
+// import TopFilterBar from "./TopFilterBar";
+// import { fetchProducts } from '../Features/Produtcs/productSlice'; // update the path as needed
+// import { useDispatch, useSelector } from "react-redux";
 
 // const ProductGrid = () => {
 //   const [visibleCount, setVisibleCount] = useState(20);
@@ -99,24 +99,147 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 
+// const ProductGrid = () => {
+//   const [visibleCount, setVisibleCount] = useState(20);
+
+//   const dispatch = useDispatch();
+//   const { items: products, loading, error } = useSelector((state) => state.products);
+
+//   useEffect(() => {
+//     dispatch(fetchProducts());
+//   }, [dispatch]);
+
+//   const handleShowMore = () => {
+//     setVisibleCount((prev) => prev + 20);
+//   };
+
+//   if (loading) {
+//     return <div>Loading...</div>;
+//   }
+
+//   if (error) {
+//     return <div>Error: {error}</div>;
+//   }
+
+//   // ✅ Moved this check after all hooks
+//   if (!Array.isArray(products)) {
+//     return <div>Error: Products data is not available.</div>;
+//   }
+
+//   return (
+//     <>
+//       <TopFilterBar />
+//       <div className="max-w-7xl mx-auto px-1 lg:px-4 lg:py-8">
+//         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-6">
+//           {products.slice(0, visibleCount).map((product) => (
+//             <Link key={product.id} to={`/product/${product.id}`}>
+//               <motion.div
+//                 whileHover={{ scale: 1.05 }}
+//                 transition={{ type: 'tween', ease: 'easeInOut', duration: 0.1 }}
+//                 className="bg-white rounded-lg shadow hover:shadow-md transition-all"
+//               >
+//                 <img src={product.image} alt={product.title} className="w-full h-56 object-cover rounded-md" />
+//                 <div className="p-4">
+//                   <h3 className="text-base font-semibold line-clamp-2">{product.title}</h3>
+//                   <div className="mt-2 text-base">
+//                     <span className="font-bold text-black">₹{product.price}</span>{' '}
+//                     <span className="line-through text-gray-400 text-sm">₹{product.originalPrice}</span>{' '}
+//                     <span className="text-green-600 text-sm">{product.discount}</span>
+//                   </div>
+//                   <div className="mt-4 text-sm text-gray-700">
+//                     <span className="font-semibold bg-green-400 text-white rounded-full px-4 py-2">
+//                       {product.totalRatings}
+//                     </span>
+//                     <span className="text-gray-500">({product.usersRated} Reviews)</span>
+//                   </div>
+//                 </div>
+//               </motion.div>
+//             </Link>
+//           ))}
+//         </div>
+
+//         {visibleCount < products.length && (
+//           <div className="flex justify-center mt-8">
+//             <button
+//               onClick={handleShowMore}
+//               className="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full shadow-md"
+//             >
+//               Show More
+//             </button>
+//           </div>
+//         )}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default ProductGrid;
 
 
+// src/components/ProductGrid.jsx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import TopFilterBar from "./TopFilterBar"; // Make sure this component exists
+import { fetchProducts } from "../Features/Produtcs/productSlice"; 
+import { useDispatch, useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 const ProductGrid = () => {
+  // All hooks must be at the top!
   const [visibleCount, setVisibleCount] = useState(20);
-
   const dispatch = useDispatch();
   const { items: products, loading, error } = useSelector((state) => state.products);
 
-  // Ensure products is an array
-  if (!Array.isArray(products)) {
-    return <div>Error: Products data is not available.</div>;
-  }
-
+  // Dispatch the API call as soon as the component mounts
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  // Handler to load more products
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + 20);
+  };
+
+  // Conditional rendering based on status
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -125,50 +248,78 @@ const ProductGrid = () => {
     return <div>Error: {error}</div>;
   }
 
-  return (
-    <div className="max-w-7xl mx-auto px-1 lg:px-4 lg:py-8">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-6">
-        {products.slice(0, visibleCount).map((product) => (
-          <Link key={product.id} to={`/product/${product.id}`}>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'tween', ease: 'easeInOut', duration: 0.1 }}
-              className="bg-white rounded-lg shadow hover:shadow-md transition-all"
-            >
-              <img src={product.image} alt={product.title} className="w-full h-56 object-cover rounded-md" />
-              <div className="p-4">
-                <h3 className="text-base font-semibold line-clamp-2">{product.title}</h3>
-                <div className="mt-2 text-base">
-                  <span className="font-bold text-black">₹{product.price}</span>{' '}
-                  <span className="line-through text-gray-400 text-sm">₹{product.originalPrice}</span>{' '}
-                  <span className="text-green-600 text-sm">{product.discount}</span>
-                </div>
-                <div className="mt-4 text-sm text-gray-700">
-                  <span className="font-semibold bg-green-400 text-white rounded-full px-4 py-2">
-                    {product.totalRatings}
-                  </span>
-                  <span className="text-gray-500">({product.usersRated} Reviews)</span>
-                </div>
-              </div>
-            </motion.div>
-          </Link>
-        ))}
-      </div>
+  // Optional safety check: Ensure products is an array
+  if (!Array.isArray(products)) {
+    return <div>Error: Products data is not available.</div>;
+  }
 
-      {/* Show More Button */}
-      {visibleCount < products.length && (
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={handleShowMore}
-            className="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full shadow-md"
-          >
-            Show More
-          </button>
-        </div>
-      )}
-    </div>
-  );
+  const handleWishlistClick = () => {
+  setIsInWishlist(!isInWishlist);
+  if (!isInWishlist) {
+    Toaster.success('Item added to wishlist!');
+  } else {
+    Toaster.success('Item removed from wishlist!');
+  }
 };
 
+  return (
+    <>
+    <Toaster/>
+      {/* <TopFilterBar /> */}
+      <div className="max-w-7xl mx-auto px-1 lg:px-4 lg:py-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-6">
+          {products.slice(0, visibleCount).map((product) => (
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "tween", ease: "easeInOut", duration: 0.1 }}
+                className="bg-white rounded-lg shadow hover:shadow-md transition-all"
+              >
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className="w-full h-56 object-contain rounded-md"
+                />
+                <div className="p-4">
+                  <h3 className="text-base font-semibold line-clamp-2">
+                    {product.title}
+                  </h3>
+                  <div className="mt-2 text-base">
+                    <span className="font-bold text-black">₹{product.price}</span>{" "}
+                    <span className="line-through text-gray-400 text-sm">
+                      ₹{product.originalPrice}
+                    </span>{" "}
+                    <span className="text-green-600 text-sm">
+                      {product.discount}
+                    </span>
+                  </div>
+                  <div className="mt-4 text-sm text-gray-700">
+                    <span className="font-semibold bg-green-400 text-white rounded-full px-4 py-2">
+                      {product.rating.rate}
+                    </span>
+                    <span className="text-gray-500">
+                      ({product.usersRated} Reviews)
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+
+        {visibleCount < products.length && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={handleShowMore}
+              className="px-6 py-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-full shadow-md"
+            >
+              Show More
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
 
 export default ProductGrid;

@@ -1,108 +1,4 @@
-// // Cart.jsx
 
-// import React, { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
-// import { removeFromCart, increaseQuantity,decreaseQuantity } from "../Features/carts/Cartslice"; 
-// import Navbar from "../components/Navbar"
-// import CatagoryNavbar from "../components/CatagoryNavbar"
-// import { motion } from "framer-motion";
-
-// const Cart = () => {
-//   const cartItems = useSelector((state) => state.cart.cartItems); // Getting cartItems from Redux store
-//   const dispatch = useDispatch();
-
-//   // Handle Remove item from cart
-//   const handleRemove = (id) => {
-//     dispatch(removeFromCart(id));
-//   };
-
-//   // Handle increase quantity
-//   const handleIncrease = (id) => {
-//     dispatch(increaseQuantity(id));
-//   };
-
-//   // Handle decrease quantity
-//   const handleDecrease = (id) => {
-//     dispatch(decreaseQuantity(id));
-//   };
-
-//   // Total price calculation
-//   const getTotalPrice = () => {
-//     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-//   };
-
-  
-
-//   return (<>
-//     <Navbar/>
-//     <CatagoryNavbar/>
-//     <div className="max-w-7xl mx-auto mt-25 px-4 py-8">
-//       <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
-
-//       {/* Cart Items List */}
-//       {cartItems.length > 0 ? (
-//         <div className="space-y-6">
-//           {cartItems.map((item) => (
-//             <div key={item.id} className="flex items-center justify-between p-4 border-b">
-//               <div className="flex items-center space-x-4">
-//                <Link  to={`/`}> <img src={item.image} alt={item.title} className="w-24 h-24 object-cover rounded-md" /></Link>
-//                 <div>
-//                   <h3 className="text-lg font-semibold">{item.title}</h3>
-//                   <p className="text-gray-500">₹{item.price}</p>
-//                 </div>
-//               </div>
-
-//               <div className="flex items-center space-x-4">
-//                 <button
-//                   onClick={() => handleDecrease(item.id)}
-//                   className="px-3 py-1 bg-gray-300 text-black rounded-lg"
-//                 >
-//                   -
-//                 </button>
-//                 <span className="text-lg font-semibold">{item.quantity}</span>
-//                 <button
-//                   onClick={() => handleIncrease(item.id)}
-//                   className="px-3 py-1 bg-gray-300 text-black rounded-lg"
-//                 >
-//                   +
-//                 </button>
-//               </div>
-
-//               <button
-//                 onClick={() => handleRemove(item.id)}
-//                 className="text-red-600 hover:text-red-800"
-//               >
-//                 Remove
-//               </button>
-//             </div>
-//           ))}
-
-//           {/* Total Price */}
-//           <div className="flex justify-between items-center mt-8 text-lg font-semibold">
-//             <span>Total Price:</span>
-//             <span>₹{getTotalPrice()}</span>
-//           </div>
-
-//           <div className="flex justify-between mt-8">
-//             <Link to="/" className="px-6 py-2 bg-gray-200 text-black rounded-full">Continue Shopping</Link>
-//             <Link to="/checkout" className="px-6 py-2 bg-pink-600 text-white rounded-full">Checkout</Link>
-//           </div>
-//         </div>
-//       ) : (
-//         <p>Your cart is empty. Start adding products!</p>
-//       )}
-//     </div>
-
-
-//     </>
-//   );
-// };
-
-// export default Cart;
-
-
-// Cart.jsx
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -163,10 +59,10 @@ const Cart = () => {
       <Navbar />
       <CatagoryNavbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-10">🛒 Your Shopping Cart</h2>
+  {/* <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-10">🛒 Your Shopping Cart</h2> */}
 
   {cartItems.length > 0 ? (
-    <div className="space-y-10">
+    <div className="space-y-10 mt-10 mb-20">
       {cartItems.map((item) => (
         <div
           key={item.id}
@@ -190,7 +86,7 @@ const Cart = () => {
           </div>
 
           {/* Right Section */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4 sm:mt-0">
+          <div className="flex flex-col-2 sm:flex-row items-center justify-between gap-4 mt-4 sm:mt-0">
             <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1 shadow-inner">
               <button
                 onClick={() => handleDecrease(item.id)}
@@ -205,7 +101,7 @@ const Cart = () => {
 
             <button
               onClick={() => handleRemove(item.id)}
-              className="text-sm text-red-600 hover:underline"
+              className="text-sm ms-5 text-red-600 hover:underline"
             >
               ❌ Remove
             </button>

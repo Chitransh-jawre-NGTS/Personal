@@ -99,6 +99,11 @@ const cartSlice = createSlice({
   },
 });
 
+export const getCartItemCount = (state) =>
+  state.cart.cartItems.reduce((total, item) => total + item.quantity, 0);
+
+export const getWishlistItemCount = (state) =>
+  state.cart.wishlistItems.length;
 export const {
   addToCart,
   removeFromCart,

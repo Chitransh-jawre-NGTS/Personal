@@ -1,61 +1,82 @@
+// src/Features/Products/productSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ENDPOINTS } from '../../utils/endpoints';
 
-export const fetchProducts = createAsyncThunk('products/fetchAll', async () => {
-  const response = await axios.get(ENDPOINTS.PRODUCTS);
-  return response.data.products;
+// Thunk to fetch all products
+// export const fetchProducts = createAsyncThunk(
+//   'products/fetchAll',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(ENDPOINTS.PRODUCTS);
+//       // Log the API response if needed:
+//       console.log("API Response:", response.data);
+//       // Adjust the returned data if your API response shape is different:
+//       return response.data;
+//     } catch (error) {
+//       console.error("API Error:", error);
+//       return rejectWithValue(
+//         error.response?.data?.message || error.message || "Something went wrong"
+//       );
+//     }
+//   }
+// );
+// Thunk to fetch all products
+export const fetchProducts = createAsyncThunk(
+  'products/fetchAll',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(ENDPOINTS.PRODUCTS);
+      console.log("API Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("API Error:", error);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Something went wrong"
+      );
+    }
+  }
+);
+
+// Thunk to fetch a single product's details
+export const fetchProductDetails = createAsyncThunk(
+  'products/fetchDetails',
+  async (productId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${ENDPOINTS.PRODUCTS}/${productId}`);
+      return response.data;
+    } catch (error) {
+      console.error("API Error:", error);
+      return rejectWithValue(
+        error.response?.data?.message || error.message || "Something went wrong"
+      );
+    }
+  }
+);
+
+// Slice definition
+const productSlice = createSlice({
+  name: 'products',
+  initialState: {
+    items: [],  // Initially, no products
+    loading: false,
+    error: null,
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.items = action.payload; // assign API returned array
+        state.loading = false;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
-// const productSlice = createSlice({
-//   name: 'products',
-//   initialState: {
-//     items: [],
-//     loading: false,
-//     error: null,
-//   },
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(fetchProducts.pending, (state) => {
-//         state.loading = true;
-//       })
-//       .addCase(fetchProducts.fulfilled, (state, action) => {
-//         state.items = action.payload;
-//         state.loading = false;
-//       })
-//       .addCase(fetchProducts.rejected, (state, action) => {
-//         state.loading = false;
-//         state.error = action.error.message;
-//       });
-//   },
-// });
-
-// export default productSlice.reducer;
-
-
-
-const productSlice = createSlice({
-    name: 'products',
-    initialState: {
-      items: [],  // Ensure this is an empty array initially
-      loading: false,
-      error: null,
-    },
-    extraReducers: (builder) => {
-      builder
-        .addCase(fetchProducts.pending, (state) => {
-          state.loading = true;
-        })
-        .addCase(fetchProducts.fulfilled, (state, action) => {
-          state.items = action.payload;  // products data should be assigned here
-          state.loading = false;
-        })
-        .addCase(fetchProducts.rejected, (state, action) => {
-          state.loading = false;
-          state.error = action.error.message;
-        });
-    },
-  });
-  
-  export default productSlice.reducer;
-  
+export default productSlice.reducer;

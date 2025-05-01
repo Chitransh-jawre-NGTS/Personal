@@ -117,7 +117,7 @@ const Home = () => {
         {/* <WishlistItemCard/> */}
         {/* <ComingSoon/> */}
         {/* <ProductDescription/> */}
-        <Chatbot />
+        {/* <Chatbot /> */}
       </div>
     </>
   )

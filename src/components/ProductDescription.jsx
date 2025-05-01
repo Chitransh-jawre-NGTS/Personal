@@ -42,7 +42,7 @@ const reviewsData = {
 
 const ProductDescription = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState("");
     const [visibleCount, setVisibleCount] = useState(20);
     const dispatch = useDispatch();
     const [isInWishlist, setIsInWishlist] = useState(false);
@@ -70,14 +70,14 @@ const ProductDescription = () => {
     };
 
 
-    const handleWishlistClick = () => {
-      setIsInWishlist(!isInWishlist);
-      if (!isInWishlist) {
-        toast.success('Item added to wishlist!');
-      } else {
-        toast.success('Item removed from wishlist!');
-      }
-    };
+    // const handleWishlistClick = () => {
+    //   setIsInWishlist(!isInWishlist);
+    //   if (!isInWishlist) {
+    //     toast.success('Item added to wishlist!');
+    //   } else {
+    //     toast.success('Item removed from wishlist!');
+    //   }
+    // };
   useEffect(() => {
     // Same products array (should ideally move to a separate file later)
     const products = Array.from({ length: 60 }, (_, i) => ({
@@ -125,8 +125,11 @@ const ProductDescription = () => {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full justify-center">
-        <button className="bg-pink-600 text-white py-2 px-6 rounded hover:bg-pink-700 w-full sm:w-auto">
+      <div className="flex flex-col-2 sm:flex-row gap-4 mt-6 w-full justify-center">
+        <button onClick={() => {
+                dispatch(addToCart(product));
+                Navigate("/carts"); 
+              }} className="bg-pink-600 text-white py-2 px-6 rounded hover:bg-pink-700 w-full sm:w-auto">
           Add to Cart
         </button>
         <button className="bg-purple-700 text-white py-2 px-6 rounded hover:bg-purple-800 w-full sm:w-auto">
@@ -276,12 +279,12 @@ const ProductDescription = () => {
 
 
 
-<div className="max-w-7xl mx-auto px-4 py-10">
+<div className="max-w-7xl mx-auto px-2 py-10">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
         You will also love these ✨
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-6">
         {products.slice(0, visibleCount).map((product) => (
           <Link key={product.id} to={`/product/${product.id}`}>
             <motion.div

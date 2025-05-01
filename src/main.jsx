@@ -2,13 +2,11 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import React from 'react'
 import './index.css'
-import App from './App.jsx'
-import Routing from './routes/Routing.jsx'
 import { Provider } from 'react-redux'
 import { store } from './Features/store/store.js'
-import { ErrorBoundary } from 'react-error-boundary';
-
-
+import { ErrorBoundary } from 'react-error-boundary'
+import Routing from './routes/Routing.jsx'
+import { AuthProvider } from './auth/AuthContext.jsx' // ✅ import your Auth context
 
 const FallbackComponent = ({ error, resetErrorBoundary }) => (
   <div role="alert" className="text-center p-4">
@@ -21,13 +19,16 @@ const FallbackComponent = ({ error, resetErrorBoundary }) => (
       Try Again
     </button>
   </div>
-);
+)
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-    <ErrorBoundary FallbackComponent={FallbackComponent}>
-      <Routing />
-    </ErrorBoundary>
+      <AuthProvider> {/* ✅ Provide auth context */}
+        <ErrorBoundary FallbackComponent={FallbackComponent}>
+          <Routing />
+        </ErrorBoundary>
+      </AuthProvider>
     </Provider>
   </StrictMode>,
 )
