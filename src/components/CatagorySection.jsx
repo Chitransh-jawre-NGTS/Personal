@@ -1,6 +1,7 @@
 import React from 'react';
 
 const categories = [
+  { image: 'https://picsum.photos/300/300?random=10', label: 'Catagorys' },
   { image: 'https://picsum.photos/300/300?random=1', label: 'Ethnic Wear' },
   { image: 'https://picsum.photos/300/300?random=2', label: 'Western Dresses' },
   { image: 'https://picsum.photos/300/300?random=5', label: 'Menswear' },
@@ -11,7 +12,7 @@ const categories = [
 
 const CategorySection = () => {
   return (
-    <div className= " w-[95%] mx-auto py-10 lg:mt-20 bg-white">
+    <div className= " w-[95%] mx-auto hidden lg:flex py-10 lg:mt-20 bg-white">
       <div className="container px-4">
         <div className="flex flex-wrap justify-evenly gap-2 lg:gap-6">
           {categories.map((item, index) => (

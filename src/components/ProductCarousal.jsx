@@ -87,7 +87,7 @@ const ProductCarousel = () => {
   }, []);
 
   return (
-    <div className="w-[85%] mx-auto mt-6 px-4 bg-white py-6 relative">
+    <div className="lg:w-[85%] w-full mx-auto mt-6 px-4 bg-white py-6 relative">
       <Slider ref={sliderRef} {...settings}>
         {products.map((product) => (
           <div key={product.id} className="px-2">

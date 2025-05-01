@@ -89,7 +89,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-0 w-50 z-50 font-sans">
+    <div className="fixed bottom-20  lg:flex left-30 w-50 z-50 font-sans">
       <button
         onClick={toggleChat}
         className="bg-purple-600 text-white py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition"
@@ -169,134 +169,9 @@ const Chatbot = () => {
         )}
       </AnimatePresence>
     </div>
+
   );
 };
 
 export default Chatbot;
 
-
-
-// import { useAuth } from '../auth/AuthContext'; // Import the auth hook
-// import { useState } from 'react';
-
-// const Chatbot = () => {
-//   const { isAuthenticated } = useAuth();
-//   const [messages, setMessages] = useState([
-//     { sender: 'bot', text: 'Hello! I am your Chatbot 🤖. How may I help you today?' },
-//   ]);
-//   const [options, setOptions] = useState([
-//     'Track my order',
-//     'Cancel my order',
-//     'Return or Replace a product',
-//     'Offers and Discounts',
-//     'Talk to customer support'
-//   ]);
-//   const [showSatisfaction, setShowSatisfaction] = useState(false);
-
-//   if (!isAuthenticated) {
-//     return (
-//       <div className="flex justify-center items-center h-screen">
-//         <p className="text-xl font-semibold text-gray-600">Please login to use Chatbot 🔒</p>
-//       </div>
-//     );
-//   }
-
-//   const handleOptionClick = (option) => {
-//     let botResponse = '';
-
-//     switch (option) {
-//       case 'Track my order':
-//         botResponse = 'Sure! Please enter your Order ID to track your order 📦';
-//         break;
-//       case 'Cancel my order':
-//         botResponse = 'Please provide your Order ID. We will cancel it if it’s eligible ❌';
-//         break;
-//       case 'Return or Replace a product':
-//         botResponse = 'You can initiate a return or replacement from your orders page 🔄';
-//         break;
-//       case 'Offers and Discounts':
-//         botResponse = 'Check out our latest deals on the Offers page 🎉';
-//         break;
-//       case 'Talk to customer support':
-//         botResponse = 'Connecting you to our customer support... Please wait 🤝';
-//         break;
-//       default:
-//         botResponse = 'Sorry, I didn’t understand that.';
-//     }
-
-//     setMessages((prev) => [...prev, { sender: 'user', text: option }, { sender: 'bot', text: botResponse }]);
-//     setOptions([]);
-//     setShowSatisfaction(true);
-//   };
-
-//   const handleSatisfaction = (feedback) => {
-//     const botReply = feedback === 'Yes'
-//       ? 'Glad to hear that! Let me know if you need anything else 😊'
-//       : 'Sorry for the inconvenience. I will connect you to a human agent 👤';
-
-//     setMessages((prev) => [...prev, { sender: 'user', text: feedback }, { sender: 'bot', text: botReply }]);
-//     setShowSatisfaction(false);
-//     setOptions([
-//       'Track my order',
-//       'Cancel my order',
-//       'Return or Replace a product',
-//       'Offers and Discounts',
-//       'Talk to customer support'
-//     ]); // Reset options for new queries
-//   };
-
-//   return (
-//     <div className="max-w-md mx-auto mt-10 p-4 bg-white rounded-lg shadow-lg animate-fadeIn">
-//       <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">Chatbot</h2>
-//       <div className="space-y-3 h-[400px] overflow-y-auto mb-4 p-2 bg-gray-50 rounded">
-//         {messages.map((msg, index) => (
-//           <div
-//             key={index}
-//             className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'}`}
-//           >
-//             <div
-//               className={`px-4 py-2 rounded-lg text-white ${msg.sender === 'bot' ? 'bg-blue-500' : 'bg-green-500'}`}
-//             >
-//               {msg.text}
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Options to select */}
-//       {options.length > 0 && (
-//         <div className="grid grid-cols-1 gap-2">
-//           {options.map((option, index) => (
-//             <button
-//               key={index}
-//               onClick={() => handleOptionClick(option)}
-//               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-//             >
-//               {option}
-//             </button>
-//           ))}
-//         </div>
-//       )}
-
-//       {/* Satisfaction feedback */}
-//       {showSatisfaction && (
-//         <div className="mt-4 space-x-4 flex justify-center">
-//           <button
-//             onClick={() => handleSatisfaction('Yes')}
-//             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
-//           >
-//             ✅ Yes
-//           </button>
-//           <button
-//             onClick={() => handleSatisfaction('No')}
-//             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-//           >
-//             ❌ No
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Chatbot;

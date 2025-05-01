@@ -130,11 +130,11 @@ const Carousel = () => {
     try {
       // Here, we're adding the provided Meesho image URL to the list of images
       const fetchedImages = [
-        'https://images.meesho.com/images/marketing/1744783895378.webp', // Your specific image URL
+        // 'https://images.meesho.com/images/marketing/1744783895378.webp', // Your specific image URL
         'https://picsum.photos/1600/800?random=1',
-        // 'https://picsum.photos/1600/800?random=2',
-        // 'https://picsum.photos/1600/800?random=3',
-        // 'https://picsum.photos/1600/800?random=4',
+        'https://picsum.photos/1600/800?random=2',
+        'https://picsum.photos/1600/800?random=3',
+        'https://picsum.photos/1600/800?random=4',
       ];
 
       setImages(fetchedImages); // Set the images in the state
@@ -163,7 +163,7 @@ const Carousel = () => {
 
   return (
     <>
-      <div className="w-full flex mt-15 lg:mt-30 justify-center relative">
+      <div className="w-full flex  lg:mt-30 justify-center relative">
         <div className="w-[100%] h-auto overflow-hidden shadow-sm relative">
           {/* Custom navigation buttons */}
           <button
