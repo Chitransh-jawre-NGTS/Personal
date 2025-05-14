@@ -29,7 +29,7 @@ export const fetchProducts = createAsyncThunk(
     try {
       const response = await axios.get(ENDPOINTS.PRODUCTS);
       console.log("API Response:", response.data);
-      return response.data;
+      return response.data.products;
     } catch (error) {
       console.error("API Error:", error);
       return rejectWithValue(
@@ -56,12 +56,19 @@ export const fetchProductDetails = createAsyncThunk(
 );
 
 // Slice definition
+
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     items: [],  // Initially, no products
     loading: false,
     error: null,
+    selectedProduct: null, 
+  },
+  reducers: {
+    selectProduct: (state, action) => {
+      state.selectedProduct = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,14 +76,29 @@ const productSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.items = action.payload; // assign API returned array
+        state.items = action.payload;
         state.loading = false;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+  
+      // 👇 ADD THIS BLOCK
+      .addCase(fetchProductDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchProductDetails.fulfilled, (state, action) => {
+        state.selectedProduct = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchProductDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
-  },
+  }
+  
 });
-
+export const { selectProduct } = productSlice.actions;
 export default productSlice.reducer;
+

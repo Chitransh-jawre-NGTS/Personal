@@ -209,22 +209,14 @@
 
 
 
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import TopFilterBar from "./TopFilterBar"; // Make sure this component exists
 import { fetchProducts } from "../Features/Produtcs/productSlice"; 
 import { useDispatch, useSelector } from "react-redux";
-import { Toaster } from "react-hot-toast";
+import { toast } from 'react-hot-toast'; // Fixed the import here
 
 const ProductGrid = () => {
-  // All hooks must be at the top!
   const [visibleCount, setVisibleCount] = useState(20);
   const dispatch = useDispatch();
   const { items: products, loading, error } = useSelector((state) => state.products);
@@ -249,34 +241,32 @@ const ProductGrid = () => {
   }
 
   // Optional safety check: Ensure products is an array
-  if (!Array.isArray(products)) {
-    return <div>Error: Products data is not available.</div>;
+  if (!Array.isArray(products) || products.length === 0) {
+    return <div>No products available</div>;
   }
 
   const handleWishlistClick = () => {
-  setIsInWishlist(!isInWishlist);
-  if (!isInWishlist) {
-    Toaster.success('Item added to wishlist!');
-  } else {
-    Toaster.success('Item removed from wishlist!');
-  }
-};
+    setIsInWishlist(!isInWishlist);
+    if (!isInWishlist) {
+      toast.success('Item added to wishlist!');
+    } else {
+      toast.success('Item removed from wishlist!');
+    }
+  };
 
   return (
     <>
-    <Toaster/>
-      {/* <TopFilterBar /> */}
       <div className="max-w-7xl mx-auto px-1 lg:px-4 lg:py-8">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-6">
           {products.slice(0, visibleCount).map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
+            <Link key={product.id} to={`/product/${product.id}`} onClick={() => dispatch(selectProduct(product))}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "tween", ease: "easeInOut", duration: 0.1 }}
                 className="bg-white rounded-lg shadow hover:shadow-md transition-all"
               >
                 <img
-                  src={product.image}
+                  src={product.images || "/placeholder.png"}
                   alt={product.title}
                   className="w-full h-56 object-contain rounded-md"
                 />

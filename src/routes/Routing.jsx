@@ -107,7 +107,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Offers from '../pages/Offers';
-import Wishlist from '../pages/Wishlist';
 import Login from '../pages/Login';
 import BecomeSeller from '../pages/BecomeSeller';
 import ScrollToTop from '../components/ScrollTop';
@@ -119,6 +118,7 @@ import HelpPage from '../pages/HelpPage';
 import SearchResults from '../pages/SerchResult';
 import PrivateRoute from './PrivateRouting'; // ⬅️ Make sure you have this component
 import Chatbot from '../components/ChatBot';     // ⬅️ If it exists
+import Favourate from '../pages/Favourate';
 
 const Routing = () => {
   return (
@@ -138,7 +138,7 @@ const Routing = () => {
 
         {/* Protected Routes */}
         <Route
-          path="/cart"
+          path="/carts"
           element={
             <PrivateRoute>
               <Cart />
@@ -146,10 +146,10 @@ const Routing = () => {
           }
         />
         <Route
-          path="/wishlist"
+          path="/favourate"
           element={
             <PrivateRoute>
-              <Wishlist />
+              <Favourate />
             </PrivateRoute>
           }
         />

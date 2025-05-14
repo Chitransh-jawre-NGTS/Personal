@@ -58,7 +58,7 @@
 
 
 
-
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import CategoryNavbar from '../components/CatagoryNavbar';
@@ -68,6 +68,9 @@ import { useAuth } from '../auth/AuthContext'; // adjust path as needed
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();                     // ✅ for redirect
+  const location = useLocation();                     // ✅ for tracking intended route
+  const from = location.state?.from?.pathname || '/';
 
   const [phone, setPhone] = useState('');
   const [showOtpInput, setShowOtpInput] = useState(false);
@@ -80,6 +83,7 @@ const Login = () => {
       setGeneratedOtp(otp);
       setShowOtpInput(true);
       alert(`Your OTP is: ${otp}`);
+      
     } else {
       alert('Enter a valid 10-digit phone number');
     }
@@ -89,10 +93,12 @@ const Login = () => {
     if (enteredOtp === generatedOtp) {
       login(`mock-token-${phone}`);
       alert('Login successful!');
+      navigate(from, { replace: true }); // ✅ Redirect to previous/intended route
     } else {
       alert('Incorrect OTP');
     }
   };
+  
 
   return (
     <>
