@@ -1,0 +1,19 @@
+src/
+│
+├── api/
+│   ├── httpClient.js          // axios instance with interceptors
+│   ├── product.js             // API calls (fetch, search, post, etc.)
+│
+├── store/
+│   ├── slices/
+│   │   ├── productSlice.js    // Redux logic for products
+│   ├── index.js               // combineReducers, store setup
+│
+├── utils/
+│   ├── endpoints.js           // only endpoint strings/functions
+│
+├── components/
+│   └── ...                    // UI Components
+│
+├── pages/
+│   └── ProductPage.jsx        // Page logic

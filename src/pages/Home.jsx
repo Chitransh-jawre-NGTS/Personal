@@ -19,6 +19,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
+import FeaturedBrandsCarousel from '../components/Featrued';
 
 // import "../Global.css"
 
@@ -69,7 +70,7 @@ const Home = () => {
           </button>
         </div>
 
-        <div className="w-full  md:hidden py-6 bg-white">
+        {/* <div className="w-full  md:hidden py-6 bg-white">
           <div
             className="overflow-x-auto"
             style={{
@@ -85,7 +86,7 @@ const Home = () => {
               }}
             >
               {/* Scrollbar hidden for Webkit (Chrome, Safari) */}
-              <style>
+              {/* <style>
                 {`
           div::-webkit-scrollbar {
             display: none;
@@ -102,8 +103,8 @@ const Home = () => {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> * */}
         <Carousel />
         <CategorySection />
         <ProductCarousel />
@@ -114,6 +115,7 @@ const Home = () => {
         <ProductPage />
         <InfoBanner />
         <Footer />
+        <FeaturedBrandsCarousel/>
         {/* <WishlistItemCard/> */}
         {/* <ComingSoon/> */}
         {/* <ProductDescription/> */}

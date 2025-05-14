@@ -111,6 +111,7 @@ export const {
   removeFromWishlist,
   moveToCart,
   moveToWishlist,
+  
   increaseQuantity,
   decreaseQuantity,
 } = cartSlice.actions;

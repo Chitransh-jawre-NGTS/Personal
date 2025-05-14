@@ -9,7 +9,7 @@ import { getCartItemCount, getWishlistItemCount } from '../Features/carts/Cartsl
 
 
 
-const Navbar = () => {
+const Navbar = ({logoType}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const timeoutRef = useRef(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -63,7 +63,7 @@ const Navbar = () => {
           {/* Left: Logo + Elite Badge */}
           <div className="flex items-center gap-2">
             <span className="text-purple-600  text-2xl font-bold">
-              <Link to="/">Shopinger</Link>
+              <Link to="/">{logoType === 'default' ? 'MyLogo' : 'Shopinger'}</Link>
             </span>
             <button className="text-xs hidden lg:flex bg-yellow-300 text-black font-semibold px-2 py-1 rounded-full  items-center gap-1">
               Join <span className="text-xs font-bold">elite ✨</span>

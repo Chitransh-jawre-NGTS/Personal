@@ -1,105 +1,56 @@
-// ProductDescription.jsx
+// // ProductDescription.jsx
 
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Features/carts/Cartslice";
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import Footer from "./Footer";
 import TopFilterBar from "./TopFilterBar";
+import toast, { Toaster } from "react-hot-toast";
+import { fetchProducts } from "../Features/Produtcs/productSlice";
 
 
-const reviewsData = {
-  averageRating: 4.0,
-  totalRatings: 34925,
-  totalReviews: 11958,
-  ratingBreakdown: {
-    excellent: 18377,
-    veryGood: 7757,
-    good: 3727,
-    average: 1512,
-    poor: 3552,
-  },
-  userReviews: [
-    {
-      user: "Munmun",
-      rating: 5,
-      date: "24 Dec 2024",
-      comment:
-        "Nice 👍 kaafi achha anarkali suit h fabric bhi acha h dupatte ki length bhi acchi ha i pant bhi acchi hai All set perfect hai tq 😊 meesha",
-      images: [
-        "/images/review1.png",
-        "/images/review2.png",
-        "/images/review3.png",
-        "/images/review4.png",
-        "/images/review5.png",
-      ],
-    },
-  ],
-};
 
 
 const ProductDescription = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState("");
-    const [visibleCount, setVisibleCount] = useState(20);
-    const dispatch = useDispatch();
-    const [isInWishlist, setIsInWishlist] = useState(false);
+  const dispatch = useDispatch();
+  const { items: products, loading, error } = useSelector((state) => state.products);
 
+  useEffect(() => {
+    if (!products.length) {
+      dispatch(fetchProducts()); // fetch only if not already fetched
+    }
+  }, [dispatch, products.length]);
 
+  const product = products.find((p) => p.id === Number(id));
 
-
-
-    const Navigate = useNavigate();
-    // Set total products dynamically
-    const totalProducts = 50; // you can change this anytime
-    const products = Array.from({ length: totalProducts }, (_, i) => ({
-      id: (i + 1).toString(), // id as string
-      image: `https://picsum.photos/300/300?random=${i + 1}`,
-      title: `Product ${i + 1} - Example Product Title`,
-      price: 100 + i,
-      originalPrice: 150 + i,
-      discount: `${Math.floor(Math.random() * 30) + 10}% off`,
-      totalRatings: Math.floor(Math.random() * 500),
-      usersRated: Math.floor(Math.random() * 200),
-    }));
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!product) return <div>Product not found</div>;
+   
   
-    const handleShowMore = () => {
+  
+  
+  const handleShowMore = () => {
       setVisibleCount((prev) => prev + 20);
     };
 
 
-    // const handleWishlistClick = () => {
-    //   setIsInWishlist(!isInWishlist);
-    //   if (!isInWishlist) {
-    //     toast.success('Item added to wishlist!');
-    //   } else {
-    //     toast.success('Item removed from wishlist!');
-    //   }
-    // };
-  useEffect(() => {
-    // Same products array (should ideally move to a separate file later)
-    const products = Array.from({ length: 60 }, (_, i) => ({
-      id: (i + 1).toString(),
-      image: `https://picsum.photos/300/300?random=${i + 1}`,
-      title: `Product ${i + 1} - Example Product Title`,
-      price: 100 + i,
-      originalPrice: 150 + i,
-      discount: `${Math.floor(Math.random() * 30) + 10}% off`,
-      totalRatings: Math.floor(Math.random() * 500),
-      usersRated: Math.floor(Math.random() * 200),
-    }));
 
-    const foundProduct = products.find((p) => p.id === id);
-    setProduct(foundProduct);
-  }, [id]);
 
-  if (!product) return <div className="text-center mt-10">Loading...</div>;
+
+ 
+
+
+
 
   return (
     <>
     <TopFilterBar/>
+    {/* <Toaster/> */}
  <div className="max-w-7xl mx-auto p-4 md:p-10 bg-white rounded-md shadow-md mt-24">
   <div className="flex flex-col md:flex-row gap-10">
     
@@ -107,7 +58,7 @@ const ProductDescription = () => {
     <div className="md:w-1/2 flex flex-col items-center">
       {/* Main Product Image */}
       <img
-        src={product.image}
+        src={product.images}
         alt={product.title}
         className="w-full max-h-[500px] object-cover rounded-lg"
       />
@@ -117,7 +68,7 @@ const ProductDescription = () => {
         {product.thumbnails?.map((thumb, index) => (
           <img
             key={index}
-            src={thumb}
+            src={product.images || "https://via.placeholder.com/300"}
             alt={`Thumb ${index}`}
             className="w-20 h-20 object-cover border border-gray-300 rounded-md cursor-pointer"
           />
@@ -128,7 +79,8 @@ const ProductDescription = () => {
       <div className="flex flex-col-2 sm:flex-row gap-4 mt-6 w-full justify-center">
         <button onClick={() => {
                 dispatch(addToCart(product));
-                Navigate("/carts"); 
+                // Navigate("/carts"); 
+                message;
               }} className="bg-pink-600 text-white py-2 px-6 rounded hover:bg-pink-700 w-full sm:w-auto">
           Add to Cart
         </button>
@@ -187,20 +139,18 @@ const ProductDescription = () => {
   {/* Top Summary Section */}
   <div className="flex flex-col md:flex-row gap-10">
     <div className="flex flex-col items-center md:w-1/4 text-center">
-      <span className="text-4xl font-bold text-green-600">{reviewsData.averageRating}★</span>
+      <span className="text-4xl font-bold text-green-600">★</span>
       <p className="text-sm text-gray-600">
-        {reviewsData.totalRatings.toLocaleString()} Ratings,
-        <br />
-        {reviewsData.totalReviews.toLocaleString()} Reviews
+      {product.rating}
       </p>
     </div>
 
     {/* Rating Breakdown */}
-    <div className="md:w-3/4 space-y-2">
+    {/* <div className="md:w-3/4 space-y-2">
       {Object.entries(reviewsData.ratingBreakdown)
         .reverse()
         .map(([label, count], i) => {
-          const total = Object.values(reviewsData.ratingBreakdown).reduce((a, b) => a + b, 0);
+          const total = Object.values.reduce((a, b) => a + b, 0);
           const percentage = ((count / total) * 100).toFixed(1);
           const color = ["red", "orange", "yellow", "green", "green"][i];
 
@@ -225,14 +175,14 @@ const ProductDescription = () => {
             </div>
           );
         })}
-    </div>
+    </div> */}
   </div>
 
   {/* Divider */}
   <hr className="my-6" />
 
   {/* User Reviews */}
-  {reviewsData.userReviews.map((review, index) => (
+  {/* {reviewsData.userReviews.map((review, index) => (
     <div key={index} className="space-y-2 mb-8">
       <div className="flex items-center gap-3">
         <img
@@ -251,7 +201,7 @@ const ProductDescription = () => {
       <p className="text-sm text-gray-800">{review.comment}</p>
 
       {/* Review Images */}
-      <div className="flex gap-2 mt-2">
+      {/* <div className="flex gap-2 mt-2">
         {review.images.map((img, i) => (
           <img
             key={i}
@@ -261,8 +211,8 @@ const ProductDescription = () => {
           />
         ))}
       </div>
-    </div>
-  ))}
+    </div> */}
+  {/* ))} * */}
 </div>
     </div>
   </div>
@@ -279,7 +229,7 @@ const ProductDescription = () => {
 
 
 
-<div className="max-w-7xl mx-auto px-2 py-10">
+{/* <div className="max-w-7xl mx-auto px-2 py-10">
       <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">
         You will also love these ✨
       </h2>
@@ -320,7 +270,7 @@ const ProductDescription = () => {
       </div>
 
       {/* Show More Button */}
-      {visibleCount < products.length && (
+      {/* {visibleCount < products.length && (
         <div className="flex justify-center mt-10">
           <button
             onClick={handleShowMore}
@@ -329,8 +279,8 @@ const ProductDescription = () => {
             Show More Products
           </button>
         </div>
-      )}
-    </div>
+      )} */}
+    {/* </div> * */}
    <Footer/>
    </>
   );
@@ -341,59 +291,56 @@ export default ProductDescription;
 
 
 
-    // {/* <div className="bg-white p-6 rounded-lg mt-36 shadow-lg max-w-3xl mx-auto relative">
-    //   {/* Heart Icon for Wishlist */}
-    //   <div 
-    //     onClick={handleWishlistClick}
-    //     className="absolute top-4 right-4 cursor-pointer"
-    //   >
-    //     {isInWishlist ? (
-    //       <AiFillHeart className="w-8 h-8 text-red-500" />
-    //     ) : (
-    //       <AiOutlineHeart className="w-8 h-8 text-gray-400" />
-    //     )}
-    //   </div>
 
-    //   {/* Image Section */}
-    //   <img
-    //     src={product.image}
-    //     alt={product.title}
-    //     className="w-full h-72 object-cover rounded-md mb-6 shadow-md"
-    //   />
+// import React, { useEffect } from "react";
+// import { useParams } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchProducts } from "../Features/Produtcs/productSlice";
 
-    //   {/* Title Section */}
-    //   <h1 className="text-3xl font-semibold text-gray-800 mb-4">{product.title}</h1>
+// const ProductDetail = () => {
+//   const { id } = useParams();
+//   const dispatch = useDispatch();
+//   const { items: products, loading, error } = useSelector((state) => state.products);
 
-    //   {/* Price & Rating Section */}
-    //   <div className="flex items-center justify-between mb-6">
-    //     <div className="text-pink-600 text-4xl font-bold">
-    //       ₹{product.price}
-    //     </div>
-    //     <div className="flex items-center gap-2 text-yellow-500 text-sm">
-    //       ★★★★☆ <span className="text-gray-500">({product.usersRated} Reviews)</span>
-    //     </div>
-    //   </div>
+//   useEffect(() => {
+//     if (!products.length) {
+//       dispatch(fetchProducts()); // fetch only if not already fetched
+//     }
+//   }, [dispatch, products.length]);
 
-    //   {/* Original Price & Discount Section */}
-    //   <div className="flex items-center gap-4 text-lg text-gray-700 mb-6">
-    //     <span className="font-semibold text-gray-500">Original Price:</span>
-    //     <span className="line-through text-gray-400">₹{product.originalPrice}</span>
-    //     <span className="text-green-600 font-semibold">{product.discount}</span>
-    //   </div>
+//   const product = products.find((p) => p.id === Number(id));
 
-    //   {/* Action Buttons Section */}
-    //   <div className="flex justify-between items-center mt-4 gap-4">
-    //     <button onClick={() => {
-    //             dispatch(addToCart(product));
-    //             Navigate("/carts"); 
-    //           }} className="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white py-3 px-6 rounded-full focus:outline-none transition duration-300">
-    //       Add to Cart
-    //     </button>
-    //     <Link
-    //       to="/checkout"
-    //       className="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white py-3 px-6 rounded-full text-center focus:outline-none transition duration-300"
-    //     >
-    //       Checkout
-    //     </Link>
-    //   </div>
-    // {/* </div> */}
+//   if (loading) return <div>Loading...</div>;
+//   if (error) return <div>Error: {error}</div>;
+//   if (!product) return <div>Product not found</div>;
+
+//   return (
+//     <div className="max-w-4xl mx-auto p-4">
+//       <h1 className="text-2xl font-bold mb-4">{product.title}</h1>
+//       <img
+//         src={product.images || "https://via.placeholder.com/300"}
+//         alt={product.title}
+//         className="w-full max-w-md h-64 object-contain mx-auto mb-4"
+//       />
+//       <p className="mb-2"><strong>Price:</strong> ₹{product.price}</p>
+//       <p className="mb-2"><strong>Discount:</strong> {product.discountPercentage}%</p>
+//       <p className="mb-2"><strong>Category:</strong> {product.category}</p>
+//       <p className="mb-2"><strong>Brand:</strong> {product.brand}</p>
+//       <p className="mb-2"><strong>Stock:</strong> {product.stock}</p>
+//       <p className="mb-2"><strong>Rating:</strong> {product.rating} / 5</p>
+//       <p className="mb-2"><strong>Description:</strong> {product.description}</p>
+
+//       <h3 className="text-xl font-semibold mt-6">Reviews</h3>
+//       <ul className="list-disc pl-5">
+//         {product.reviews?.map((review, index) => (
+//           <li key={index}>
+//             <p className="font-semibold">{review.reviewerName} ({review.rating}/5)</p>
+//             <p>{review.comment}</p>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
+
+// export default ProductDetail;

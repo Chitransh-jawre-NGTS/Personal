@@ -31,7 +31,6 @@ const ProductCarousel = () => {
     ],
   };
 
-  // Simulate API call
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await new Promise((resolve) =>
@@ -44,38 +43,48 @@ const ProductCarousel = () => {
               price: 207,
               originalPrice: 269,
               discount: '23% off',
+              totalRatings: 4.3,
+              usersRated: 320,
             },
             {
               id: 2,
-              image: 'https://picsum.photos/300/300?random=1',
+              image: 'https://picsum.photos/300/300?random=2',
               title: 'NY Bae The Big Apple Of My Eyes Kohl Kajal',
               price: 97,
               originalPrice: 129,
               discount: '25% off',
+              totalRatings: 4.1,
+              usersRated: 145,
             },
             {
               id: 3,
-              image: 'https://picsum.photos/300/300?random=1',
+              image: 'https://picsum.photos/300/300?random=3',
               title: 'NY Bae 3 IN 1 Serum Foundation - Warm Cashew',
               price: 273,
               originalPrice: 329,
               discount: '17% off',
+              totalRatings: 4.5,
+              usersRated: 210,
             },
             {
               id: 4,
-              image: 'https://picsum.photos/300/300?random=1',
+              image: 'https://picsum.photos/300/300?random=4',
               title: 'NY Bae Dewy Drops Foundation - White Coffee',
               price: 189,
               originalPrice: 239,
               discount: '21% off',
+              totalRatings: 4.0,
+              usersRated: 198,
             },
             {
               id: 5,
-              image: 'https://picsum.photos/300/300?random=1',
+              image: 'https://picsum.photos/300/300?random=5',
               title: 'NY Bae Truly Matte Liquid Eyeliner - Bold Black',
               price: 174,
               originalPrice: 249,
               discount: '30% off',
+              totalRatings: 4.6,
+              usersRated: 430,
             },
           ]);
         }, 500)
@@ -87,41 +96,43 @@ const ProductCarousel = () => {
   }, []);
 
   return (
-    <div className="lg:w-[85%] w-full mx-auto mt-6 px-4 bg-white py-6 relative">
+    <div className="lg:w-[85%] w-full mx-auto mt-6 px-4 bg-white py-8 relative rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold mb-6 text-gray-800">🛒 Items in Your Cart</h2>
+
       <Slider ref={sliderRef} {...settings}>
         {products.map((product) => (
           <div key={product.id} className="px-2">
-            <div className="overflow-hidden">
+            <div className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow duration-300 h-full">
               <img src={product.image} alt={product.title} className="w-full h-52 object-cover" />
-              <div className="py-4">
-                <h3 className="text-sm font-medium line-clamp-2">{product.title}</h3>
-                <div className="mt-2 text-sm">
-                  <span className="font-semibold text-black">₹{product.price}</span>{' '}
-                  <span className="line-through text-gray-400">₹{product.originalPrice}</span>{' '}
+              <div className="p-4">
+                <h3 className="text-sm font-medium text-gray-800 line-clamp-2">{product.title}</h3>
+                <div className="mt-2 text-sm space-x-2">
+                  <span className="font-semibold text-black">₹{product.price}</span>
+                  <span className="line-through text-gray-400">₹{product.originalPrice}</span>
                   <span className="text-green-600">{product.discount}</span>
                 </div>
-                  {/* Display Total Ratings and User Ratings */}
-              <div className="mt-4 text-sm text-gray-700">
-              <span className="font-semibold bg-green-400 text-white rounded-full px-4 py-2">{product.totalRatings}</span>
-
-                <span className="text-gray-500">({product.usersRated} Reviews)</span>
-              </div>
+                <div className="mt-3 flex items-center gap-2 text-sm text-gray-600">
+                  <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                    ★ {product.totalRatings}
+                  </span>
+                  <span className="text-gray-500">({product.usersRated} reviews)</span>
+                </div>
               </div>
             </div>
           </div>
         ))}
       </Slider>
 
-      {/* Left and Right Buttons */}
+      {/* Navigation Arrows */}
       <button
         onClick={() => sliderRef.current?.slickPrev()}
-        className="absolute top-1/2 left-5 bg-white transform -translate-y-1/2 p-2 border rounded-full hover:bg-gray-200"
+        className="absolute top-1/2 left-2 -translate-y-1/2 z-10 bg-white p-2 shadow-md rounded-full hover:bg-gray-100 transition"
       >
         <ChevronLeft />
       </button>
       <button
         onClick={() => sliderRef.current?.slickNext()}
-        className="absolute top-1/2 right-5  bg-white transform -translate-y-1/2 p-2 border rounded-full hover:bg-gray-200"
+        className="absolute top-1/2 right-2 -translate-y-1/2 z-10 bg-white p-2 shadow-md rounded-full hover:bg-gray-100 transition"
       >
         <ChevronRight />
       </button>
