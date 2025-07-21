@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFromCart, increaseQuantity, decreaseQuantity } from "../Features/carts/Cartslice";
 import Navbar from "../components/Navbar"
-import CatagoryNavbar from "../components/CatagoryNavbar"
 import { motion } from "framer-motion";
 import { setBuyNowItem } from "../Features/BuyNow/buyNowSlice";
+import { ShoppingCart } from "lucide-react";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -57,13 +57,11 @@ const Cart = () => {
 
   return (
     <>
-      <Navbar logoType={"X"} />
-      <CatagoryNavbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* <h2 className="text-4xl font-extrabold text-center text-gray-800 mb-10">🛒 Your Shopping Cart</h2> */}
 
         {cartItems.length > 0 ? (
-          <div className="space-y-10 mt-10 mb-20">
+          <div className="space-y-5 mt-10 mb-20">
             {cartItems.map((item) => (
               <div
                 key={item.id}
@@ -163,10 +161,49 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="text-center mt-20 text-gray-500 text-lg">
-            <p>Your cart is empty 😢</p>
-            <Link to="/" className="text-pink-600 hover:underline mt-4 block">Go back to products</Link>
+              <div className="text-center mt-30 text-gray-500 text-lg px-4">
+      <ShoppingCart size={48} className="mx-auto mb-4 text-blue-500" />
+      <p className="text-2xl font-semibold">Your cart is feeling lonely 😢</p>
+      <p className="mt-2">Looks like you haven't added anything yet.</p>
+      
+      <Link
+        to="/"
+        className="text-pink-600 hover:underline mt-4 block text-base font-medium"
+      >
+         Go back to explore products
+      </Link>
+
+      <div className="mt-10">
+        <p className="font-medium mb-2">Popular Picks for You:</p>
+        <div className="flex justify-center gap-4 flex-wrap">
+          {/* Dummy product suggestions */}
+          <div className="w-40 p-3 border rounded-lg shadow hover:shadow-md transition">
+            <img
+              src="https://picsum.photos/100?random=1"
+              alt="Product 1"
+              className="mx-auto mb-2 rounded"
+            />
+            <p className="text-sm font-semibold">Trendy Shoes</p>
           </div>
+          <div className="w-40 p-3 border rounded-lg shadow hover:shadow-md transition">
+            <img
+              src="https://picsum.photos/100?random=2"
+              alt="Product 2"
+              className="mx-auto mb-2 rounded"
+            />
+            <p className="text-sm font-semibold">Cool Headphones</p>
+          </div>
+          <div className="w-40 p-3 border rounded-lg shadow hover:shadow-md transition">
+            <img
+              src="https://picsum.photos/100?random=3"
+              alt="Product 3"
+              className="mx-auto mb-2 rounded"
+            />
+            <p className="text-sm font-semibold">Stylish Backpack</p>
+          </div>
+        </div>
+      </div>
+    </div>
         )}
       </div>
 

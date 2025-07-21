@@ -6,8 +6,6 @@ import ComingSoon from '../components/ComingSoon'
 const Wishlist = () => {
   return (
     <>
-    <Navbar/>
-     <CategoryNavbar/>
      <ComingSoon/>
     </>
   )

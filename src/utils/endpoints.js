@@ -1,27 +1,31 @@
-// src/utils/endpoints.js
-
-import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
-
-export const ENDPOINTS = {
-  PRODUCTS: `${API_BASE}/products`,
-  PRODUCT_BY_ID: (id) => `${API_BASE}/products/${id}`,
-  SEARCH_PRODUCTS: (query) => `${API_BASE}/products/search?q=${query}`,
+// src/utils/apiRoutes.js
+export const httpMethod = {
+  Get: "GET",
+  Post: "POST",
+  Put: "PUT",
+  Patch: "PATCH",
+  Delete: "DELETE",
 };
 
-// Thunk to fetch a single product's details
-export const fetchProductDetails = createAsyncThunk(
-  'products/fetchDetails',
-  async (productId, { rejectWithValue }) => {
-    try {
-      const response = await axios.get(`${ENDPOINTS.PRODUCTS}/${productId}`);
-      return response.data;
-    } catch (error) {
-      console.error("API Error:", error);
-      return rejectWithValue(
-        error.response?.data?.message || error.message || "Something went wrong"
-      );
-    }
-  }
-);
+export const ApiRoutes = {
+  Auth: {
+    Login: {
+      Endpoint: "/auth/login",
+      Method: httpMethod.Post,
+    },
+  },
+  Products: {
+    All: {
+      Endpoint: "products",
+      Method: httpMethod.Get,
+    },
+    ById: (id) => ({
+      Endpoint: `products/${id}`,
+      Method: httpMethod.Get,
+    }),
+    Search: (query) => ({
+      Endpoint: `products/search?q=${query}`,
+      Method: httpMethod.Get,
+    }),
+  },
+};

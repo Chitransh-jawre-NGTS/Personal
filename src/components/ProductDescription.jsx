@@ -27,7 +27,13 @@ const ProductDescription = () => {
 
   const product = products.find((p) => p.id === Number(id));
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="flex justify-center items-center h-screen">
+      <div
+        className="w-18 h-18 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"
+        style={{ borderTopColor: "#3498db" }} // Inline style for spinner color
+      ></div>
+    </div>
+;
   if (error) return <div>Error: {error}</div>;
   if (!product) return <div>Product not found</div>;
    
@@ -38,20 +44,11 @@ const ProductDescription = () => {
       setVisibleCount((prev) => prev + 20);
     };
 
-
-
-
-
- 
-
-
-
-
   return (
     <>
-    <TopFilterBar/>
+    {/* <TopFilterBar/> */}
     {/* <Toaster/> */}
- <div className="max-w-7xl mx-auto p-4 md:p-10 bg-white rounded-md shadow-md mt-24">
+ <div className="container mx-auto p-4 md:p-10 bg-white mb-8 rounded-md shadow-md ">
   <div className="flex flex-col md:flex-row gap-10">
     
     {/* LEFT SIDE */}
@@ -281,7 +278,6 @@ const ProductDescription = () => {
         </div>
       )} */}
     {/* </div> * */}
-   <Footer/>
    </>
   );
 };

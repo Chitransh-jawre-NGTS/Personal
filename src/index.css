@@ -1,1 +1,42 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Libertinus+Mono&display=swap'); */
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+
+.libertinus-mono-regular {
+  font-family: "Libertinus Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body{
+    background-color: #f1f4f7;
+}
+
+
+
+
+.container{
+    width: 95%;
+    
+}
+
+
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-hidden {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
