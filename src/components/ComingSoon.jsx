@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import CategoryNavbar from '../components/CatagoryNavbar'
 import Footer from '../components/Footer'
 import { motion } from 'framer-motion'
 

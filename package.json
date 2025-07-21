@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-  "dev:host": "vite --host 0.0.0.0",
+    "dev:host": "vite --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "shere": "ngrok http 3000"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reduxjs/toolkit": "^2.7.0",
     "@tailwindcss/vite": "^4.1.4",
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
     "framer-motion": "^12.9.1",
     "lucide-react": "^0.503.0",
     "react": "^19.0.0",

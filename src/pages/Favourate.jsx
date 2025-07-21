@@ -1,8 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import CategoryNavbar from '../components/CatagoryNavbar'
 import ComingSoon from '../components/ComingSoon'
-import Wishlist from '../components/Wishlist'
+// import Wishlist from '../components/Wishlist'
 import { removeFromWishlist } from '../Features/carts/Cartslice'
 
 const Favourate = () => {
@@ -21,8 +20,6 @@ const Favourate = () => {
   
   return (
     <>
-     <Navbar/>
-     <CategoryNavbar/> 
      {/* <ComingSoon/> */}
      {/* <Wishlist/> */}
      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
