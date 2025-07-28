@@ -1,12 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { removeFromWishlist } from '../Features/carts/Cartslice';
 import { Home, Smartphone, Headphones, Zap, Plug, Layers } from "lucide-react";
 
 const Favourate = () => {
-  const dispatch = useDispatch();
-
-const wishlistItems = [
+ const wishlistItems = [
   {
     id: 1,
     name: 'Smart LED Light Strip - RGB',
@@ -97,15 +93,12 @@ const wishlistItems = [
     delivery: 'Delivery by Aug 2 - Aug 4',
   },
 ];
-
-
   const handleMoveToCart = (id) => {
-    const item = wishlistItems.find((item) => item.id === id);
-    dispatch(removeFromWishlist(id));
+    console.log(`Move item ${id} to cart`); // placeholder
   };
 
   const handleRemoveFromWishlist = (id) => {
-    dispatch(removeFromWishlist(id));
+    console.log(`Remove item ${id} from wishlist`); // placeholder
   };
 
   return (
@@ -132,8 +125,7 @@ const wishlistItems = [
       {/* Content Layout */}
       <div className="flex flex-col  lg:flex-row">
         {/* Sidebar */}
-    <aside className="hidden md:flex w-full lg:w-64  border-r border-gray-200 p-6 sticky top-20 h-fit">
-
+        <aside className="hidden md:flex w-full lg:w-64  border-r border-gray-200 p-6 sticky top-20 h-fit">
           <ul className="space-y-3 text-gray-700 text-sm font-medium">
             <li className="flex border-blue-400 border bg-blue-50 items-center gap-3 hover:bg-blue-100 hover:text-blue-600 transition p-2 w-[200px] rounded-lg cursor-pointer">
               <Home className="w-4 h-4" /> All Products
