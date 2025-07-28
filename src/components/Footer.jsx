@@ -41,6 +41,11 @@
 // };
 
 // export default Footer;
+
+
+
+
+
 import {
   FaFacebookF,
   FaTwitter,
@@ -51,25 +56,51 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1f2734] container mx-auto text-white px-6 md:px-16 py-10 rounded-t-xl">
+    <footer className="bg-[#1f2734]  mx-auto text-white px-6  py-10 ">
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-6 gap-10">
+      <div className="max-w-full mx-auto grid md:grid-cols-6 gap-10">
         {/* Logo & Description */}
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 text-3xl font-bold mb-4">
-            <span className="text-yellow-400 text-4xl">🛍</span> Mantu
-          </div>
-          <p className="text-gray-300 text-sm leading-6 mb-6">
-            The Mantu is the biggest market of grocery products. Get your daily
+         <Link to="/" className="flex items-center">
+  <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+    WishCart
+  </span>
+</Link>
+
+          <p className="text-gray-300 text-sm pt-5 leading-6 mb-6">
+            The WishCart is the biggest market of grocery products. Get your daily
             needs from our store.
           </p>
           <div className="flex flex-col gap-3">
-            <img src="/images/google-play.png" alt="Google Play" className="w-40" />
-            <img src="/images/app-store.png" alt="App Store" className="w-40" />
+            <a
+              href="https://play.google.com/store/apps/details?id=YOUR.ANDROID.APP"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Get it on Google Play"
+                className="w-40"
+              />
+            </a>
+
+            <a
+              href="https://apps.apple.com/app/idYOUR_IOS_APP_ID"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+                className="w-40"
+              />
+            </a>
           </div>
+
         </div>
 
         {/* Category */}
@@ -148,16 +179,17 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
         <p>
-          Copyright © 2025 <span className="text-yellow-400 font-semibold">The Mantu</span> all rights reserved.
+          Copyright © 2025 <span className="text-yellow-400 font-semibold">The WishCart</span> all rights reserved.
         </p>
-        <div className="flex gap-3 mt-4 md:mt-0">
-          <img src="/images/visa.png" className="h-6" />
-          <img src="/images/mastercard.png" className="h-6" />
-          <img src="/images/paypal.png" className="h-6" />
-          <img src="/images/skrill.png" className="h-6" />
-          <img src="/images/maestro.png" className="h-6" />
-          <img src="/images/visa-electron.png" className="h-6" />
+        <div className="flex gap-6 mt-4 md:mt-0">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-6" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" className="h-6" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" />
+          {/* <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Skrill_Logo.svg" alt="Skrill" className="h-6" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Maestro_2016.svg" alt="Maestro" className="h-6" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Electron.png" alt="Visa Electron" className="h-6" /> */}
         </div>
+
       </div>
     </footer>
   );

@@ -1,21 +1,10 @@
 import React from 'react'
-import Navbar from '../../components/Navbar';
-
-import Footer from '../../components/Footer';
-import ProductGrid from '../../components/Products';
-
-
 import { FaShoppingCart, FaBolt, FaSearch } from "react-icons/fa";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaAngleDoubleRight } from "react-icons/fa";
-import CategoryCardGrid from '../../components/CatagoryCardGrid';
-import NewArrivals from '../../components/NewArrival';
-import FeatureCards from '../../components/FeatureCards';
-
 import HeroCarousel from '../../components/HeroCarousal';
-import InfiniteImageCarousel from '../../components/ImageCarousal';
 import DealCardGrid from '../../components/DealCardGrid';
 import ProductSection from '../../components/Products';
+import FullWidthCarousel from '../../components/FullWidthCrousal';
+import NewArrivals from '../../components/NewArrival';
 
 
 
@@ -46,19 +35,16 @@ const Home = () => {
           </div>
         </div>
         <HeroCarousel />
-        <DealCardGrid/>
+        <DealCardGrid />
         {/* <NewArrivals/> */}
-        <ProductSection/>
-        <DealCardGrid/>
-        <DealCardGrid/>
-        <ProductSection/>
-        <DealCardGrid/>
-        <DealCardGrid/>
-        {/* <FeatureCards /> */}
-        {/* <WishlistItemCard/> */}
-        {/* <ComingSoon/> */}
-        {/* <ProductDescription/> */}
-        {/* <Chatbot /> */}
+        <ProductSection />
+        <DealCardGrid />
+        <FullWidthCarousel />
+        <DealCardGrid />
+        <ProductSection />
+        <FullWidthCarousel />
+        <DealCardGrid />
+        <DealCardGrid />
       </div>
     </>
   )

@@ -57,7 +57,7 @@ export default function NewArrivals({ heading = "", bgColor = "bg-white" }) {
           console.log("🔍 Rendering product:", product);
 
           return (
-           <Link  key={product.id} to={`/product/${product.id}`} onClick={() => dispatch(selectProduct(product))}> <div
+           <Link  key={product.id} to={`/product`} onClick={() => dispatch(selectProduct(product))}> <div
               key={product.id}
               className="rounded-2xl bg-white backdrop-blur-md shadow-md hover:shadow-xl p-5 transition-all duration-300 transform hover:-translate-y-1 hover:ring-2 hover:ring-blue-100"
             >
