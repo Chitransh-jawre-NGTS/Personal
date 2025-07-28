@@ -98,45 +98,49 @@ import ScrollToTop from '../components/ScrollTop';
 import Home from '../pages/SellerHub/Home';
 import Login from '../pages/Login';
 import BecomeSeller from '../pages/SellerHub/BecomeSeller';
-import ProductDetails from '../pages/ProductDetails';
+
 import Cart from '../pages/Cart';
-import Checkout from '../pages/Checkout';
+import Checkout from '../pages/SellerHub/Checkout';
 import AccountPage from '../pages/AccountPage';
 import SearchResults from '../pages/SellerHub/SerchResult';
 import Chatbot from '../components/ChatBot';
 import Favourate from '../pages/Favourate';
 import RentalHub from '../pages/RentalHub/RentalHub';
 import RentalCheckout from '../RentalComponents/RentalCheakout';
-import Test from '../components/Test1';
 import NewArrivals from '../components/NewArrival';
 import AmazonStyleNavbar from '../components/Navbar';
 import FooterSeller from '../components/FooterSeller';
-import Youtube from '../pages/Youtube';
-import WatchHistory from '../pages/Youtube';
+
+import Footer from '../components/Footer';
+import RentalProductDetails from '../RentalComponents/RentalProductDetail';
+import { Toaster } from 'react-hot-toast';
+import BookNow from '../RentalComponents/BooNow';
+import Orders from '../pages/Orders';
 
 const Routing = () => {
   return (
     <Router>
+      <Toaster position="top-right" reverseOrder={false} />
       <AmazonStyleNavbar />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/becomeseller" element={<BecomeSeller />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/newarrivals" element={<NewArrivals />} />
         <Route path="/accounts" element={<AccountPage />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/rental" element={<RentalHub />} />
         <Route path="/rentalcheckout" element={<RentalCheckout />} />
-        <Route path="/test" element={<Test />} />
         <Route path="/carts" element={<Cart />} />
-        <Route path="/favourate" element={<Favourate />} />
+        <Route path="/wishlist" element={<Favourate />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/chatbot" element={<Chatbot />} />
-        <Route path="/youtube" element={<WatchHistory />} />
+        <Route path="/rentalproduct/:id" element={<RentalProductDetails />} />
+        <Route path="/booknow" element={<BookNow />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
-      <FooterSeller />
+      <Footer />
     </Router>
   );
 };

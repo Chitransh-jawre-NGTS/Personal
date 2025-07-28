@@ -378,7 +378,7 @@
 //               <div className="bg-blue-500 p-1 rounded">
 //                 <span className="text-white font-bold text-sm">M</span>
 //               </div>
-//               <span className="text-2xl font-bold text-gray-800">Mantu</span>
+//               <span className="text-2xl font-bold text-gray-800">WishCart</span>
 //             </Link>
 //           </div>
 
@@ -538,9 +538,27 @@
 //     </>
 //   );
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, ChevronDown, Heart, PackageSearch, User } from "lucide-react";
+import {
+  ShoppingCart,
+  User,
+  Heart,
+  PackageSearch,
+} from "lucide-react";
 import { FiSearch } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { getCartItemCount } from "../Features/carts/Cartslice";
@@ -550,113 +568,148 @@ const AmazonStyleNavbar = () => {
   const [showBottomNavbar, setShowBottomNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Scroll behavior
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        setShowBottomNavbar(false); // scrolling down
-      } else {
-        setShowBottomNavbar(true); // scrolling up
-      }
+      setShowBottomNavbar(window.scrollY < lastScrollY);
       setLastScrollY(window.scrollY);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
   return (
     <>
-      {/* Top Navbar */}
-      <nav className="bg-gray-800 fixed top-0 w-full z-20 text-white py-3 px-4 sm:px-6 flex flex-wrap items-center justify-between gap-y-4 shadow-md">
-        {/* Left: Logo + Location */}
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <Link to="/">
-            <img
-              src="https://marketplace.canva.com/EAGR4J_-jYM/2/0/1600w/canva-colorful-abstract-online-shop-free-logo-zxo07UzxTDw.jpg"
-              alt="Amazon"
-              className="w-14 object-contain"
+      {/* Main Navbar */}
+      <nav className="bg-gray-800 fixed top-0 w-full z-20 text-white px-4 py-3 shadow-md">
+        {/* Row for large screen */}
+        <div className="hidden md:flex items-center justify-between gap-4 flex-wrap">
+          {/* Left: Logo */}
+          <div className="flex items-center gap-4">
+          <Link to="/" className="flex items-center">
+  <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+    WishCart
+  </span>
+</Link>
+
+          </div>
+
+          {/* Center: Search Bar */}
+          <form className="flex flex-1 max-w-3xl mx-6">
+            <input
+              type="text"
+              className="flex-grow px-4 py-2 rounded-l-md bg-white text-black focus:outline-none"
+              placeholder="Search Amazon.in"
             />
-          </Link>
-          {/* <div className="hidden sm:flex flex-col leading-tight text-xs">
-            <span className="text-gray-300">Deliver to Chitransh</span>
-            <span className="font-semibold text-sm">Indore 452010</span>
-          </div> */}
+            <button className="bg-yellow-400 px-4 rounded-r-md">
+              <FiSearch className="text-black" />
+            </button>
+          </form>
+          <button className="  border border-blue-600 w-[185px] rounded-2xl px-8 hover:bg-yellow-500 hover:text-black py-2">
+            Dawnload app
+          </button>
+
+          {/* Right Icons */}
+          <div className="flex items-center gap-6 text-xs">
+            <Link to="/wishlist" className="hover:text-yellow-400">
+              <Heart size={24} />
+            </Link>
+            <Link to="/orders" className="hover:text-yellow-400">
+              <PackageSearch size={24} />
+            </Link>
+            <Link to="/carts" className="relative hover:text-yellow-400">
+              <ShoppingCart size={24} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+            <Link to="/accounts" className="hover:text-yellow-400">
+              <User size={24} />
+            </Link>
+          </div>
         </div>
 
-        {/* Center: Search Bar */}
-        <form className="flex w-full border-r-lg sm:flex-1 max-w-3xl mx-auto">
-          {/* <select className="bg-gray-200 text-black text-xs px-2 rounded-l-md">
-            <option value="all">All</option>
-            <option value="electronics">Electronics</option>
-            <option value="books">Books</option>
-            <option value="fashion">Fashion</option>
-          </select> */}
-          <input
-            type="text"
-            className="flex-grow px-4 rounded-l-lg py-2 bg-white text-black focus:outline-none"
-            placeholder="Search Amazon.in"
-          />
-          <button className="bg-[#ffe8b7]  px-4 ">
-            <FiSearch className="text-black" />
-          </button>
-        </form>
+        {/* Mobile View */}
+<div className="md:hidden w-full">
+  {/* Top Row: Logo + Products & Rental */}
+  <div className="flex items-center justify-between">
+    <Link to="/" className="flex items-center">
+  <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+    WishCart
+  </span>
+</Link>
 
-        {/* Right: Language, Account, Orders, Cart */}
+    <div className="flex gap-2">
+      <Link to="/">
+        <button className="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
+          Products
+        </button>
+      </Link>
+      <Link to="/rental">
+        <button className="bg-gray-800 text-white text-sm font-semibold px-3 py-1 rounded-full border border-white shadow">
+          Rental Bay
+        </button>
+      </Link>
+    </div>
+  </div>
 
-<div className="flex items-center gap-4 sm:gap-6 text-xs w-full sm:w-auto justify-between sm:justify-end">
-
-  {/* Wishlist Icon */}
-  <Link to="/wishlist" className="hidden md:flex items-center justify-center cursor-pointer hover:text-yellow-400">
-    <Heart size={24} />
-  </Link>
-
-  {/* Orders Icon */}
-  <Link to="/orders" className="hidden md:flex items-center justify-center cursor-pointer hover:text-yellow-400">
-    <PackageSearch size={24} />
-  </Link>
-
-  {/* Cart Icon with Count */}
-  <Link to="/carts" className="relative flex items-center justify-center cursor-pointer hover:text-yellow-400">
-    <ShoppingCart size={24} />
-    {cartCount > 0 && (
-      <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
-        {cartCount}
-      </span>
-    )}
-  </Link>
-
-  {/* Account Icon (Avatar Only) */}
-  <Link to="/accounts" className="hidden md:flex items-center justify-center cursor-pointer hover:text-yellow-400">
-    <User size={24} />
-  </Link>
-
+  {/* Search Bar + Icons Row */}
+  <div className="flex items-center mt-3 gap-2">
+    <form className="flex flex-grow">
+      <input
+        type="text"
+        className="flex-grow px-4 py-2 rounded-l-md bg-white text-black focus:outline-none"
+        placeholder="Search Amazon.in"
+      />
+      <button className="bg-yellow-400 px-4 rounded-r-md">
+        <FiSearch className="text-black" />
+      </button>
+    </form>
+    <div className="flex gap-3 items-center">
+      <Link to="/carts" className="relative">
+        <ShoppingCart size={24} />
+        {cartCount > 0 && (
+          <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
+            {cartCount}
+          </span>
+        )}
+      </Link>
+      <Link to="/accounts">
+        <User size={24} />
+      </Link>
+    </div>
+  </div>
 </div>
-
 
       </nav>
 
-      {/* Bottom Navbar with scroll hide/show */}
+      {/* Bottom Navbar (Desktop only) */}
       <div
-        className={`bg-gray-700 text-white text-sm px-4 sm:px-6 py-2 fixed top-[80px] z-10 w-full flex flex-wrap items-center gap-4 transition-transform duration-300 ${showBottomNavbar ? "translate-y-0" : "-translate-y-full"
+        className={`hidden md:flex bg-gray-700 text-white text-[17px] px-6 py-2 fixed top-[65px] z-10 w-full items-center gap-4 transition-transform duration-300 ${showBottomNavbar ? "translate-y-0" : "-translate-y-full"
           }`}
       >
         <span className="font-semibold cursor-pointer">☰ All</span>
         <Link to="/">Home & Kitchen</Link>
-        <Link to="/">MX Player</Link>
-        <Link to="/">Sell</Link>
-        <Link to="/">Gift Cards</Link>
-        <Link to="/">Buy Again</Link>
-        <Link to="/">Amazon Pay</Link>
+        <Link to="/">Men's</Link>
+        <Link to="/">Women's</Link>
+        <Link to="/">Cosmetic's</Link>
+        <Link to="/">Rental Lehnga's</Link>
+        <Link to="/">Rental Shoe's  </Link>
+        <Link to="/">Men's</Link>
+        <Link to="/">Women's</Link>
+        <Link to="/">Cosmetic's</Link>
+        <Link to="/">Rental Lehnga's</Link>
+        <Link to="/">Rental Shoe's  </Link>
 
-        <div className="ml-auto flex gap-3 mt-2 sm:mt-0">
+        <div className="ml-auto flex gap-3">
           <Link to="/">
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-1.5 rounded-full shadow transition duration-300">
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-1.5 rounded-full shadow">
               Products
             </button>
           </Link>
           <Link to="/rental">
-            <button className="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-1.5 rounded-full shadow transition duration-300">
+            <button className="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-1.5 rounded-full border border-white shadow">
               Rental Bay
             </button>
           </Link>
