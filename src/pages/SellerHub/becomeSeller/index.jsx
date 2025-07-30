@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../../components/Navbar';
-import FooterSeller from '../../components/FooterSeller';
+import Navbar from '../../../components/Navbar';
+import FooterSeller from '../../../components/FooterSeller';
 import { motion } from 'framer-motion';
 
 const BecomeSeller = () => {
