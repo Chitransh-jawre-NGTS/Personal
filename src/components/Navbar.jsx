@@ -551,20 +551,184 @@
 
 
 
+// import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+// import {
+//   ShoppingCart,
+//   User,
+//   Heart,
+//   PackageSearch,
+// } from "lucide-react";
+// import { FiSearch } from "react-icons/fi";
+// import { useSelector } from "react-redux";
+// import { getCartItemCount } from "../Features/carts/Cartslice";
+
+// const AmazonStyleNavbar = () => {
+//   const cartCount = useSelector(getCartItemCount);
+//   const [showBottomNavbar, setShowBottomNavbar] = useState(true);
+//   const [lastScrollY, setLastScrollY] = useState(0);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       setShowBottomNavbar(window.scrollY < lastScrollY);
+//       setLastScrollY(window.scrollY);
+//     };
+//     window.addEventListener("scroll", handleScroll);
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, [lastScrollY]);
+
+//   return (
+//     <>
+//       {/* Main Navbar */}
+//       <nav className="bg-gray-800 fixed top-0 w-full z-20 text-white px-4 py-3 shadow-md">
+//         {/* Row for large screen */}
+//         <div className="hidden md:flex items-center justify-between gap-4 flex-wrap">
+//           {/* Left: Logo */}
+//           <div className="flex items-center gap-4">
+//           <Link to="/" className="flex items-center">
+//   <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+//     WishCart
+//   </span>
+// </Link>
+
+//           </div>
+
+//           {/* Center: Search Bar */}
+//           <form className="flex flex-1 max-w-3xl mx-6">
+//             <input
+//               type="text"
+//               className="flex-grow px-4 py-2 rounded-l-md bg-white text-black focus:outline-none"
+//               placeholder="Search Amazon.in"
+//             />
+//             <button className="bg-yellow-400 px-4 rounded-r-md">
+//               <FiSearch className="text-black" />
+//             </button>
+//           </form>
+//           <button className="  border border-blue-600 w-[185px] rounded-2xl px-8 hover:bg-yellow-500 hover:text-black py-2">
+//             Dawnload app
+//           </button>
+
+//           {/* Right Icons */}
+//           <div className="flex items-center gap-6 text-xs">
+//             <Link to="/wishlist" className="hover:text-yellow-400">
+//               <Heart size={24} />
+//             </Link>
+//             <Link to="/orders" className="hover:text-yellow-400">
+//               <PackageSearch size={24} />
+//             </Link>
+//             <Link to="/carts" className="relative hover:text-yellow-400">
+//               <ShoppingCart size={24} />
+//               {cartCount > 0 && (
+//                 <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
+//                   {cartCount}
+//                 </span>
+//               )}
+//             </Link>
+//             <Link to="/accounts" className="hover:text-yellow-400">
+//               <User size={24} />
+//             </Link>
+//           </div>
+//         </div>
+
+//         {/* Mobile View */}
+// <div className="md:hidden w-full">
+//   {/* Top Row: Logo + Products & Rental */}
+//   <div className="flex items-center justify-between">
+//     <Link to="/" className="flex items-center">
+//   <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+//     WishCart
+//   </span>
+// </Link>
+
+//     <div className="flex gap-2">
+//       <Link to="/">
+//         <button className="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
+//           Products
+//         </button>
+//       </Link>
+//       <Link to="/rental">
+//         <button className="bg-gray-800 text-white text-sm font-semibold px-3 py-1 rounded-full border border-white shadow">
+//           Rental Bay
+//         </button>
+//       </Link>
+//     </div>
+//   </div>
+
+//   {/* Search Bar + Icons Row */}
+//   <div className="flex items-center mt-3 gap-2">
+//     <form className="flex flex-grow">
+//       <input
+//         type="text"
+//         className="flex-grow px-4 py-2 rounded-l-md bg-white text-black focus:outline-none"
+//         placeholder="Search Amazon.in"
+//       />
+//       <button className="bg-yellow-400 px-4 rounded-r-md">
+//         <FiSearch className="text-black" />
+//       </button>
+//     </form>
+//     <div className="flex gap-3 items-center">
+//       <Link to="/carts" className="relative">
+//         <ShoppingCart size={24} />
+//         {cartCount > 0 && (
+//           <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
+//             {cartCount}
+//           </span>
+//         )}
+//       </Link>
+//       <Link to="/accounts">
+//         <User size={24} />
+//       </Link>
+//     </div>
+//   </div>
+// </div>
+
+//       </nav>
+
+//       {/* Bottom Navbar (Desktop only) */}
+//       <div
+//         className={`hidden md:flex bg-gray-700 text-white text-[17px] px-6 py-2 fixed top-[65px] z-10 w-full items-center gap-4 transition-transform duration-300 ${showBottomNavbar ? "translate-y-0" : "-translate-y-full"
+//           }`}
+//       >
+//         <span className="font-semibold cursor-pointer">☰ All</span>
+//         <Link to="/">Home & Kitchen</Link>
+//         <Link to="/">Men's</Link>
+//         <Link to="/">Women's</Link>
+//         <Link to="/">Cosmetic's</Link>
+//         <Link to="/">Rental Lehnga's</Link>
+//         <Link to="/">Rental Shoe's  </Link>
+//         <Link to="/">Men's</Link>
+//         <Link to="/">Women's</Link>
+//         <Link to="/">Cosmetic's</Link>
+//         <Link to="/">Rental Lehnga's</Link>
+//         <Link to="/">Rental Shoe's  </Link>
+
+//         <div className="ml-auto flex gap-3">
+//           <Link to="/">
+//             <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-1.5 rounded-full shadow">
+//               Products
+//             </button>
+//           </Link>
+//           <Link to="/rental">
+//             <button className="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-1.5 rounded-full border border-white shadow">
+//               Rental Bay
+//             </button>
+//           </Link>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default AmazonStyleNavbar;
+
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ShoppingCart,
-  User,
-  Heart,
-  PackageSearch,
-} from "lucide-react";
+import { ShoppingCart, User, Heart, PackageSearch } from "lucide-react";
 import { FiSearch } from "react-icons/fi";
-import { useSelector } from "react-redux";
-import { getCartItemCount } from "../Features/carts/Cartslice";
 
 const AmazonStyleNavbar = () => {
-  const cartCount = useSelector(getCartItemCount);
+  const [cartCount, setCartCount] = useState(0); // ✅ Replace Redux with local state
   const [showBottomNavbar, setShowBottomNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -577,21 +741,24 @@ const AmazonStyleNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
+  // ✅ You can simulate fetching cart count from localStorage or backend here
+  useEffect(() => {
+    const count = parseInt(localStorage.getItem("cartCount")) || 0;
+    setCartCount(count);
+  }, []);
+
   return (
     <>
       {/* Main Navbar */}
       <nav className="bg-gray-800 fixed top-0 w-full z-20 text-white px-4 py-3 shadow-md">
-        {/* Row for large screen */}
+        {/* Desktop Navbar */}
         <div className="hidden md:flex items-center justify-between gap-4 flex-wrap">
           {/* Left: Logo */}
-          <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center">
-  <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
-    WishCart
-  </span>
-</Link>
-
-          </div>
+            <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+              WishCart
+            </span>
+          </Link>
 
           {/* Center: Search Bar */}
           <form className="flex flex-1 max-w-3xl mx-6">
@@ -604,8 +771,8 @@ const AmazonStyleNavbar = () => {
               <FiSearch className="text-black" />
             </button>
           </form>
-          <button className="  border border-blue-600 w-[185px] rounded-2xl px-8 hover:bg-yellow-500 hover:text-black py-2">
-            Dawnload app
+          <button className="border border-blue-600 w-[185px] rounded-2xl px-8 hover:bg-yellow-500 hover:text-black py-2">
+            Download App
           </button>
 
           {/* Right Icons */}
@@ -631,60 +798,57 @@ const AmazonStyleNavbar = () => {
         </div>
 
         {/* Mobile View */}
-<div className="md:hidden w-full">
-  {/* Top Row: Logo + Products & Rental */}
-  <div className="flex items-center justify-between">
-    <Link to="/" className="flex items-center">
-  <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
-    WishCart
-  </span>
-</Link>
+        <div className="md:hidden w-full">
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center">
+              <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+                WishCart
+              </span>
+            </Link>
+            <div className="flex gap-2">
+              <Link to="/">
+                <button className="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
+                  Products
+                </button>
+              </Link>
+              <Link to="/rental">
+                <button className="bg-gray-800 text-white text-sm font-semibold px-3 py-1 rounded-full border border-white shadow">
+                  Rental Bay
+                </button>
+              </Link>
+            </div>
+          </div>
 
-    <div className="flex gap-2">
-      <Link to="/">
-        <button className="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
-          Products
-        </button>
-      </Link>
-      <Link to="/rental">
-        <button className="bg-gray-800 text-white text-sm font-semibold px-3 py-1 rounded-full border border-white shadow">
-          Rental Bay
-        </button>
-      </Link>
-    </div>
-  </div>
-
-  {/* Search Bar + Icons Row */}
-  <div className="flex items-center mt-3 gap-2">
-    <form className="flex flex-grow">
-      <input
-        type="text"
-        className="flex-grow px-4 py-2 rounded-l-md bg-white text-black focus:outline-none"
-        placeholder="Search Amazon.in"
-      />
-      <button className="bg-yellow-400 px-4 rounded-r-md">
-        <FiSearch className="text-black" />
-      </button>
-    </form>
-    <div className="flex gap-3 items-center">
-      <Link to="/carts" className="relative">
-        <ShoppingCart size={24} />
-        {cartCount > 0 && (
-          <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
-            {cartCount}
-          </span>
-        )}
-      </Link>
-      <Link to="/accounts">
-        <User size={24} />
-      </Link>
-    </div>
-  </div>
-</div>
-
+          {/* Search + Icons */}
+          <div className="flex items-center mt-3 gap-2">
+            <form className="flex flex-grow">
+              <input
+                type="text"
+                className="flex-grow px-4 py-2 rounded-l-md bg-white text-black focus:outline-none"
+                placeholder="Search Amazon.in"
+              />
+              <button className="bg-yellow-400 px-4 rounded-r-md">
+                <FiSearch className="text-black" />
+              </button>
+            </form>
+            <div className="flex gap-3 items-center">
+              <Link to="/carts" className="relative">
+                <ShoppingCart size={24} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+              <Link to="/accounts">
+                <User size={24} />
+              </Link>
+            </div>
+          </div>
+        </div>
       </nav>
 
-      {/* Bottom Navbar (Desktop only) */}
+      {/* Bottom Navbar */}
       <div
         className={`hidden md:flex bg-gray-700 text-white text-[17px] px-6 py-2 fixed top-[65px] z-10 w-full items-center gap-4 transition-transform duration-300 ${showBottomNavbar ? "translate-y-0" : "-translate-y-full"
           }`}
@@ -693,14 +857,9 @@ const AmazonStyleNavbar = () => {
         <Link to="/">Home & Kitchen</Link>
         <Link to="/">Men's</Link>
         <Link to="/">Women's</Link>
-        <Link to="/">Cosmetic's</Link>
+        <Link to="/">Cosmetics</Link>
         <Link to="/">Rental Lehnga's</Link>
-        <Link to="/">Rental Shoe's  </Link>
-        <Link to="/">Men's</Link>
-        <Link to="/">Women's</Link>
-        <Link to="/">Cosmetic's</Link>
-        <Link to="/">Rental Lehnga's</Link>
-        <Link to="/">Rental Shoe's  </Link>
+        <Link to="/">Rental Shoes</Link>
 
         <div className="ml-auto flex gap-3">
           <Link to="/">
