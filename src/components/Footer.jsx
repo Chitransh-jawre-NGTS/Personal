@@ -143,7 +143,7 @@ export default function Footer() {
         </div>
 
         {/* Contact */}
-        <div>
+        {/* <div>
           <h4 className="font-semibold text-lg mb-4">Contact</h4>
           <ul className="space-y-4 text-sm text-gray-300">
             <li className="flex items-start gap-3">
@@ -173,7 +173,7 @@ export default function Footer() {
               </div>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
       {/* Bottom Bar */}
