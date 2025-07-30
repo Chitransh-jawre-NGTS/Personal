@@ -13,7 +13,7 @@ const RentalCartSection = () => {
     try {
       const latitude = 22.72;
       const longitude = 75.858;
-      const { data } = await axios.get("http://localhost:8080/api/nearby-rentals", {
+      const { data } = await axios.get("https://e-commerse-backend-y5my.onrender.com/api/nearby-rentals", {
         params: { latitude, longitude },
       });
       setRentals(data);

@@ -45,7 +45,7 @@ const cardData = [
 
 const DealCardGrid = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 p-8 bg-gradient-to-br from-gray-50 to-gray-200">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:p-8 bg-gradient-to-br from-gray-50 to-gray-200">
       {cardData.map((section, idx) => {
         const isLastCard = idx === cardData.length - 1;
 
