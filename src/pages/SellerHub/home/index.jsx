@@ -1,10 +1,10 @@
 import React from 'react'
 import { FaShoppingCart, FaBolt, FaSearch } from "react-icons/fa";
-import HeroCarousel from '../../components/HeroCarousal';
-import DealCardGrid from '../../components/DealCardGrid';
-import ProductSection from '../../components/Products';
-import FullWidthCarousel from '../../components/FullWidthCrousal';
-import NewArrivals from '../../components/NewArrival';
+import HeroCarousel from '../../../components/HeroCarousal';
+import DealCardGrid from '../../../components/DealCardGrid';
+import ProductSection from '../../../components/Products';
+import FullWidthCarousel from '../../../components/FullWidthCrousal';
+import NewArrivals from '../../../components/NewArrival';
 
 
 

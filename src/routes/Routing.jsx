@@ -95,17 +95,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToTop from '../components/ScrollTop';
 // import PrivateRoute from './PrivateRouting';
 
-import Home from '../pages/SellerHub/Home';
-import Login from '../pages/Login';
-import BecomeSeller from '../pages/SellerHub/BecomeSeller';
 
-import Cart from '../pages/Cart';
-import Checkout from '../pages/SellerHub/Checkout';
-import AccountPage from '../pages/AccountPage';
+
 import SearchResults from '../pages/SellerHub/SerchResult';
 import Chatbot from '../components/ChatBot';
-import Favourate from '../pages/Favourate';
-import RentalHub from '../pages/RentalHub/RentalHub';
 import RentalCheckout from '../RentalComponents/RentalCheakout';
 import NewArrivals from '../components/NewArrival';
 import AmazonStyleNavbar from '../components/Navbar';
@@ -115,7 +108,15 @@ import Footer from '../components/Footer';
 import RentalProductDetails from '../RentalComponents/RentalProductDetail';
 import { Toaster } from 'react-hot-toast';
 import BookNow from '../RentalComponents/BooNow';
+import RentalHub from '../pages/RentalHub/rental-hub';
+import Home from '../pages/SellerHub/home';
+import Login from '../pages/Login';
+import BecomeSeller from '../pages/SellerHub/becomeSeller';
+import AccountPage from '../pages/accountpage';
+import Favourate from '../pages/Favourate';
 import Orders from '../pages/Orders';
+import Cart from '../pages/cart';
+import Checkout from '../pages/SellerHub/Checkout';
 
 const Routing = () => {
   return (

@@ -1,8 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
-import Footer from '../components/Footer';
+import Footer from '../../components/Footer';
 import { motion } from 'framer-motion';
-import { loginUser } from "../Features/Auth/authSlice";
+import { loginUser } from "../../Features/Auth/authSlice";
 import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {

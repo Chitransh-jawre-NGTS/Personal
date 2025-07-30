@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import HeroCarousel from '../../RentalComponents/HeroCraouslRental';
-import CategorySection from '../../RentalComponents/CatagorySectionRental';
-import RentalCartSection from '../../RentalComponents/RentalCartSection';
+import HeroCarousel from '../../../RentalComponents/HeroCraouslRental';
+import CategorySection from '../../../RentalComponents/CatagorySectionRental';
+import RentalCartSection from '../../../RentalComponents/RentalCartSection';
 import toast from 'react-hot-toast';
 
 const RentalHub = () => {
