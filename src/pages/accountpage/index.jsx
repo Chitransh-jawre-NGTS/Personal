@@ -139,18 +139,18 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br mt-[100px] p-10">
+    <div className="bg-gradient-to-br mt-[100px] lg:p-10">
       <div className="mx-auto rounded-xl shadow-lg flex flex-col md:flex-row bg-white overflow-hidden">
         {/* Sidebar */}
         <div className="w-full md:w-1/4 bg-gradient-to-b from-white to-blue-50 border-r border-blue-200 p-6 space-y-6">
           <div className="text-center">
-          <div className="w-44 h-44 mx-auto rounded-full overflow-hidden border-4 border-blue-200 shadow-lg">
-  <img 
-    src="https://i.pravatar.cc/300" 
-    alt="User Avatar" 
-    className="w-full h-full object-cover"
-  />
-</div>
+            <div className="w-44 h-44 mx-auto rounded-full overflow-hidden border-4 border-blue-200 shadow-lg">
+              <img
+                src="https://i.pravatar.cc/300"
+                alt="User Avatar"
+                className="w-full h-full object-cover"
+              />
+            </div>
 
             <h3 className="mt-3 text-xl font-semibold">Chitransh Jawre</h3>
           </div>

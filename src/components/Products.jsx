@@ -348,7 +348,7 @@ const sampleProducts = [
 
 const ProductSection = ({ title = "Top Discounts", products = sampleProducts }) => {
   return (
-    <section className="px-6 py-10 bg-gradient-to-br from-white to-gray-100">
+    <section className="md:px-6 md:py-10 bg-gradient-to-br from-white to-gray-100">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">{title}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {products.map((product) => (

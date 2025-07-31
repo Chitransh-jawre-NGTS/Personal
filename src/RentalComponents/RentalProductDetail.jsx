@@ -13,7 +13,7 @@ const RentalProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:8080/api/nearby-rentals/${id}`);
+        const { data } = await axios.get(`https://e-commerse-backend-y5my.onrender.com/api/nearby-rentals/${id}`);
         setProduct(data);
         setSelectedImage(data.images?.[0] || data.image);
       } catch (error) {
@@ -133,10 +133,10 @@ const RentalProductDetail = () => {
             <div className="flex items-center gap-3 mt-3">
               <span className="text-3xl font-bold">₹{product.price}</span>
               {product.originalPrice && (
-                <span className="line-through text-gray-400 text-lg">₹{product.originalPrice}</span>
+                <span className="line-through text-gray-400 text-lg">₹{product.originalPrice || "50"}</span>
               )}
               {product.discount && (
-                <span className="text-green-600 font-bold">{product.discount}% off</span>
+                <span className="text-green-600 font-bold">{product.discount || 50}% off</span>
               )}
             </div>
 
@@ -194,3 +194,29 @@ const RentalProductDetail = () => {
 };
 
 export default RentalProductDetail;
+
+
+
+
+// {
+//   _id: "123456",
+//   name: "Bluetooth Speaker",
+//   description: "Portable and waterproof Bluetooth speaker.",
+//   price: 999,
+//   originalPrice: 1499,
+//   discount: 33,
+//   rating: 4.7,
+//   reviews: 25,
+//   ratings: 15,
+//   category: "Audio",
+//   images: [
+//     "https://example.com/image1.jpg",
+//     "https://example.com/image2.jpg"
+//   ],
+//   image: "https://example.com/image1.jpg",  // fallback
+//   offers: ["10% off on first order", "Free delivery on orders above ₹500"],
+//   delivery: "Delivery within 3-5 days",
+//   highlights: ["Bluetooth 5.0", "Waterproof", "8 hrs battery backup"],
+//   seller: "XYZ Electronics",
+//   returnPolicy: "7-day return policy"
+// }

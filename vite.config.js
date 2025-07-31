@@ -14,5 +14,8 @@ export default defineConfig({
     animation: {
       'spin-slow': 'spin 8s linear infinite',
     },
+      plugins: [
+    require('tailwind-scrollbar-hide'),
+  ],
   },
 })
