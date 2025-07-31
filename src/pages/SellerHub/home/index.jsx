@@ -5,7 +5,7 @@ import DealCardGrid from '../../../components/DealCardGrid';
 import ProductSection from '../../../components/Products';
 import FullWidthCarousel from '../../../components/FullWidthCrousal';
 import NewArrivals from '../../../components/NewArrival';
-import ItemsInCart from '../../../components/itemsInCart';
+
 
 
 
@@ -30,7 +30,6 @@ const Home = () => {
         {/* <NewArrivals/> */}
         <ProductSection />
         <DealCardGrid />
-        <ItemsInCart/>
         <FullWidthCarousel />
         <DealCardGrid />
         <ProductSection />

@@ -213,13 +213,11 @@
 
 // export default Cart;
 
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 
 const Cart = () => {
-  // Dummy cart data
   const cartItems = [
     {
       id: 1,
@@ -254,28 +252,31 @@ const Cart = () => {
     getTotalPrice() + getDeliveryCharges() + getCommissionCharges();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-28 pb-16">
+    <div className="max-w-full p-8 mx-auto  pt-28 pb-16">
       {cartItems.length > 0 ? (
         <>
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">🛒 Your Cart</h2>
+          <h1 className="text-3xl mt-5 font-bold text-gray-800 mb-8">
+             Shopping Cart ({cartItems.length} {cartItems.length === 1 ? "item" : "items"})
+          </h1>
 
-          <div className="grid gap-6">
+          {/* Cart Items */}
+          <section className="grid gap-6">
             {cartItems.map((item) => (
-              <div
+              <article
                 key={item.id}
-                className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white rounded-2xl shadow-md border border-gray-200 p-6 hover:shadow-xl transition"
+                className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white rounded-2xl shadow border border-gray-200 p-6"
               >
-                <div className="flex items-start md:items-center gap-5 w-full md:w-auto">
+                <div className="flex items-start gap-5 w-full md:w-auto">
                   <img
                     src={item.images}
                     alt={item.title}
-                    className="w-24 h-24 object-cover rounded-xl shadow"
+                    className="w-24 h-24 object-cover rounded-lg shadow"
                   />
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
-                    <p className="text-sm text-gray-500 mb-1">Category: {item.category}</p>
-                    <div className="flex items-center gap-3 text-sm">
-                      <span className="text-gray-400 line-through">₹{getOriginalPrice(item)}</span>
+                    <h2 className="text-lg font-semibold text-gray-900">{item.title}</h2>
+                    <p className="text-sm text-gray-500">Category: {item.category}</p>
+                    <div className="flex items-center gap-3 mt-1 text-sm">
+                      <span className="line-through text-gray-400">₹{getOriginalPrice(item)}</span>
                       <span className="text-pink-600 font-bold">₹{item.price}</span>
                       <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-semibold">
                         {Math.round(((getOriginalPrice(item) - item.price) / getOriginalPrice(item)) * 100)}% OFF
@@ -286,27 +287,42 @@ const Cart = () => {
                 </div>
 
                 <div className="flex items-center gap-6 mt-4 md:mt-0">
-                  <div className="flex items-center gap-3 border rounded-lg px-3 py-1 bg-gray-100">
-                    <button className="text-xl font-bold px-2 hover:text-red-600">−</button>
-                    <span className="font-semibold">{item.quantity}</span>
-                    <button className="text-xl font-bold px-2 hover:text-green-600">＋</button>
+                  <div className="flex items-center border rounded-lg px-3 py-1 bg-gray-100">
+                    <button
+                      className="text-xl font-bold px-2 text-red-600 hover:scale-105 transition"
+                      aria-label="Decrease quantity"
+                    >
+                      −
+                    </button>
+                    <span className="px-2 font-semibold">{item.quantity}</span>
+                    <button
+                      className="text-xl font-bold px-2 text-green-600 hover:scale-105 transition"
+                      aria-label="Increase quantity"
+                    >
+                      ＋
+                    </button>
                   </div>
-                  <button className="text-red-500 hover:underline text-sm">❌ Remove</button>
+                  <button
+                    className="text-red-500 hover:underline text-sm"
+                    aria-label="Remove item"
+                  >
+                    ❌ Remove
+                  </button>
                 </div>
-              </div>
+              </article>
             ))}
-          </div>
+          </section>
 
           {/* Price Summary */}
-          <div className="mt-12 bg-white rounded-2xl border shadow-md p-6">
-            <h3 className="text-2xl font-semibold mb-4 text-gray-800">💰 Price Breakdown</h3>
+          <section className="mt-12 bg-white rounded-2xl border shadow-md p-6">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">💰 Price Summary</h2>
             <div className="space-y-3 text-gray-700 text-sm sm:text-base">
               <div className="flex justify-between">
                 <span>Total MRP:</span>
                 <span>₹{getTotalOriginalPrice().toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-green-600">
-                <span>Discount on MRP:</span>
+                <span>Discount:</span>
                 <span>-₹{getTotalDiscount().toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
@@ -314,28 +330,28 @@ const Cart = () => {
                 <span>{getDeliveryCharges() === 0 ? "Free" : `₹${getDeliveryCharges().toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between">
-                <span>Commission Charges:</span>
+                <span>Commission:</span>
                 <span>₹{getCommissionCharges().toFixed(2)}</span>
               </div>
               <hr className="my-2" />
-              <div className="flex justify-between font-bold text-lg text-pink-700">
-                <span>Final Amount:</span>
+              <div className="flex justify-between text-lg font-bold text-pink-700">
+                <span>Total Payable:</span>
                 <span>₹{getFinalAmount().toFixed(2)}</span>
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-between">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-between">
             <Link
               to="/"
-              className="w-full sm:w-auto text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-6 py-3 rounded-full"
+              className="w-full sm:w-auto text-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-6 py-3 rounded-full transition"
             >
               🛍️ Continue Shopping
             </Link>
             <Link
               to="/checkout"
-              className="w-full sm:w-auto text-center bg-pink-600 hover:bg-pink-700 text-white font-medium px-6 py-3 rounded-full"
+              className="w-full sm:w-auto text-center bg-pink-600 hover:bg-pink-700 text-white font-medium px-6 py-3 rounded-full transition"
             >
               Proceed to Checkout
             </Link>
@@ -344,8 +360,8 @@ const Cart = () => {
       ) : (
         <div className="text-center py-20 text-gray-600">
           <ShoppingCart size={64} className="mx-auto text-blue-400 mb-4" />
-          <h2 className="text-2xl font-semibold">Your cart is feeling empty 😔</h2>
-          <p className="mt-2">Add some exciting products and come back!</p>
+          <h2 className="text-2xl font-semibold">Your cart is currently empty 😔</h2>
+          <p className="mt-2">Browse our collection and add some products!</p>
           <Link
             to="/"
             className="inline-block mt-6 text-pink-600 hover:underline font-medium"
