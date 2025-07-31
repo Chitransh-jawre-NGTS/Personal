@@ -721,16 +721,16 @@
 
 // export default AmazonStyleNavbar;
 
-
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, User, Heart, PackageSearch } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ShoppingCart, User, Heart, PackageSearch, Home, Settings } from "lucide-react";
 import { FiSearch } from "react-icons/fi";
 
 const AmazonStyleNavbar = () => {
-  const [cartCount, setCartCount] = useState(0); // ✅ Replace Redux with local state
+  const [cartCount, setCartCount] = useState(0);
   const [showBottomNavbar, setShowBottomNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const location = useLocation(); // ✅ get current route
 
   useEffect(() => {
     const handleScroll = () => {
@@ -741,7 +741,6 @@ const AmazonStyleNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // ✅ You can simulate fetching cart count from localStorage or backend here
   useEffect(() => {
     const count = parseInt(localStorage.getItem("cartCount")) || 0;
     setCartCount(count);
@@ -753,14 +752,14 @@ const AmazonStyleNavbar = () => {
       <nav className="bg-gray-800 fixed top-0 w-full z-20 text-white px-4 py-3 shadow-md">
         {/* Desktop Navbar */}
         <div className="hidden md:flex items-center justify-between gap-4 flex-wrap">
-          {/* Left: Logo */}
+          {/* Logo */}
           <Link to="/" className="flex items-center">
             <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
               WishCart
             </span>
           </Link>
 
-          {/* Center: Search Bar */}
+          {/* Search */}
           <form className="flex flex-1 max-w-3xl mx-6">
             <input
               type="text"
@@ -771,11 +770,12 @@ const AmazonStyleNavbar = () => {
               <FiSearch className="text-black" />
             </button>
           </form>
-          <button className="border border-blue-600 w-[185px] rounded-2xl px-8 hover:bg-yellow-500 hover:text-black py-2">
+
+             <button className="border border-blue-600 w-[185px] rounded-2xl px-8 hover:bg-yellow-500 hover:text-black py-2">
             Download App
           </button>
 
-          {/* Right Icons */}
+          {/* Icons */}
           <div className="flex items-center gap-6 text-xs">
             <Link to="/wishlist" className="hover:text-yellow-400">
               <Heart size={24} />
@@ -797,7 +797,7 @@ const AmazonStyleNavbar = () => {
           </div>
         </div>
 
-        {/* Mobile View */}
+        {/* Mobile Navbar */}
         <div className="md:hidden w-full">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center">
@@ -807,19 +807,27 @@ const AmazonStyleNavbar = () => {
             </Link>
             <div className="flex gap-2">
               <Link to="/">
-                <button className="bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full shadow">
+                <button
+                  className={`text-sm font-semibold px-3 py-1 rounded-full shadow ${
+                    location.pathname === "/" ? "bg-yellow-400 text-black" : "bg-gray-800 text-white border border-white"
+                  }`}
+                >
                   Products
                 </button>
               </Link>
               <Link to="/rental">
-                <button className="bg-gray-800 text-white text-sm font-semibold px-3 py-1 rounded-full border border-white shadow">
+                <button
+                  className={`text-sm font-semibold px-3 py-1 rounded-full shadow ${
+                    location.pathname === "/rental" ? "bg-yellow-400 text-black" : "bg-gray-800 text-white border border-white"
+                  }`}
+                >
                   Rental Bay
                 </button>
               </Link>
             </div>
           </div>
 
-          {/* Search + Icons */}
+          {/* Mobile Search + Settings */}
           <div className="flex items-center mt-3 gap-2">
             <form className="flex flex-grow">
               <input
@@ -832,26 +840,50 @@ const AmazonStyleNavbar = () => {
               </button>
             </form>
             <div className="flex gap-3 items-center">
-              <Link to="/carts" className="relative">
-                <ShoppingCart size={24} />
+              <Link to="/settings">
+                <Settings size={24} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Bottom Mobile Fixed Navbar */}
+          <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-300 shadow-inner z-30">
+            <div className="flex justify-between items-center px-6 py-2 text-sm text-gray-700">
+              <Link to="/" className="flex flex-col text-white items-center hover:text-yellow-500">
+                <Home size={22} />
+                <span className="text-[11px] mt-1">Home</span>
+              </Link>
+              <Link to="/wishlist" className="flex flex-col text-white items-center hover:text-yellow-500">
+                <Heart size={22} />
+                <span className="text-[11px] mt-1">Wishlist</span>
+              </Link>
+              <Link to="/carts" className="relative text-white flex flex-col items-center hover:text-yellow-500">
+                <ShoppingCart size={22} />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-2 text-xs bg-yellow-400 text-black rounded-full px-1 font-bold">
+                  <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-[10px] font-bold rounded-full px-[5px]">
                     {cartCount}
                   </span>
                 )}
+                <span className="text-[11px] mt-1">Cart</span>
               </Link>
-              <Link to="/accounts">
-                <User size={24} />
+              <Link to="/orders" className="flex flex-col text-white items-center hover:text-yellow-500">
+                <PackageSearch size={22} />
+                <span className="text-[11px] mt-1">Orders</span>
+              </Link>
+              <Link to="/accounts" className="flex flex-col text-white items-center hover:text-yellow-500">
+                <User size={22} />
+                <span className="text-[11px] mt-1">Account</span>
               </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Bottom Navbar */}
+      {/* Bottom Navbar (Desktop only) */}
       <div
-        className={`hidden md:flex bg-gray-700 text-white text-[17px] px-6 py-2 fixed top-[65px] z-10 w-full items-center gap-4 transition-transform duration-300 ${showBottomNavbar ? "translate-y-0" : "-translate-y-full"
-          }`}
+        className={`hidden md:flex bg-gray-700 text-white text-[17px] px-6 py-2 fixed top-[65px] z-10 w-full items-center gap-4 transition-transform duration-300 ${
+          showBottomNavbar ? "translate-y-0" : "-translate-y-full"
+        }`}
       >
         <span className="font-semibold cursor-pointer">☰ All</span>
         <Link to="/">Home & Kitchen</Link>
@@ -863,12 +895,20 @@ const AmazonStyleNavbar = () => {
 
         <div className="ml-auto flex gap-3">
           <Link to="/">
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-1.5 rounded-full shadow">
+            <button
+              className={`font-semibold px-4 py-1.5 rounded-full shadow ${
+                location.pathname === "/" ? "bg-yellow-400 text-black" : "bg-gray-800 text-white border border-white hover:bg-yellow-400 hover:text-black"
+              }`}
+            >
               Products
             </button>
           </Link>
           <Link to="/rental">
-            <button className="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-1.5 rounded-full border border-white shadow">
+            <button
+              className={`font-semibold px-4 py-1.5 rounded-full shadow ${
+                location.pathname === "/rental" ? "bg-yellow-400 text-black" : "bg-gray-800 text-white border border-white hover:bg-yellow-400 hover:text-black"
+              }`}
+            >
               Rental Bay
             </button>
           </Link>
