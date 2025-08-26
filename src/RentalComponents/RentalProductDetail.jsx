@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Truck, Star, Home, Smartphone, Headphones, Plug, Zap, Layers } from "lucide-react";
 import RentalCartSection from "./RentalCartSection";
+import AmazonStyleNavbar from "../components/Navbar";
 
 const RentalProductDetail = () => {
   const { id } = useParams();
@@ -25,8 +26,14 @@ const RentalProductDetail = () => {
     fetchProduct();
   }, [id]);
 
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen text-xl font-semibold">Loading...</div>;
+ if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-yellow-400">
+        <h1 className="text-5xl font-extrabold text-white drop-shadow-lg animate-pulse">
+          WishCart
+        </h1>
+      </div>
+    );
   }
 
   if (!product) {
@@ -34,6 +41,8 @@ const RentalProductDetail = () => {
   }
 
   return (
+    <>
+    <AmazonStyleNavbar/>
     <div className="max-w-[100vw] mt-[110px]">
       {/* Breadcrumb */}
      <div className="border-b border-gray-300 py-4 px-4 bg-white/70 backdrop-blur-md">
@@ -188,8 +197,9 @@ const RentalProductDetail = () => {
 
         </div>
       </div>
-          {/* <RentalCartSection />  */}
+
     </div>
+    </>
   );
 };
 

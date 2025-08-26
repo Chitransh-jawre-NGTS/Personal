@@ -313,6 +313,11 @@
 // };
 
 // export default ProductGrid;
+
+
+
+
+
 import React from "react";
 
 const sampleProducts = [
@@ -344,13 +349,28 @@ const sampleProducts = [
     price: 1599,
     discount: 30,
   },
+  {
+    id: 5,
+    title: "Sony Bluetooth Headphones",
+    image: "https://picsum.photos/id/237/400/300",
+    price: 3999,
+    discount: 40,
+  },
+  {
+    id: 6,
+    
+    title: "Boat Bluetooth Speaker",
+    image: "https://picsum.photos/id/1084/400/300",
+    price: 2499,
+    discount: 35,
+  },
 ];
 
 const ProductSection = ({ title = "Top Discounts", products = sampleProducts }) => {
   return (
     <section className="md:px-6 md:py-10 bg-gradient-to-br from-white to-gray-100">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">{title}</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 xl:grid-cols-6 gap-6">
         {products.map((product) => (
           <div
             key={product.id}
@@ -360,7 +380,7 @@ const ProductSection = ({ title = "Top Discounts", products = sampleProducts }) 
               <img
                 src={product.image}
                 alt={product.title}
-                className="w-full h-40 object-cover rounded-md"
+                className="w-full h-60 object-cover rounded-md"
               />
               <span className="absolute top-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded">
                 {product.discount}% OFF
