@@ -7,6 +7,7 @@ import {
   Settings,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SmallNavbar from "../../components/SmallNavbar";
 
 const tabs = [
   { id: "profile", icon: <User size={20} />, label: "Profile" },
@@ -22,6 +23,8 @@ const AccountPage = () => {
     switch (activeTab) {
       case "profile":
         return (
+         <>
+        
           <div>
             <h2 className="text-2xl font-semibold mb-6">Welcome, Chitransh 👋</h2>
             <div className="grid gap-4 md:grid-cols-2">
@@ -58,6 +61,7 @@ const AccountPage = () => {
               </div>
             </div>
           </div>
+         </>
         );
 
       case "orders":
@@ -139,6 +143,8 @@ const AccountPage = () => {
   };
 
   return (
+    <>
+     <SmallNavbar/>
     <div className="bg-gradient-to-br mt-[100px] lg:p-10">
       <div className="mx-auto rounded-xl shadow-lg flex flex-col md:flex-row bg-white overflow-hidden">
         {/* Sidebar */}
@@ -192,6 +198,7 @@ const AccountPage = () => {
         </div>
       </div>
     </div>
+     </>
   );
 };
 

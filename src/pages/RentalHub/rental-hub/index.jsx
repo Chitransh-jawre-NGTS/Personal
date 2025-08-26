@@ -3,6 +3,7 @@ import HeroCarousel from '../../../RentalComponents/HeroCraouslRental';
 import CategorySection from '../../../RentalComponents/CatagorySectionRental';
 import RentalCartSection from '../../../RentalComponents/RentalCartSection';
 import toast from 'react-hot-toast';
+import AmazonStyleNavbar from '../../../components/Navbar';
 
 const RentalHub = () => {
   const [location, setLocation] = useState(null);
@@ -52,25 +53,32 @@ const RentalHub = () => {
   // 📍 Show permission screen if no location
   if (!location) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-400 to-indigo-600 text-white text-center p-6">
-        <h1 className="text-3xl font-bold mb-4">📍 Allow Location to Continue</h1>
-        <p className="mb-4 max-w-md">
-          We use your location to show you the best rental options nearby.
-        </p>
-        <button
-          onClick={handleLocationRequest}
-          className="bg-white text-blue-700 font-bold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-100 transition"
-        >
-          Allow Location
-        </button>
-        {error && <p className="mt-4 text-red-300 font-semibold">{error}</p>}
-      </div>
+    <div
+  className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center text-white text-center p-6"
+  style={{
+    backgroundImage: "url('src/assets/images/location/top-view-magnifying-glass-compass.jpg')",
+  }}
+>
+  <h1 className="text-5xl text-black font-bold mb-4"> Allow Location to Continue</h1>
+  <p className="mb-4 text-blue-800 max-w-md">
+    We use your location to show you the best rental options nearby.
+  </p>
+  <button
+    onClick={handleLocationRequest}
+    className="bg-white text-blue-700 font-bold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-gray-100 transition"
+  >
+    Allow Location
+  </button>
+  {error && <p className="mt-4 text-red-300 font-semibold">{error}</p>}
+</div>
+
     );
   }
 
   // ✅ After permission granted
   return (
     <>
+    <AmazonStyleNavbar/>
       <HeroCarousel />
       <CategorySection />
       <RentalCartSection />

@@ -16,8 +16,7 @@ const Checkout = () => {
 
   return (
     <>
-    <Navbar showButtons={false}/>
-    <div className="container  ld-mt-30 mx-auto p-6">
+    <div className="container  mt-26 mx-auto p-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Order Summary */}
         <div className="bg-white p-6 shadow-lg rounded-lg">

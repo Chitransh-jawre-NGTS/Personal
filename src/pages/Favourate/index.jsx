@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, Smartphone, Headphones, Zap, Plug, Layers } from "lucide-react";
+import SmallNavbar from '../../components/SmallNavbar';
 
 const Favourate = () => {
  const wishlistItems = [
@@ -102,7 +103,9 @@ const Favourate = () => {
   };
 
   return (
-    <div className="w-full mt-30 sm:px-2 md:px-4 lg:px-6">
+   <>
+   <SmallNavbar/>
+    <div className="w-full lg:mt-30 sm:px-2 md:px-4 lg:px-6">
       {/* Breadcrumb and Header */}
       <div className="border-b border-gray-300 py-6 px-4 bg-white/70 backdrop-blur-md">
         <nav className="text-sm text-gray-500 " aria-label="Breadcrumb">
@@ -219,6 +222,7 @@ const Favourate = () => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 

@@ -102,7 +102,6 @@ import Chatbot from '../components/ChatBot';
 import RentalCheckout from '../RentalComponents/RentalCheakout';
 import NewArrivals from '../components/NewArrival';
 import AmazonStyleNavbar from '../components/Navbar';
-import FooterSeller from '../components/FooterSeller';
 
 import Footer from '../components/Footer';
 import RentalProductDetails from '../RentalComponents/RentalProductDetail';
@@ -117,12 +116,16 @@ import Favourate from '../pages/Favourate';
 import Orders from '../pages/Orders';
 import Cart from '../pages/cart';
 import Checkout from '../pages/SellerHub/Checkout';
+import Signup from '../pages/signup/index.jsx';
+import ProductDetailPage from '../pages/SellerHub/productdetails/index.jsx';
+import Dashboard from '../pages/dashboard/index.jsx';
 
 const Routing = () => {
   return (
     <Router>
       <Toaster position="top-right" reverseOrder={false} />
-      <AmazonStyleNavbar />
+      <ScrollToTop/>
+      {/* <AmazonStyleNavbar /> */}
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
@@ -140,8 +143,11 @@ const Routing = () => {
         <Route path="/rentalproduct/:id" element={<RentalProductDetails />} />
         <Route path="/booknow" element={<BookNow />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/signup" element={<Signup/>} />
+         <Route path="/productdeatilspage" element={<ProductDetailPage/>} />
+         <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };
