@@ -19,14 +19,9 @@ const Home = () => {
       <HeroCarousel />
       <DealCardGrid />
       {/* <NewArrivals/> */}
-      <ProductSection />
-      <DealCardGrid />
+      {/* <ProductSection /> */}
+      {/* <DealCardGrid /> */}
       <FullWidthCarousel />
-      <DealCardGrid />
-      <ProductSection />
-      <FullWidthCarousel />
-      <DealCardGrid />
-      <DealCardGrid />
 
     </>
   )
