@@ -1,6 +1,31 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import SmallNavbar from "../../components/SmallNavbar";
+
+const FilterSection = ({ title, options, prefix = "" }) => (
+  <div className="mb-6">
+    <h3 className="font-medium text-gray-700 text-sm mb-3 uppercase tracking-wide">
+      {title}
+    </h3>
+    <div className="space-y-2">
+      {options.map((opt) => (
+        <label
+          key={opt}
+          htmlFor={`${prefix}${opt}`}
+          className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition"
+        >
+          <input
+            type="checkbox"
+            id={`${prefix}${opt}`}
+            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
+          />
+          <span className="text-sm text-gray-700">{opt}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+);
 
 const MyOrders = () => {
   const [orders] = useState([
@@ -36,83 +61,48 @@ const MyOrders = () => {
 
   return (
     <>
-      <SmallNavbar />
-      <div className="bg-gray-100 lg:mt-26 min-h-screen p-6 pb-20">
+      <SmallNavbar logoText="My Orders" showSearch={false} showBottomNav={false} />
+
+      <div className="bg-gray-100 lg:mt-26 min-h-screen md:p-6 pb-20">
         {/* Breadcrumb */}
-        <div className="text-sm text-gray-500 mb-4">
-          Home / My Account /{" "}
+        <div className="text-sm text-gray-500 py-4">
+          <Link to="/" className="hover:underline">
+            Home
+          </Link>{" "}
+          / My Account /{" "}
           <span className="font-medium text-gray-700">My Orders</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Left Filters (Desktop Only) */}
-          <div className="hidden md:block bg-white shadow-lg rounded-2xl p-5 md:col-span-1 border border-gray-100">
+          {/* Filters (Desktop) */}
+          <aside className="hidden md:block bg-white shadow-lg rounded-2xl p-5 md:col-span-1 border border-gray-100 h-fit">
             <h2 className="font-semibold text-lg text-gray-800 mb-4">
               Filters
             </h2>
+            <FilterSection
+              title="Order Status"
+              options={["On the way", "Delivered", "Cancelled", "Returned"]}
+            />
+            <FilterSection
+              title="Order Time"
+              options={["Last 30 days", "2024", "2023", "2022", "2021", "Older"]}
+            />
+          </aside>
 
-            {/* ORDER STATUS */}
-            <div className="mb-6">
-              <h3 className="font-medium text-gray-700 text-sm mb-3 uppercase tracking-wide">
-                Order Status
-              </h3>
-              <div className="space-y-2">
-                {["On the way", "Delivered", "Cancelled", "Returned"].map(
-                  (status) => (
-                    <label
-                      key={status}
-                      htmlFor={status}
-                      className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id={status}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-                      />
-                      <span className="text-sm text-gray-700">{status}</span>
-                    </label>
-                  )
-                )}
-              </div>
-            </div>
-
-            {/* ORDER TIME */}
-            <div>
-              <h3 className="font-medium text-gray-700 text-sm mb-3 uppercase tracking-wide">
-                Order Time
-              </h3>
-              <div className="space-y-2">
-                {["Last 30 days", "2024", "2023", "2022", "2021", "Older"].map(
-                  (time) => (
-                    <label
-                      key={time}
-                      htmlFor={time}
-                      className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id={time}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-                      />
-                      <span className="text-sm text-gray-700">{time}</span>
-                    </label>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Orders Section */}
+          {/* Orders */}
           <div className="md:col-span-3">
-            {/* Search Bar */}
+            {/* Search */}
             <div className="flex mb-4">
               <input
                 type="text"
                 placeholder="Search your orders here"
                 className="flex-1 shadow bg-white rounded-l px-3 py-2 focus:outline-none"
               />
-              <button className="bg-yellow-400 text-white px-4 rounded-r flex items-center">
-                <Search size={18} className="mr-1" /> Search Orders
+              <button
+                aria-label="Search orders"
+                className="bg-yellow-400 text-white px-4 rounded-r flex items-center"
+              >
+                <Search size={18} className="mr-1" /> Search
               </button>
             </div>
 
@@ -121,16 +111,16 @@ const MyOrders = () => {
               {orders.map((order, index) => (
                 <div
                   key={index}
-                  className="bg-white shadow rounded-lg p-4 flex gap-4"
+                  className="bg-white shadow rounded-xl p-4 flex gap-4 hover:shadow-lg transition"
                 >
                   {/* Product Image */}
                   <img
                     src={order.image}
                     alt={order.product}
-                    className="w-24 h-24 object-cover rounded"
+                    className="w-24 h-24 object-cover rounded-lg"
                   />
 
-                  {/* Product Info */}
+                  {/* Info */}
                   <div className="flex-1">
                     <h2 className="font-semibold text-gray-800">
                       {order.product}
@@ -141,14 +131,14 @@ const MyOrders = () => {
                     <p className="font-medium mt-1">
                       ₹{order.price}{" "}
                       {order.coins && (
-                        <span className="text-yellow-600">
-                          + ⚡ {order.coins}
-                        </span>
+                        <span className="text-yellow-600">+ ⚡ {order.coins}</span>
                       )}
                     </p>
-                    <p className="text-red-500 text-sm font-semibold">
+
+                    {/* Status */}
+                    <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium bg-green-100 text-green-700 rounded-full">
                       {order.status}
-                    </p>
+                    </span>
 
                     {/* Refund Details */}
                     <div className="mt-2 space-y-2">
@@ -157,10 +147,7 @@ const MyOrders = () => {
                           key={i}
                           className="text-sm text-gray-600 border-l-4 border-green-500 pl-2"
                         >
-                          <span className="text-green-600 font-medium">
-                            Refund Completed
-                          </span>{" "}
-                          - {detail}
+                          {detail}
                         </p>
                       ))}
                     </div>
@@ -174,93 +161,52 @@ const MyOrders = () => {
         {/* Mobile Filters Button */}
         <div className="md:hidden w-full text-center">
           <button
-            className="md:hidden w-full fixed bottom-0 left-1/2 -translate-x-1/2 
-               bg-gradient-to-r from-[#2c85c5] to-[#f9ff8b] 
-               text-white font-medium px-6 py-3
-               shadow-lg flex items-center justify-center gap-2"
+            className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full
+              bg-gradient-to-r from-[#2c85c5] to-[#f9ff8b] 
+              text-white font-medium px-6 py-3
+              shadow-lg flex items-center justify-center gap-2"
             onClick={() => setShowMobileFilters(true)}
           >
             <SlidersHorizontal size={18} /> Filters
           </button>
         </div>
 
-
         {/* Mobile Filters Drawer */}
         {showMobileFilters && (
-          <div className="fixed inset-0 backdrop-blur-sm bg-white/30 flex justify-center items-end z-50">
-            <div className="bg-white w-full rounded-t-2xl p-5 max-h-[80vh] overflow-y-auto animate-slide-up">
+          <div
+            className="fixed inset-0 backdrop-blur-sm bg-black/30 flex justify-center items-end z-50"
+            onClick={() => setShowMobileFilters(false)}
+          >
+            <div
+              className="bg-white w-full rounded-t-2xl p-5 max-h-[80vh] overflow-y-auto animate-slide-up"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex justify-between items-center mb-4">
-                <h2 className="font-semibold text-lg text-gray-800">
-                  Filters
-                </h2>
+                <h2 className="font-semibold text-lg text-gray-800">Filters</h2>
                 <button
                   onClick={() => setShowMobileFilters(false)}
                   className="text-gray-600"
+                  aria-label="Close filters"
                 >
                   <X size={20} />
                 </button>
               </div>
-
-              {/* ORDER STATUS */}
-              <div className="mb-6">
-                <h3 className="font-medium text-gray-700 text-sm mb-3 uppercase tracking-wide">
-                  Order Status
-                </h3>
-                <div className="space-y-2">
-                  {["On the way", "Delivered", "Cancelled", "Returned"].map(
-                    (status) => (
-                      <label
-                        key={status}
-                        htmlFor={`m-${status}`}
-                        className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition"
-                      >
-                        <input
-                          type="checkbox"
-                          id={`m-${status}`}
-                          className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-                        />
-                        <span className="text-sm text-gray-700">{status}</span>
-                      </label>
-                    )
-                  )}
-                </div>
-              </div>
-
-              {/* ORDER TIME */}
-              <div>
-                <h3 className="font-medium text-gray-700 text-sm mb-3 uppercase tracking-wide">
-                  Order Time
-                </h3>
-                <div className="space-y-2">
-                  {[
-                    "Last 30 days",
-                    "2024",
-                    "2023",
-                    "2022",
-                    "2021",
-                    "Older",
-                  ].map((time) => (
-                    <label
-                      key={time}
-                      htmlFor={`m-${time}`}
-                      className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition"
-                    >
-                      <input
-                        type="checkbox"
-                        id={`m-${time}`}
-                        className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-                      />
-                      <span className="text-sm text-gray-700">{time}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
+              <FilterSection
+                title="Order Status"
+                options={["On the way", "Delivered", "Cancelled", "Returned"]}
+                prefix="m-"
+              />
+              <FilterSection
+                title="Order Time"
+                options={["Last 30 days", "2024", "2023", "2022", "2021", "Older"]}
+                prefix="m-"
+              />
             </div>
           </div>
         )}
       </div>
 
-      {/* Animation for smooth slide-up */}
+      {/* Slide animation */}
       <style>{`
         @keyframes slideUp {
           from { transform: translateY(100%); }

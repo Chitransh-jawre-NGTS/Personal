@@ -146,8 +146,8 @@ const AmazonStyleNavbar = () => {
 
 
 
-      <div className="md:hidden w-full">
-        <div className="flex items-center bg-gray-800  p-4 justify-between">
+      <div className="md:hidden w-full bg-gradient-to-b from-gray-900 to-gray-500">
+        <div className="flex items-center   p-4 justify-between">
           <Link to="/" className="flex items-center">
             <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
               WishCart
@@ -173,7 +173,7 @@ const AmazonStyleNavbar = () => {
           </div>
         </div>
         <div className="  " >
-          <div className="w-full bg-gray-800  shadow-t p-2 flex lg:hidden z-50">
+          <div className="w-full bg-gradient-to-b from-gray-600 to-white  p-2 flex lg:hidden z-50">
             <div className="relative w-full">
              <form action="" onSubmit={handleSearch}>
                <input
@@ -181,9 +181,9 @@ const AmazonStyleNavbar = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search products, brands, etc..."
-                className="w-full border border-gray-300 bg-white rounded-2xl px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full border border-gray-300 bg-white rounded-2xl px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-yellow-600"
               />
-              <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-purple-600" />
+              <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-yellow-600" />
              </form>
             </div>
           </div>
@@ -191,35 +191,36 @@ const AmazonStyleNavbar = () => {
 
 
         {/* Bottom Mobile Fixed Navbar */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-300 shadow-inner z-30">
-          <div className="flex justify-between items-center px-6 py-2 text-sm text-gray-700">
-            <Link to="/" className="flex flex-col text-white items-center hover:text-yellow-500">
-              <Home size={22} />
-              <span className="text-[11px] mt-1">Home</span>
-            </Link>
-            <Link to="/wishlist" className="flex flex-col text-white items-center hover:text-yellow-500">
-              <Heart size={22} />
-              <span className="text-[11px] mt-1">Wishlist</span>
-            </Link>
-            <Link to="/carts" className="relative text-white flex flex-col items-center hover:text-yellow-500">
-              <ShoppingCart size={22} />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-[10px] font-bold rounded-full px-[5px]">
-                  {cartCount}
-                </span>
-              )}
-              <span className="text-[11px] mt-1">Cart</span>
-            </Link>
-            <Link to="/orders" className="flex flex-col text-white items-center hover:text-yellow-500">
-              <PackageSearch size={22} />
-              <span className="text-[11px] mt-1">Orders</span>
-            </Link>
-            <Link to="/accounts" className="flex flex-col text-white items-center hover:text-yellow-500">
-              <User size={22} />
-              <span className="text-[11px] mt-1">Account</span>
-            </Link>
-          </div>
-        </div>
+     <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-inner z-30">
+  <div className="flex justify-between items-center px-6 py-2 text-sm text-gray-500">
+    <Link to="/" className="flex flex-col items-center hover:text-yellow-500">
+      <Home size={22}  />
+      <span className="text-[11px] mt-1">Home</span>
+    </Link>
+    <Link to="/wishlist" className="flex flex-col items-center hover:text-yellow-500">
+      <Heart size={22} />
+      <span className="text-[11px] mt-1">Wishlist</span>
+    </Link>
+    <Link to="/carts" className="relative flex flex-col items-center hover:text-yellow-500">
+      <ShoppingCart size={22} />
+      {cartCount > 0 && (
+        <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-[10px] font-bold rounded-full px-[5px]">
+          {cartCount}
+        </span>
+      )}
+      <span className="text-[11px] mt-1">Cart</span>
+    </Link>
+    <Link to="/orders" className="flex flex-col items-center hover:text-yellow-500">
+      <PackageSearch size={22} />
+      <span className="text-[11px] mt-1">Orders</span>
+    </Link>
+    <Link to="/accounts" className="flex flex-col items-center hover:text-yellow-500">
+      <User size={22} />
+      <span className="text-[11px] mt-1">Account</span>
+    </Link>
+  </div>
+</div>
+
       </div>
       {/* Bottom Navbar */}
       <div
