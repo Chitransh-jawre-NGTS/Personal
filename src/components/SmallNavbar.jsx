@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
   ShoppingCart,
@@ -13,6 +13,8 @@ import {
   LogOut,
   Home,
   PackageSearch,
+  Grid,
+  Video,
 } from "lucide-react";
 
 const SmallNavbar = ({
@@ -20,7 +22,8 @@ const SmallNavbar = ({
   brandName = "WishCart",
   showSearch = true,
   showCart = true,
-  showBottomNav = true, // <-- New prop
+  showBottomNav = true,
+  showTopNav = true,
   searchPlaceholder = "Search products or rentals...",
   menuLinks = [
     { label: "My Account", to: "/accounts", icon: <User size={18} /> },
@@ -30,6 +33,7 @@ const SmallNavbar = ({
   ],
 }) => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get current path
   const [cartCount, setCartCount] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -43,70 +47,88 @@ const SmallNavbar = ({
     }
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <>
-      {/* Navbar */}
-      <div className="bg-gradient-to-b from-gray-400 to-white shadow-md lg:hidden px-4 py-2 flex flex-col gap-2 sticky top-0 z-50">
-        {/* Top Row */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* Back Button */}
-            <button
-              onClick={() => navigate(-1)}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-            >
-              <ArrowLeft size={20} />
-            </button>
-
-            {/* Logo */}
-            <Link to="/" className="flex items-center group">
-              <span className="text-3xl font-extrabold text-gray-800 bg-clip-text group-hover:scale-105 transition-transform duration-300">
-                {logoText}
-              </span>
-            </Link>
-          </div>
-
-          {/* Right Side (Cart + Menu) */}
-          <div className="flex items-center gap-3">
-            {showCart && (
-              <Link
-                to="/carts"
+      {/* Top Navbar */}
+      {showTopNav && (
+        <div className="bg-gradient-to-b from-blue-900 to-white shadow-md lg:hidden px-4 py-2 flex flex-col gap-2 sticky top-0 z-50">
+          {/* Top Row */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {/* Back Button */}
+              <button
+                onClick={() => navigate(-1)}
                 className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
               >
-                <ShoppingCart size={20} />
-              </Link>
-            )}
-            <button
-              onClick={() => setIsMenuOpen(true)}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-            >
-              <MoreVertical size={20} />
-            </button>
-          </div>
-        </div>
+                <ArrowLeft size={20} />
+              </button>
 
-        {/* Search Bar (Optional) */}
-        {showSearch && (
-          <form
-            onSubmit={handleSearch}
-            className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2"
-          >
-            <Search size={18} className="text-gray-500" />
-            <input
-              type="text"
-              name="search"
-              placeholder={searchPlaceholder}
-              className="bg-transparent outline-none flex-1 text-sm"
-            />
-            <button
-              type="submit"
-              className="bg-yellow-500 text-white text-sm px-3 py-1 rounded-full hover:bg-blue-600"
+              {/* Logo */}
+              <Link to="/" className="flex items-center group">
+                <span className="text-3xl font-extrabold text-gray-800 bg-clip-text group-hover:scale-105 transition-transform duration-300">
+                  {logoText}
+                </span>
+              </Link>
+            </div>
+
+            {/* Right Side (Cart + Wishlist + Menu) */}
+            <div className="flex items-center gap-3">
+              {showCart && (
+                <Link
+                  to="/carts"
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 relative"
+                >
+                  <ShoppingCart size={20} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 text-[10px] bg-red-500 text-white w-4 h-4 flex items-center justify-center rounded-full">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
+              )}
+
+              {/* Wishlist Icon */}
+              <Link
+                to="/wishlist"
+                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <Heart size={20} />
+              </Link>
+
+              <button
+                onClick={() => setIsMenuOpen(true)}
+                className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <MoreVertical size={20} />
+              </button>
+            </div>
+          </div>
+
+          {/* Search Bar */}
+          {showSearch && (
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2"
             >
-              Go
-            </button>
-          </form>
-        )}
-      </div>
+              <Search size={18} className="text-gray-500" />
+              <input
+                type="text"
+                name="search"
+                placeholder={searchPlaceholder}
+                className="bg-transparent outline-none flex-1 text-sm"
+              />
+              <button
+                type="submit"
+                className="bg-yellow-500 text-white text-sm px-3 py-1 rounded-full hover:bg-blue-600"
+              >
+                Go
+              </button>
+            </form>
+          )}
+        </div>
+      )}
 
       {/* Side Menu */}
       <div
@@ -139,7 +161,7 @@ const SmallNavbar = ({
               </Link>
             ))}
 
-            {/* Logout is always present */}
+            {/* Logout */}
             <button
               onClick={() => {
                 setIsMenuOpen(false);
@@ -161,32 +183,56 @@ const SmallNavbar = ({
         />
       )}
 
-      {/* Bottom Navbar (Optional) */}
+      {/* Bottom Navbar */}
       {showBottomNav && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 shadow-inner z-30">
           <div className="flex justify-between items-center px-6 py-2 text-sm text-gray-500">
-            <Link to="/" className="flex flex-col items-center hover:text-yellow-500">
+            <Link
+              to="/"
+              className={`flex flex-col items-center transition-all ${
+                isActive("/") ? "text-yellow-500 scale-110" : "hover:text-yellow-500"
+              }`}
+            >
               <Home size={22} />
               <span className="text-[11px] mt-1">Home</span>
             </Link>
-            <Link to="/wishlist" className="flex flex-col items-center hover:text-yellow-500">
-              <Heart size={22} />
-              <span className="text-[11px] mt-1">Wishlist</span>
+
+            <Link
+              to="/fashion"
+              className={`flex flex-col items-center transition-all ${
+                isActive("/fashion") ? "text-yellow-500 scale-110" : "hover:text-yellow-500"
+              }`}
+            >
+              <Grid size={22} />
+              <span className="text-[11px] mt-1">Category</span>
             </Link>
-            <Link to="/carts" className="relative flex flex-col items-center hover:text-yellow-500">
-              <ShoppingCart size={22} />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-[10px] font-bold rounded-full px-[5px]">
-                  {cartCount}
-                </span>
-              )}
-              <span className="text-[11px] mt-1">Cart</span>
+
+            <Link
+              to="/reels"
+              className={`flex flex-col items-center transition-all ${
+                isActive("/reels") ? "text-yellow-500 scale-110" : "hover:text-yellow-500"
+              }`}
+            >
+              <Video size={22} />
+              <span className="text-[11px] mt-1">Videos</span>
             </Link>
-            <Link to="/orders" className="flex flex-col items-center hover:text-yellow-500">
+
+            <Link
+              to="/orders"
+              className={`flex flex-col items-center transition-all ${
+                isActive("/orders") ? "text-yellow-500 scale-110" : "hover:text-yellow-500"
+              }`}
+            >
               <PackageSearch size={22} />
               <span className="text-[11px] mt-1">Orders</span>
             </Link>
-            <Link to="/accounts" className="flex flex-col items-center hover:text-yellow-500">
+
+            <Link
+              to="/accounts"
+              className={`flex flex-col items-center transition-all ${
+                isActive("/accounts") ? "text-yellow-500 scale-110" : "hover:text-yellow-500"
+              }`}
+            >
               <User size={22} />
               <span className="text-[11px] mt-1">Account</span>
             </Link>

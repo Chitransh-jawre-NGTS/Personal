@@ -61,7 +61,7 @@ const MyOrders = () => {
 
   return (
     <>
-      <SmallNavbar logoText="My Orders" showSearch={false} showBottomNav={false} />
+      <SmallNavbar logoText="My Orders" showSearch={false} />
 
       <div className="bg-gray-100 lg:mt-26 min-h-screen md:p-6 pb-20">
         {/* Breadcrumb */}
