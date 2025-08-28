@@ -1,205 +1,143 @@
 import React, { useState } from "react";
 import {
   User,
-  ShoppingBag,
-  MapPin,
-  LogOut,
+  Package,
+  CreditCard,
+  Heart,
   Settings,
+  LogOut,
+  Gift,
+  Star,
+  Bell,
+  Tag,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import SmallNavbar from "../../components/SmallNavbar";
+import AmazonStyleNavbar from "../../components/Navbar";
 
-const tabs = [
-  { id: "profile", icon: <User size={20} />, label: "Profile" },
-  { id: "orders", icon: <ShoppingBag size={20} />, label: "Orders" },
-  { id: "address", icon: <MapPin size={20} />, label: "Addresses" },
-  { id: "settings", icon: <Settings size={20} />, label: "Settings" },
-];
+const AccountDashboard = () => {
+  const [activePage, setActivePage] = useState("wishlist");
 
-const AccountPage = () => {
-  const [activeTab, setActiveTab] = useState("profile");
+  const menuItems = [
+    { label: "My Orders", key: "orders", icon: <Package size={18} /> },
+    {
+      label: "Profile Information",
+      key: "profile",
+      icon: <User size={18} />,
+    },
+    { label: "Manage Addresses", key: "addresses", icon: <Settings size={18} /> },
+    { label: "PAN Card Information", key: "pan", icon: <Settings size={18} /> },
+    { label: "Gift Cards", key: "giftcards", icon: <Gift size={18} /> },
+    { label: "Saved UPI", key: "upi", icon: <CreditCard size={18} /> },
+    { label: "Saved Cards", key: "cards", icon: <CreditCard size={18} /> },
+    { label: "My Coupons", key: "coupons", icon: <Tag size={18} /> },
+    { label: "My Reviews & Ratings", key: "reviews", icon: <Star size={18} /> },
+    { label: "All Notifications", key: "notifications", icon: <Bell size={18} /> },
+    { label: "My Wishlist", key: "wishlist", icon: <Heart size={18} /> },
+  ];
 
+  // Pages content simulation
   const renderContent = () => {
-    switch (activeTab) {
-      case "profile":
-        return (
-         <>
-        
-          <div>
-            <h2 className="text-2xl font-semibold mb-6">Welcome, Chitransh 👋</h2>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <label className="text-gray-600">Full Name</label>
-                <input
-                  type="text"
-                  defaultValue="Chitransh Jawre"
-                  className="w-full mt-1 p-2 border rounded-md focus:outline-blue-400"
-                />
-              </div>
-              <div>
-                <label className="text-gray-600">Email</label>
-                <input
-                  type="email"
-                  defaultValue="chitransh@email.com"
-                  className="w-full mt-1 p-2 border rounded-md focus:outline-blue-400"
-                />
-              </div>
-              <div>
-                <label className="text-gray-600">Phone</label>
-                <input
-                  type="tel"
-                  defaultValue="+91 1234567890"
-                  className="w-full mt-1 p-2 border rounded-md focus:outline-blue-400"
-                />
-              </div>
-              <div>
-                <label className="text-gray-600">Bio</label>
-                <textarea
-                  defaultValue="React Developer with a passion for UI."
-                  className="w-full mt-1 p-2 border rounded-md focus:outline-blue-400"
-                />
-              </div>
-            </div>
-          </div>
-         </>
-        );
-
+    switch (activePage) {
       case "orders":
+        return <h2 className="text-lg font-semibold">My Orders</h2>;
+      case "profile":
+        return <h2 className="text-lg font-semibold">Profile Information</h2>;
+      case "addresses":
+        return <h2 className="text-lg font-semibold">Manage Addresses</h2>;
+      case "pan":
+        return <h2 className="text-lg font-semibold">PAN Card Information</h2>;
+      case "giftcards":
+        return <h2 className="text-lg font-semibold">Gift Cards</h2>;
+      case "upi":
+        return <h2 className="text-lg font-semibold">Saved UPI</h2>;
+      case "cards":
+        return <h2 className="text-lg font-semibold">Saved Cards</h2>;
+      case "coupons":
+        return <h2 className="text-lg font-semibold">My Coupons</h2>;
+      case "reviews":
+        return <h2 className="text-lg font-semibold">My Reviews & Ratings</h2>;
+      case "notifications":
+        return <h2 className="text-lg font-semibold">All Notifications</h2>;
+      case "wishlist":
         return (
           <div>
-            <h2 className="text-2xl font-semibold mb-6">Your Recent Orders</h2>
+            <h2 className="text-lg font-semibold mb-4">My Wishlist</h2>
             <div className="space-y-4">
-              {[1, 2].map((orderId) => (
-                <motion.div
-                  key={orderId}
-                  whileHover={{ scale: 1.02 }}
-                  className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm transition"
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-semibold text-lg">Order #{1000 + orderId}</h3>
-                    <span className="text-sm text-green-600">Delivered</span>
-                  </div>
-                  <p className="text-sm text-gray-500">Placed on July 10, 2025</p>
-                  <div className="mt-2 text-sm">
-                    <p>🛒 2x Nike Shoes</p>
-                    <p>💰 ₹3,999</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case "address":
-        return (
-          <div>
-            <h2 className="text-2xl font-semibold mb-6">Saved Addresses</h2>
-            <div className="space-y-4">
-              {["Home", "Office"].map((label, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.01 }}
-                  className="p-4 border rounded-lg bg-blue-50 transition"
-                >
-                  <h4 className="font-semibold">{label}</h4>
-                  <p className="text-sm text-gray-600">
-                    {label === "Home"
-                      ? "123, Malviya Nagar, Indore, MP"
-                      : "42, Tech Park, Indore"}
-                  </p>
-                  <div className="mt-2 flex gap-3">
-                    <button className="text-sm text-blue-500 hover:underline">Edit</button>
-                    <button className="text-sm text-red-500 hover:underline">Delete</button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case "settings":
-        return (
-          <div>
-            <h2 className="text-2xl font-semibold mb-6">Settings</h2>
-            <div className="space-y-4">
-              {["Email Notifications", "Two-Factor Authentication", "Dark Mode"].map((label, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <span>{label}</span>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" className="sr-only peer" defaultChecked={i === 0} />
-                    <div className="w-11 h-6 bg-gray-300 peer-focus:ring-2 peer-checked:bg-blue-500 rounded-full relative transition-all duration-300">
-                      <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white border rounded-full transition-transform peer-checked:translate-x-5" />
-                    </div>
-                  </label>
+              <div className="flex items-center gap-4 border p-3 rounded-lg shadow-sm bg-white">
+                <img
+                  src="https://via.placeholder.com/80"
+                  alt="product"
+                  className="w-20 h-20 rounded"
+                />
+                <div>
+                  <p className="font-medium">Samsung Galaxy F16 5G</p>
+                  <p className="text-green-600 font-semibold">₹12,999</p>
+                  <p className="text-sm line-through text-gray-400">₹17,499</p>
                 </div>
-              ))}
+              </div>
+              <div className="flex items-center gap-4 border p-3 rounded-lg shadow-sm bg-white">
+                <img
+                  src="https://via.placeholder.com/80"
+                  alt="product"
+                  className="w-20 h-20 rounded"
+                />
+                <div>
+                  <p className="font-medium">OTC Combo RM-1935 Roti Maker</p>
+                  <p className="text-green-600 font-semibold">₹1,498</p>
+                  <p className="text-sm line-through text-gray-400">₹2,099</p>
+                </div>
+              </div>
             </div>
           </div>
         );
-
       default:
-        return null;
+        return <h2 className="text-lg font-semibold">Select a section</h2>;
     }
   };
 
   return (
     <>
-     <SmallNavbar/>
-    <div className="bg-gradient-to-br mt-[100px] lg:p-10">
-      <div className="mx-auto rounded-xl shadow-lg flex flex-col md:flex-row bg-white overflow-hidden">
-        {/* Sidebar */}
-        <div className="w-full md:w-1/4 bg-gradient-to-b from-white to-blue-50 border-r border-blue-200 p-6 space-y-6">
-          <div className="text-center">
-            <div className="w-44 h-44 mx-auto rounded-full overflow-hidden border-4 border-blue-200 shadow-lg">
-              <img
-                src="https://i.pravatar.cc/300"
-                alt="User Avatar"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <h3 className="mt-3 text-xl font-semibold">Chitransh Jawre</h3>
+    <AmazonStyleNavbar/>
+      <SmallNavbar showBottomNav={false} showSearch={false}/>
+    <div className="flex flex-col w-[90%] mx-auto lg:mt-30 md:flex-row h-screen bg-gray-100">
+      {/* Sidebar */}
+      <div className="w-full md:w-64 bg-white border-r p-5">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold">
+            CJ
           </div>
-          <div className="space-y-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition duration-300
-                  ${activeTab === tab.id
-                    ? "bg-blue-100 text-blue-700 font-semibold shadow"
-                    : "hover:bg-blue-50 text-gray-700"
-                  }`}
-              >
-                {tab.icon}
-                {tab.label}
-              </button>
-            ))}
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-100 transition">
-              <LogOut size={20} /> Logout
-            </button>
+          <div>
+            <p className="text-sm text-gray-600">Hello,</p>
+            <p className="font-semibold">Mr. Chitransh Jawre</p>
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className="w-full md:w-3/4 p-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="min-h-[300px]"
+        <nav className="space-y-2">
+          {menuItems.map((item) => (
+            <button
+              key={item.key}
+              onClick={() => setActivePage(item.key)}
+              className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left transition ${
+                activePage === item.key
+                  ? "bg-blue-100 text-blue-600 font-semibold"
+                  : "hover:bg-gray-100 text-gray-700"
+              }`}
             >
-              {renderContent()}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+              {item.icon} {item.label}
+            </button>
+          ))}
+
+          <button className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left text-red-600 hover:bg-red-100 mt-4">
+            <LogOut size={18} /> Logout
+          </button>
+        </nav>
       </div>
+
+      {/* Content Area */}
+      <div className="flex-1 p-6 overflow-y-auto">{renderContent()}</div>
     </div>
-     </>
+    </>
   );
 };
 
-export default AccountPage;
+export default AccountDashboard;

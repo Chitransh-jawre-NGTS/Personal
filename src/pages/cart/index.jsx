@@ -375,8 +375,6 @@
 // };
 
 // export default Cart;
-
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SmallNavbar from "../../components/SmallNavbar";
@@ -390,6 +388,7 @@ const CartPage = () => {
       image: "https://picsum.photos/200?random=1",
       status: "Out Of Stock",
       price: 1500,
+      qty: 1,
     },
     {
       id: 2,
@@ -398,6 +397,7 @@ const CartPage = () => {
       image: "https://picsum.photos/200?random=2",
       status: "Out Of Stock",
       price: 60000,
+      qty: 1,
     },
     {
       id: 3,
@@ -406,108 +406,196 @@ const CartPage = () => {
       image: "https://picsum.photos/200?random=3",
       status: "In Stock",
       price: 80000,
+      qty: 1,
     },
   ]);
 
-  const price = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const handleQuantityChange = (id, action) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              qty:
+                action === "increase"
+                  ? item.qty + 1
+                  : item.qty > 1
+                  ? item.qty - 1
+                  : 1,
+            }
+          : item
+      )
+    );
+  };
+
+  const handleRemove = (id) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const price = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
   const discount = 5000;
-  const total = price - discount;
+  const delivery = price > 1000 ? 0 : 99;
+  const total = price - discount + delivery + 165;
 
   return (
     <>
-    <SmallNavbar/>
-    <div className="bg-gray-100 min-h-screen py-6 lg:mt-26 px-4 md:px-10 relative">
-      <div className="grid md:grid-cols-3 gap-6 pb-24 md:pb-6">
-        {/* Left Section - Cart Items */}
-        <div className="md:col-span-2 bg-white shadow rounded-lg">
-          {/* Header Tabs */}
-          <div className="flex border-b">
-            <button className="flex-1 text-center py-3 font-semibold text-gray-600 border-b-2 border-yellow-600">
-              Wishkart ({cartItems.length})
-            </button>
-          </div>
+      <SmallNavbar logoText="My Cart" showSearch={false} showBottomNav={false} />
+      <div className="bg-gray-100 min-h-screen md:py-6 lg:mt-26  md:px-10 relative">
+        <div className="grid md:grid-cols-3 gap-6 pb-24 md:pb-6">
+          {/* Left Section - Cart Items */}
+          <div className="md:col-span-2 bg-white shadow rounded-lg">
+            {/* Header Tabs */}
+            <div className="flex ">
+              <button className="flex-1  py-3 font-semibold text-gray-600 border-b-2 border-yellow-600">
+                Wishkart ({cartItems.length})
+              </button>
+            </div>
 
-          {/* Address Section */}
-          <div className="p-4 border-b">
-            <p className="font-semibold mb-2">From Saved Addresses</p>
-            <button className="border px-4 py-1 rounded hover:bg-gray-100 text-sm">
-              Enter Delivery Pincode
-            </button>
-          </div>
+            {/* Cart Items */}
+            <div>
+              {cartItems.length > 0 ? (
+                cartItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex flex-col sm:flex-row gap-4 p-4 border-b relative"
+                  >
+                    {/* Stock Badge */}
+                    {item.status === "Out Of Stock" && (
+                      <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                        Out of Stock
+                      </span>
+                    )}
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-28 h-28 object-cover rounded self-center"
+                    />
+                    <div className="flex-1 text-sm sm:text-base">
+                      <h2 className="font-semibold text-gray-800">{item.name}</h2>
+                      <p className="text-gray-500">{item.size}</p>
+                      <p className="text-yellow-700 font-bold mt-1">
+                        ₹{(item.price * item.qty).toLocaleString()}
+                      </p>
 
-          {/* Cart Items */}
-          <div>
-            {cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex gap-4 p-4 border-b items-start"
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded"
-                />
-                <div className="flex-1 text-sm sm:text-base">
-                  <h2 className="font-semibold text-gray-800">{item.name}</h2>
-                  <p className="text-gray-500">{item.size}</p>
-                  <p className="text-red-500 font-medium mt-1">{item.status}</p>
-                  <div className="flex gap-6 mt-3 text-xs sm:text-sm font-semibold">
-                    <button className="hover:text-blue-600">SAVE FOR LATER</button>
-                    <button className="hover:text-blue-600">REMOVE</button>
+                      {/* Quantity Control */}
+                      <div className="flex items-center gap-3 mt-2">
+                        <button
+                          onClick={() => handleQuantityChange(item.id, "decrease")}
+                          className="px-2 py-1 border rounded disabled:opacity-50"
+                          disabled={item.qty === 1 || item.status !== "In Stock"}
+                        >
+                          -
+                        </button>
+                        <span>{item.qty}</span>
+                        <button
+                          onClick={() => handleQuantityChange(item.id, "increase")}
+                          className="px-2 py-1 border rounded"
+                          disabled={item.status !== "In Stock"}
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex gap-6 mt-3 text-xs sm:text-sm font-semibold">
+                        <button className="hover:text-blue-600">SAVE FOR LATER</button>
+                        <button
+                          onClick={() => handleRemove(item.id)}
+                          className="hover:text-red-600"
+                        >
+                          REMOVE
+                        </button>
+                      </div>
+                    </div>
                   </div>
+                ))
+              ) : (
+                <div className="p-6 text-center">
+                  <img
+                    src="https://illustrations.popsy.co/gray/cart.svg"
+                    alt="Empty cart"
+                    className="w-32 h-32 mx-auto mb-4"
+                  />
+                  <h2 className="text-lg font-semibold">Your cart is empty</h2>
+                  <p className="text-gray-500 mb-4">
+                    Add items to your cart to see them here.
+                  </p>
+                  <Link
+                    to="/"
+                    className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+                  >
+                    Continue Shopping
+                  </Link>
                 </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Section - Price Details */}
+          {cartItems.length > 0 && (
+            <div className="hidden md:block bg-white shadow rounded-lg p-4 h-fit">
+              <h2 className="font-semibold text-gray-700 border-b pb-2">
+                PRICE DETAILS
+              </h2>
+              <div className="flex justify-between py-2 text-sm">
+                <span>Price ({cartItems.length} items)</span>
+                <span>₹{price.toLocaleString()}</span>
               </div>
-            ))}
-          </div>
+              <div className="flex justify-between py-2 text-sm">
+                <span>Discount</span>
+                <span className="text-green-600">- ₹{discount}</span>
+              </div>
+              <div className="flex justify-between py-2 text-sm">
+                <span>Delivery Charges</span>
+                <span className={delivery === 0 ? "text-green-600" : ""}>
+                  {delivery === 0 ? "Free" : `₹${delivery}`}
+                </span>
+              </div>
+              <div className="flex justify-between py-2 text-sm">
+                <span>Protect Promise Fee</span>
+                <span>₹165</span>
+              </div>
+              <hr className="my-2" />
+              <div className="flex justify-between font-semibold text-lg">
+                <span>Total Amount</span>
+                <span>₹{total.toLocaleString()}</span>
+              </div>
+              <p className="text-green-600 text-sm mt-1">
+                You will save ₹{discount} on this order
+              </p>
+              <button
+                disabled={cartItems.every((i) => i.status !== "In Stock")}
+                className="w-full bg-yellow-500 text-white py-3 rounded mt-4 font-semibold hover:bg-orange-600 transition disabled:opacity-50"
+              >
+                PLACE ORDER
+              </button>
+              <div className="text-xs text-gray-500 mt-3 flex items-center gap-2">
+                🔒 Safe and Secure Payments. Easy returns. 100% Authentic products.
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Right Section - Price Details (Desktop only) */}
-        <div className="hidden md:block bg-white shadow rounded-lg p-4 h-fit">
-          <h2 className="font-semibold text-gray-700 border-b pb-2">
-            PRICE DETAILS
-          </h2>
-          <div className="flex justify-between py-2 text-sm">
-            <span>Price ({cartItems.length} items)</span>
-            <span>₹{price.toLocaleString()}</span>
+        {/* Fixed Place Order (Mobile only) */}
+        {cartItems.length > 0 && (
+          <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white shadow-lg border-t p-3">
+            <div className="flex justify-between items-center max-w-2xl mx-auto">
+              <div>
+                <p className="text-gray-700 font-semibold text-sm">
+                  Total: ₹{total.toLocaleString()}
+                </p>
+                <p className="text-green-600 text-xs">You save ₹{discount}</p>
+              </div>
+              <button
+                disabled={cartItems.every((i) => i.status !== "In Stock")}
+                className="bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-lg font-semibold text-sm transition disabled:opacity-50"
+              >
+                PLACE ORDER
+              </button>
+            </div>
           </div>
-          <div className="flex justify-between py-2 text-sm">
-            <span>Discount</span>
-            <span className="text-green-600">- ₹{discount}</span>
-          </div>
-          <div className="flex justify-between py-2 text-sm">
-            <span>Protect Promise Fee</span>
-            <span>₹165</span>
-          </div>
-          <hr className="my-2" />
-          <div className="flex justify-between font-semibold text-lg">
-            <span>Total Amount</span>
-            <span>₹{(total + 165).toLocaleString()}</span>
-          </div>
-          <p className="text-green-600 text-sm mt-1">
-            You will save ₹{discount} on this order
-          </p>
-          <button className="w-full bg-yellow-500 text-white py-3 rounded mt-4 font-semibold hover:bg-orange-600 transition">
-            PLACE ORDER
-          </button>
-          <div className="text-xs text-gray-500 mt-3 flex items-center gap-2">
-            🔒 Safe and Secure Payments. Easy returns. 100% Authentic products.
-          </div>
-        </div>
+        )}
       </div>
-
-      {/* Fixed Place Order (Mobile only) */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white shadow-lg border-t p-3">
-        <div className="flex justify-between items-center max-w-2xl mx-auto">
-          <div>
-            <p className="text-gray-700 font-semibold text-sm">Total: ₹{(total + 165).toLocaleString()}</p>
-            <p className="text-green-600 text-xs">You save ₹{discount}</p>
-          </div>
-          <button className="bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-lg font-semibold text-sm transition">
-            PLACE ORDER
-          </button>
-        </div>
-      </div>
-    </div>
     </>
   );
 };

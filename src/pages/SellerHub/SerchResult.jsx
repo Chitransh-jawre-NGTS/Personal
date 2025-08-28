@@ -268,6 +268,7 @@ export default function SearchResults() {
                     <p className="text-xs sm:text-sm text-gray-600">
                       ⭐ {product.rating} / 5
                     </p>
+                    <button className="px-2 py-2 w-full rounded m-2 text-center border border-blue-400 text-blue-400 hover:bg-yellow-500">Add to cart</button>
                   </div>
                 </Link>
               ))
