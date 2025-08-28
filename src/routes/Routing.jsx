@@ -121,6 +121,7 @@ import ProductDetailPage from '../pages/SellerHub/productdetails/index.jsx';
 import Dashboard from '../pages/dashboard/index.jsx';
 import FashionCategoryPage from '../pages/FashionCatagory/index.jsx';
 import ReelsPage from '../pages/Reels/index.jsx';
+import PaymentPage from '../pages/Payment/index.jsx';
 
 const Routing = () => {
   return (
@@ -150,6 +151,7 @@ const Routing = () => {
          <Route path="/dashboard" element={<Dashboard/>} />
          <Route path="/fashion" element={<FashionCategoryPage/>} />
          <Route path="/reels" element={<ReelsPage/>} />
+         <Route path="/payment" element={<PaymentPage/>} />
       </Routes>
       {/* <Footer /> */}
     </Router>

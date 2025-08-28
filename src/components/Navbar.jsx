@@ -149,7 +149,7 @@ const AmazonStyleNavbar = () => {
 
 
 
-      <div className="md:hidden w-full bg-gradient-to-b from-gray-900 to-gray-500">
+      <div className="md:hidden w-full bg-gradient-to-b from-yellow-900 to-gray-500">
         <div className="flex items-center   p-4 justify-between">
           <Link to="/" className="flex items-center">
             <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
@@ -176,7 +176,7 @@ const AmazonStyleNavbar = () => {
           </div>
         </div>
         <div className=" flex  " >
-          <div className="w-full flex bg-gradient-to-b from-gray-600 to-white  p-2  lg:hidden z-50">
+          <div className="w-full flex bg-gradient-to-b from-blue-00 to-yellow-50  p-2  lg:hidden z-50">
             <div className="relative w-full">
              <form action="" onSubmit={handleSearch}>
                <input

@@ -250,6 +250,7 @@ export default function SearchResults() {
                   to={`/productdeatilspage?id=${product.id}`}
                   key={product.id}
                 >
+                  
                   <div className="bg-white lg:p-3 hover:shadow-xl transition">
                     <img
                       src={product.image}
