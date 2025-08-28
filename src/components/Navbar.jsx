@@ -10,6 +10,9 @@ import {
   PackageSearch,
   Home,
   Heart,
+  Grid,
+  VideoIcon,
+  ShoppingCartIcon,
 } from "lucide-react";
 import { FiSearch } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
@@ -172,8 +175,8 @@ const AmazonStyleNavbar = () => {
             </Link>
           </div>
         </div>
-        <div className="  " >
-          <div className="w-full bg-gradient-to-b from-gray-600 to-white  p-2 flex lg:hidden z-50">
+        <div className=" flex  " >
+          <div className="w-full flex bg-gradient-to-b from-gray-600 to-white  p-2  lg:hidden z-50">
             <div className="relative w-full">
              <form action="" onSubmit={handleSearch}>
                <input
@@ -185,7 +188,10 @@ const AmazonStyleNavbar = () => {
               />
               <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer hover:text-yellow-600" />
              </form>
+             
             </div>
+            <Link to={"/carts"}>
+             <ShoppingCartIcon size={24}  /> </Link>
           </div>
         </div>
 
@@ -197,18 +203,18 @@ const AmazonStyleNavbar = () => {
       <Home size={22}  />
       <span className="text-[11px] mt-1">Home</span>
     </Link>
-    <Link to="/wishlist" className="flex flex-col items-center hover:text-yellow-500">
-      <Heart size={22} />
-      <span className="text-[11px] mt-1">Wishlist</span>
+    <Link to="/fashion" className="flex flex-col items-center hover:text-yellow-500">
+      <Grid size={22} />
+      <span className="text-[11px] mt-1">Catagory</span>
     </Link>
-    <Link to="/carts" className="relative flex flex-col items-center hover:text-yellow-500">
-      <ShoppingCart size={22} />
-      {cartCount > 0 && (
+    <Link to="/reels" className="relative flex flex-col items-center hover:text-yellow-500">
+      <VideoIcon size={22} />
+      {/* {cartCount > 0 && (
         <span className="absolute -top-1 -right-1 bg-yellow-400 text-black text-[10px] font-bold rounded-full px-[5px]">
           {cartCount}
         </span>
-      )}
-      <span className="text-[11px] mt-1">Cart</span>
+      )} */}
+      <span className="text-[11px] mt-1">Vedios</span>
     </Link>
     <Link to="/orders" className="flex flex-col items-center hover:text-yellow-500">
       <PackageSearch size={22} />

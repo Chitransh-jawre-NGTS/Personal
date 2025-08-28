@@ -119,6 +119,8 @@ import Checkout from '../pages/SellerHub/Checkout';
 import Signup from '../pages/signup/index.jsx';
 import ProductDetailPage from '../pages/SellerHub/productdetails/index.jsx';
 import Dashboard from '../pages/dashboard/index.jsx';
+import FashionCategoryPage from '../pages/FashionCatagory/index.jsx';
+import ReelsPage from '../pages/Reels/index.jsx';
 
 const Routing = () => {
   return (
@@ -146,6 +148,8 @@ const Routing = () => {
         <Route path="/signup" element={<Signup/>} />
          <Route path="/productdeatilspage" element={<ProductDetailPage/>} />
          <Route path="/dashboard" element={<Dashboard/>} />
+         <Route path="/fashion" element={<FashionCategoryPage/>} />
+         <Route path="/reels" element={<ReelsPage/>} />
       </Routes>
       {/* <Footer /> */}
     </Router>
