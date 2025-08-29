@@ -71,7 +71,7 @@ const FashionCategoryPage = () => {
 
   return (
     <>
-    <SmallNavbar/>
+    <SmallNavbar showSearch={false}/>
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Sidebar */}
       <div className="w-30 bg-white shadow-md border-r border-gray-200 p-4 flex flex-col gap-4">
@@ -97,14 +97,14 @@ const FashionCategoryPage = () => {
       {/* Products */}
       <div
         ref={rightSideRef}
-        className="w-2/3 p-4 overflow-y-auto"
+        className="w-2/3 p-4 overflow-y-auto mb-10"
       >
         {categories.map((cat) => (
           <div
             key={cat}
             ref={(el) => (categoryRefs.current[cat] = el)}
             data-category={cat}
-            className="mb-20"
+            className=""
           >
             <h2 className="text-xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">{cat}</h2>
             <div className="grid grid-cols-2 mb-4  gap-2">

@@ -55,15 +55,15 @@ export default function SearchResults() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-yellow-400">
-        <h1 className="text-5xl font-extrabold text-white drop-shadow-lg animate-pulse">
-          WishCart
-        </h1>
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-yellow-400">
+      {/* Spinner */}
+      <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+    </div>
+  );
+}
+
 
   // filter
   let filteredProducts = productsData.filter((product) => {

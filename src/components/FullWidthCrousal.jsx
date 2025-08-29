@@ -103,9 +103,12 @@ export default function ProductsPage() {
 
   return (
     <>
-      <div className="flex gap-6 lg:mt-32 p-4 flex-col lg:flex-row">
+     <h1 className=" max-text-4xl font-bold py-5 px-8">Here our some best products</h1>
+      <div className="flex gap-6  p-4 flex-col lg:flex-row">
+        
         {/* Sidebar */}
         <div className="hidden lg:block w-[20%] bg-white shadow rounded-lg p-4">
+          
           <h3 className="font-bold text-lg mb-4">Filters</h3>
 
           {/* Category Filter */}
@@ -182,7 +185,7 @@ export default function ProductsPage() {
 
         {/* Products Grid */}
         <div className="w-full px-2">
-          <h1 className=" text-2xl font-bold py-4">Here our some best products</h1>
+         
           <h2 className="text-lg font-semibold mb-4">
             {filteredProducts.length} Products Found
           </h2>

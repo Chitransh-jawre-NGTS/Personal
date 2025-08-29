@@ -35,7 +35,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className="relative w-full h-[180px] lg:mt-30 sm:h-[150px] md:h-[200px] lg:h-[450px] overflow-hidden">
+    <div className="relative w-full h-[180px] mt-30 sm:h-[150px] md:h-[200px] lg:h-[450px] overflow-hidden">
       {/* Custom Arrows */}
       <div
         onClick={goToPrev}

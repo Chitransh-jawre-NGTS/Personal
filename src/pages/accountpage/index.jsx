@@ -18,11 +18,11 @@ import AmazonStyleNavbar from "../../components/Navbar";
 import MyOrders from "../Orders";
 
 const AccountDashboard = () => {
-  const [activePage, setActivePage] = useState("wishlist");
+  const [activePage, setActivePage] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const menuItems = [
-    { label: "My Orders", key: "orders", icon: <Package size={18} /> },
+    // { label: "My Orders", key: "orders", icon: <Package size={18} /> },
     { label: "Profile Information", key: "profile", icon: <User size={18} /> },
     { label: "Manage Addresses", key: "addresses", icon: <Settings size={18} /> },
     { label: "PAN Card Information", key: "pan", icon: <Settings size={18} /> },
@@ -37,8 +37,6 @@ const AccountDashboard = () => {
 
   const renderContent = () => {
     switch (activePage) {
-      case "orders":
-        return <MyOrders/>
       case "profile":
         return <h2 className="text-xl font-semibold">Profile Information</h2>;
       case "addresses":
@@ -53,10 +51,7 @@ const AccountDashboard = () => {
         return <h2 className="text-xl font-semibold">Saved Cards</h2>;
       case "coupons":
         return <h2 className="text-xl font-semibold">My Coupons</h2>;
-      case "reviews":
-        return <h2 className="text-xl font-semibold">My Reviews & Ratings</h2>;
-      case "notifications":
-        return <h2 className="text-xl font-semibold">All Notifications</h2>;
+     
       case "wishlist":
         return (
           <div>
@@ -152,7 +147,7 @@ const AccountDashboard = () => {
 
             <button
               onClick={() => setSidebarOpen(false)} // Close sidebar on logout click too
-              className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-left text-red-600 hover:bg-red-100 mt-4"
+              className="flex items-center gap-3 w-full px-3 py-2 rounded-lg bg-red-50 text-left text-red-600 hover:bg-red-100 mt-4"
             >
               <LogOut size={18} /> Logout
             </button>

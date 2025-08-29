@@ -53,7 +53,7 @@ const SmallNavbar = ({
     <>
       {/* Top Navbar */}
       {showTopNav && (
-        <div className="bg-gradient-to-b from-blue-900 to-white shadow-md lg:hidden px-4 py-2 flex flex-col gap-2 sticky top-0 z-50">
+        <div className="bg-gradient-to-b from-yellow-800  to-yellow-600 shadow-md lg:hidden px-4 py-2 flex flex-col gap-2 sticky top-0 z-50">
           {/* Top Row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -67,7 +67,7 @@ const SmallNavbar = ({
 
               {/* Logo */}
               <Link to="/" className="flex items-center group">
-                <span className="text-3xl font-extrabold text-gray-800 bg-clip-text group-hover:scale-105 transition-transform duration-300">
+                <span className="text-xl font-bold text-gray-800 bg-clip-text group-hover:scale-105 transition-transform duration-300">
                   {logoText}
                 </span>
               </Link>

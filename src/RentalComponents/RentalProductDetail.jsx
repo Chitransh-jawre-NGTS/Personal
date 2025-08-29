@@ -42,7 +42,7 @@ const RentalProductDetail = () => {
 
   return (
     <>
-    <AmazonStyleNavbar/>
+    <AmazonStyleNavbar showMobileBottom={false}/>
     <div className="max-w-[100vw] mt-[110px]">
       {/* Breadcrumb */}
      <div className="border-b border-gray-300 py-4 px-4 bg-white/70 backdrop-blur-md">
