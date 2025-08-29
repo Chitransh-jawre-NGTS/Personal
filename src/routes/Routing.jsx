@@ -123,6 +123,7 @@ import FashionCategoryPage from '../pages/FashionCatagory/index.jsx';
 import ReelsPage from '../pages/Reels/index.jsx';
 import PaymentPage from '../pages/Payment/index.jsx';
 import OrderDetails from '../pages/OrderDetails/index.jsx';
+import RentNow from '../RentalComponents/RentalCheakout';
 
 const Routing = () => {
   return (
@@ -139,7 +140,7 @@ const Routing = () => {
         <Route path="/accounts" element={<AccountPage />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/rental" element={<RentalHub />} />
-        <Route path="/rentalcheckout" element={<RentalCheckout />} />
+        <Route path="/rentalcheckout" element={<RentNow />} />
         <Route path="/carts" element={<Cart />} />
         <Route path="/wishlist" element={<Favourate />} />
         <Route path="/checkout" element={<Checkout />} />
