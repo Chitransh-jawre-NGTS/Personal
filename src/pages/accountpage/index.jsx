@@ -110,8 +110,7 @@ const AccountDashboard = () => {
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row w-[95%] mx-auto mt-4 md:mt-26 border border-gray-100 h-screen bg-gray-100">
-        {/* Sidebar */}
+      <div className="flex flex-col md:flex-row w-[95%] mx-auto mt-4 md:mt-26 border border-gray-100 h-screen lg:bg-gray-100">
         {/* Sidebar */}
         <div
           className={`fixed md:relative top-0 left-0 h-auto w-full lg:w-84 max-wfull bg-white border-r p-5 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
