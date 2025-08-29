@@ -1,199 +1,149 @@
 import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css"; // 👈 Required
+import AmazonStyleNavbar from "../components/Navbar"; 
+import SmallNavbar from "../components/SmallNavbar"; 
+import { Heart, ShoppingBag } from "lucide-react";
 
-const cardData = [
+const categories = [
+  { id: 1, name: "Bridal Wear", image: "https://picsum.photos/200/200?random=21" },
+  { id: 2, name: "Designer Sarees", image: "https://picsum.photos/200/200?random=22" },
+  { id: 3, name: "Wedding Gowns", image: "https://picsum.photos/200/200?random=23" },
+  { id: 4, name: "Jewelry Sets", image: "https://picsum.photos/200/200?random=24" },
+  { id: 5, name: "Sherwani", image: "https://picsum.photos/200/200?random=25" },
+  { id: 6, name: "Party Wear", image: "https://picsum.photos/200/200?random=26" },
+  { id: 7, name: "Jewelry Sets", image: "https://picsum.photos/200/200?random=24" },
+  { id: 8, name: "Sherwani", image: "https://picsum.photos/200/200?random=25" },
+  { id: 9, name: "Party Wear", image: "https://picsum.photos/200/200?random=26" },
+];
+
+const products = [
   {
-    title: "Appliances for your home | Up to 55% off",
-    items: [
-      { label: "Air conditioners", image: "https://picsum.photos/seed/ac/400/300" },
-      { label: "Refrigerators", image: "https://picsum.photos/seed/fridge/400/300" },
-      { label: "Microwaves", image: "https://picsum.photos/seed/microwave/400/300" },
-      { label: "Washing machines", image: "https://picsum.photos/seed/washer/400/300" },
-    ],
-    footerLink: "See more",
+    id: 1,
+    name: "Bridal Lehenga Set",
+    price: " ₹12,999",
+    tag: "New Arrival",
+    image: "https://picsum.photos/500/600?random=1",
   },
   {
-    title: "Up to 60% off | Footwear & handbags",
-    items: [
-      { label: "Sports shoes", image: "https://picsum.photos/seed/sports/400/300" },
-      { label: "Men's shoes", image: "https://picsum.photos/seed/mensshoes/400/300" },
-      { label: "Women's shoes", image: "https://picsum.photos/seed/womensshoes/400/300" },
-      { label: "Handbags", image: "https://picsum.photos/seed/handbag/400/300" },
-    ],
-    footerLink: "See all offers",
+    id: 2,
+    name: "Designer Saree",
+    price: " ₹5,499",
+    tag: "Trending",
+    image: "https://picsum.photos/500/600?random=2",
   },
   {
-    title: "More Deals on Home Essentials",
-    items: [
-      { label: "Kitchen sets", image: "https://picsum.photos/seed/kitchen/400/300" },
-      { label: "Furniture", image: "https://picsum.photos/seed/furniture/400/300" },
-      { label: "Curtains", image: "https://picsum.photos/seed/curtains/400/300" },
-      { label: "Lighting", image: "https://picsum.photos/seed/lighting/400/300" },
-    ],
-    footerLink: "Shop now",
+    id: 3,
+    name: "Wedding Gown",
+    price: "₹18,999",
+    tag: "Luxury",
+    image: "https://picsum.photos/500/600?random=3",
   },
   {
-    title: "Electronics & Gadgets",
-    items: [
-      { label: "Headphones", image: "https://picsum.photos/seed/headphones/400/300" },
-      { label: "Smartphones", image: "https://picsum.photos/seed/smartphones/400/300" },
-      { label: "Laptops", image: "https://picsum.photos/seed/laptops/400/300" },
-      { label: "Speakers", image: "https://picsum.photos/seed/speakers/400/300" },
-    ],
-    footerLink: "Browse electronics",
+    id: 4,
+    name: "Bridal Jewelry Set",
+    price: "₹3,999",
+    tag: "Hot Pick",
+    image: "https://picsum.photos/500/600?random=4",
   },
 ];
 
-const DealCardGrid = () => {
+const FashionCategoryPage = () => {
+  const categorySettings = {
+    dots: true, // 👈 enable dots
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 3000, // 3s like Flipkart
+    speed: 400,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    pauseOnHover: false,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } },
+    ],
+    customPaging: (i) => (
+      <div className="w-3 h-3 mx-1 rounded-full bg-gray-300 relative overflow-hidden">
+        <div className="progress-dot absolute top-0 left-0 h-full bg-yellow-500"></div>
+      </div>
+    ),
+    appendDots: (dots) => (
+      <div className="mt-4">
+        <ul className="flex justify-center">{dots}</ul>
+      </div>
+    ),
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 lg:p-8 bg-gradient-to-br from-gray-50 to-gray-200">
-      {cardData.map((section, idx) => {
-        const isLastCard = idx === cardData.length - 1;
-
-        return (
-          <div
-            key={idx}
-            className={`bg-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex flex-col justify-between ${
-              isLastCard ? "p-0 overflow-hidden" : "p-6"
-            }`}
-          >
-            {/* Show heading only if it's not the last card */}
-            {!isLastCard && (
-              <h2 className="text-xl font-semibold text-gray-800 mb-5">
-                {section.title}
-              </h2>
-            )}
-
-            {!isLastCard ? (
-              <div className="grid grid-cols-2 gap-4">
-                {section.items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-start text-sm text-gray-700 hover:text-black group"
-                  >
-                    <div className="overflow-hidden rounded-xl w-full shadow-sm group-hover:shadow-md transition-shadow">
-                      <img
-                        src={item.image}
-                        alt={item.label}
-                        className="w-full h-34 object-cover rounded-md transition-transform duration-300 transform group-hover:scale-105"
-                      />
-                    </div>
-                    <span className="mt-2 font-medium">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="w-full h-full">
+    <div className="min-h-screen bg-gradient-to-b ">
+      {/* Category Carousel */}
+      <div className="max-w-full mx-auto px-4 py-6">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Shop by Categories</h2>
+        <Slider {...categorySettings}>
+          {categories.map((cat) => (
+            <div key={cat.id} className="px-2">
+              <div className="group cursor-pointer bg-yellow-50 rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col items-center">
                 <img
-                  src={"src/assets/images/Advertisement/Red Modern New Shoes Promo Instagram Post.png"}
-                  alt={section.items[0].label}
-                  className="w-full h-full object-cover"
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-28 h-28 object-cover rounded-full border-4 border-yellow-200 group-hover:border-yellow-400 transition"
+                />
+                <p className="mt-3 font-medium text-gray-700 group-hover:text-yellow-600 transition">
+                  {cat.name}
+                </p>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
+
+      {/* Products Grid */}
+      <div className="max-w-fulll mx-auto px-4 py-10">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">Featured Products</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 lg:gap-8">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="relative group rounded-3xl overflow-hidden shadow-lg bg-white/70 backdrop-blur-md hover:shadow-2xl transition"
+            >
+              {/* Badge */}
+              <span className="absolute top-4 left-4 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+                {product.tag}
+              </span>
+
+              {/* Product Image */}
+              <div className="overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-42 lg:h-72 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
-            )}
 
-            {!isLastCard && (
-              <a
-                href="#"
-                className="text-blue-600 text-sm mt-6 inline-block font-semibold relative group"
-              >
-                {section.footerLink}
-                <span className="block h-0.5 w-0 bg-blue-600 transition-all group-hover:w-full"></span>
-              </a>
-            )}
-          </div>
-        );
-      })}
+              {/* Info */}
+              <div className="p-4 text-center">
+                <h3 className="font-semibold text-lg text-gray-800 group-hover:text-yellow-600 transition">
+                  {product.name}
+                </h3>
+                <p className="text-yellow-600 font-bold text-lg mt-1">Starting from {product.price}</p>
+              </div>
+
+              {/* Hover Actions */}
+              {/* <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition">
+                <button className="p-2 bg-white rounded-full shadow hover:bg-yellow-100">
+                  <Heart className="w-5 h-5 text-yellow-600" />
+                </button>
+                <button className="p-2 bg-white rounded-full shadow hover:bg-yellow-100">
+                  <ShoppingBag className="w-5 h-5 text-yellow-600" />
+                </button>
+              </div> */}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default DealCardGrid;
-
-
-// import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-
-// const DealCardGrid = () => {
-//   const { sectionId } = useParams();
-//   const [cardData, setCardData] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     // Simulated API call
-//     fetch(`/api/deals/${sectionId}`)
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setCardData(data);
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         console.error("Error fetching section:", err);
-//         setLoading(false);
-//       });
-//   }, [sectionId]);
-
-//   if (loading) return <div className="p-8 text-lg">Loading...</div>;
-
-//   return (
-//     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 p-8 bg-gradient-to-br from-gray-50 to-gray-200">
-//       {cardData.map((section, idx) => {
-//         const isLastCard = idx === cardData.length - 1;
-
-//         return (
-//           <div
-//             key={idx}
-//             className={`bg-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex flex-col justify-between ${
-//               isLastCard ? "p-0 overflow-hidden" : "p-6"
-//             }`}
-//           >
-//             {!isLastCard && (
-//               <h2 className="text-xl font-semibold text-gray-800 mb-5">
-//                 {section.title}
-//               </h2>
-//             )}
-
-//             {!isLastCard ? (
-//               <div className="grid grid-cols-2 gap-4">
-//                 {section.items.map((item, index) => (
-//                   <div
-//                     key={index}
-//                     className="flex flex-col items-start text-sm text-gray-700 hover:text-black group"
-//                   >
-//                     <div className="overflow-hidden rounded-xl w-full shadow-sm group-hover:shadow-md transition-shadow">
-//                       <img
-//                         src={item.image}
-//                         alt={item.label}
-//                         className="w-full h-24 object-cover rounded-md transition-transform duration-300 transform group-hover:scale-105"
-//                       />
-//                     </div>
-//                     <span className="mt-2 font-medium">{item.label}</span>
-//                   </div>
-//                 ))}
-//               </div>
-//             ) : (
-//               <div className="w-full h-full">
-//                 <img
-//                   src={section?.items?.[0]?.image}
-//                   alt={section?.items?.[0]?.label || "Promo"}
-//                   className="w-full h-full object-cover"
-//                 />
-//               </div>
-//             )}
-
-//             {!isLastCard && (
-//               <a
-//                 href="#"
-//                 className="text-blue-600 text-sm mt-6 inline-block font-semibold relative group"
-//               >
-//                 {section.footerLink}
-//                 <span className="block h-0.5 w-0 bg-blue-600 transition-all group-hover:w-full"></span>
-//               </a>
-//             )}
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// };
-
-// export default DealCardGrid;
+export default FashionCategoryPage;

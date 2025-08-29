@@ -12,6 +12,14 @@
   animation: spin-slow 20s linear infinite;
 }
 
+.slick-dots li.slick-active .progress-dot {
+  animation: fillDot 3s linear forwards; /* same as autoplaySpeed */
+}
+
+@keyframes fillDot {
+  from { width: 0%; }
+  to { width: 100%; }
+}
 
 .libertinus-mono-regular {
   font-family: "Libertinus Mono", monospace;

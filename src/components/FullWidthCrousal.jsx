@@ -103,7 +103,7 @@ export default function ProductsPage() {
 
   return (
     <>
-     <h1 className=" max-text-4xl font-bold py-5 px-8">Here our some best products</h1>
+     <h1 className=" text-3xl font-bold py-5 px-8">Here our some best products</h1>
       <div className="flex gap-6  p-4 flex-col lg:flex-row">
         
         {/* Sidebar */}
