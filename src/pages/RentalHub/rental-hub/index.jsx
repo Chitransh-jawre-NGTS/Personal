@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeroCarousel from "../../../RentalComponents/HeroCraouslRental";
 import CategorySection from "../../../RentalComponents/CatagorySectionRental";
 import RentalCartSection from "../../../RentalComponents/RentalCartSection";
@@ -8,11 +8,19 @@ import AmazonStyleNavbar from "../../../components/Navbar";
 const RentalHub = () => {
   const [location, setLocation] = useState(null);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // ⏳ Spinner state
+  const [loading, setLoading] = useState(false);
+
+  // 🔹 Load saved location from localStorage on mount
+  useEffect(() => {
+    const savedLocation = localStorage.getItem("userLocation");
+    if (savedLocation) {
+      setLocation(JSON.parse(savedLocation));
+    }
+  }, []);
 
   const handleLocationRequest = () => {
     if (navigator.geolocation) {
-      setLoading(true); // start spinner
+      setLoading(true);
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const coords = {
@@ -21,6 +29,9 @@ const RentalHub = () => {
           };
           setLocation(coords);
           setError("");
+
+          // 🔹 Save coords in localStorage
+          localStorage.setItem("userLocation", JSON.stringify(coords));
 
           try {
             const response = await fetch(
@@ -43,12 +54,12 @@ const RentalHub = () => {
           } catch (e) {
             toast.error("⚠️ Failed to fetch location address");
           } finally {
-            setLoading(false); // stop spinner
+            setLoading(false);
           }
         },
         () => {
           setError("❌ Location access denied or unavailable.");
-          setLoading(false); // stop spinner if error
+          setLoading(false);
         }
       );
     } else {
@@ -56,7 +67,7 @@ const RentalHub = () => {
     }
   };
 
-  // 📍 Show permission screen if no location
+  // 📍 If no location & not saved in localStorage
   if (!location) {
     return (
       <div
@@ -112,12 +123,12 @@ const RentalHub = () => {
     );
   }
 
-  // ✅ After permission granted
+  // ✅ After permission granted or loaded from localStorage
   return (
     <>
       <AmazonStyleNavbar showMobileBottom={false} />
-        {/* <HeroCarousel />
-        <CategorySection /> */}
+      {/* <HeroCarousel />
+      <CategorySection /> */}
       <RentalCartSection />
     </>
   );
