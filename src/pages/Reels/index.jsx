@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Heart, ThumbsDown, ShoppingBag } from "lucide-react";
-import SmallNavbar from "../../components/SmallNavbar";
+import { Heart, ThumbsDown, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const reelsData = [
   {
@@ -12,6 +12,7 @@ const reelsData = [
     dislikes: 5,
     productLink: "/products/1",
     description: "New summer collection T-shirts",
+    productImage: "https://picsum.photos/100?random=11",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const reelsData = [
     dislikes: 2,
     productLink: "/products/2",
     description: "Elegant Sarees for weddings",
+    productImage: "https://picsum.photos/100?random=12",
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ const reelsData = [
     dislikes: 8,
     productLink: "/products/3",
     description: "Latest men's jackets",
+    productImage: "https://picsum.photos/100?random=13",
   },
 ];
 
@@ -39,6 +42,7 @@ const ReelsInstagramStyle = () => {
   const [reels, setReels] = useState(reelsData);
   const reelRefs = useRef([]);
   const observer = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const options = { root: null, rootMargin: "0px", threshold: 0.6 };
@@ -49,7 +53,6 @@ const ReelsInstagramStyle = () => {
         if (!video) return;
 
         if (entry.isIntersecting) {
-          // Pause all other videos
           reelRefs.current.forEach((ref) => {
             const otherVideo = ref?.querySelector("video");
             if (otherVideo && otherVideo !== video) otherVideo.pause();
@@ -81,69 +84,77 @@ const ReelsInstagramStyle = () => {
   };
 
   return (
-    <>
-      <SmallNavbar showBottomNav={false} showSearch={false} />
-      <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory bg-black scroll-smooth">
-        {reels.map((reel, index) => (
-          <div
-            key={reel.id}
-            ref={(el) => (reelRefs.current[index] = el)}
-            className="relative h-screen w-full snap-start flex items-end justify-start"
+    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory bg-black scroll-smooth relative">
+      {reels.map((reel, index) => (
+        <div
+          key={reel.id}
+          ref={(el) => (reelRefs.current[index] = el)}
+          className="relative h-screen w-full snap-start flex items-end justify-start"
+        >
+          <video
+            src={reel.videoUrl}
+            className="w-full h-full object-cover"
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+
+          {/* Gradient overlay */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+          {/* Top Left: Shop Name */}
+          <div className="absolute top-4 left-4 text-white font-bold text-lg">
+            {reel.shopName}
+          </div>
+
+          {/* Top Right: Close Button (Go Back) */}
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-4 right-4 text-white text-2xl p-2 hover:bg-black/50 rounded-full transition"
           >
-            <video
-              src={reel.videoUrl}
-              className="w-full h-full object-cover"
-              loop
-              muted
-              playsInline
-              preload="metadata"
+            <X />
+          </button>
+
+          {/* Bottom Left: Product Box */}
+          <a
+            href={reel.productLink}
+            className="absolute bottom-6 left-4 bg-black/70 p-2 rounded-lg flex items-center gap-2"
+          >
+            <img
+              src={reel.productImage}
+              alt="Product"
+              className="w-14 h-14 object-cover rounded"
             />
+            <span className="text-white text-sm line-clamp-2">
+              {reel.description}
+            </span>
+          </a>
 
-            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-
-            <div className="absolute bottom-6 left-4 text-white max-w-[70%]">
-              <div className="flex items-center gap-3 mb-2">
-                <img
-                  src={reel.avatar}
-                  alt={reel.shopName}
-                  className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                />
-                <h3 className="font-bold text-lg">{reel.shopName}</h3>
-              </div>
-              <p className="text-sm line-clamp-2">{reel.description}</p>
-            </div>
-
-            <div className="absolute right-4 bottom-16 flex flex-col gap-6 items-center">
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={() => handleLike(reel.id)}
-                  className="text-white text-3xl hover:scale-125 transition-transform active:scale-110"
-                >
-                  <Heart />
-                </button>
-                <span className="text-white text-sm">{reel.likes}</span>
-              </div>
-              <div className="flex flex-col items-center gap-1">
-                <button
-                  onClick={() => handleDislike(reel.id)}
-                  className="text-white text-3xl hover:scale-125 transition-transform active:scale-110"
-                >
-                  <ThumbsDown />
-                </button>
-                <span className="text-white text-sm">{reel.dislikes}</span>
-              </div>
-              <a
-                href={reel.productLink}
-                className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition"
+          {/* Bottom Right: Likes, Dislikes */}
+          <div className="absolute right-4 bottom-16 flex flex-col gap-6 items-center">
+            <div className="flex flex-col items-center gap-1">
+              <button
+                onClick={() => handleLike(reel.id)}
+                className="text-white text-3xl hover:scale-125 transition-transform active:scale-110"
               >
-                <ShoppingBag className="inline w-4 h-4 mr-1" />
-                View Product
-              </a>
+                <Heart />
+              </button>
+              <span className="text-white text-sm">{reel.likes}</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <button
+                onClick={() => handleDislike(reel.id)}
+                className="text-white text-3xl hover:scale-125 transition-transform active:scale-110"
+              >
+                <ThumbsDown />
+              </button>
+              <span className="text-white text-sm">{reel.dislikes}</span>
             </div>
           </div>
-        ))}
-      </div>
-    </>
+        </div>
+      ))}
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import SmallNavbar from "../../components/SmallNavbar";
+import AmazonStyleNavbar from "../../components/Navbar";
 
 export default function SearchResults() {
   const location = useLocation();
@@ -100,6 +101,7 @@ if (loading) {
 
   return (
     <>
+    <AmazonStyleNavbar showMobileBottom={false} showMobileTop={false} />
       <SmallNavbar />
       <div className="flex gap-6 lg:mt-32 p-4 flex-col lg:flex-row">
         {/* Sidebar Filters (Visible only on lg and above) */}
