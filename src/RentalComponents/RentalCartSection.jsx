@@ -128,7 +128,7 @@ const RentalCartSection = () => {
             ))}
           </div>
         ) : sortedRentals.length === 0 ? (
-          <div className="flex items-center justify-center min-h-screen px-4">
+          <div className="flex items-center justify-center  px-4">
             <div className="bg-white shadow-lg rounded-2xl p-8 max-w-md w-full text-center">
               {/* Icon */}
               <div className="flex justify-center mb-4">
@@ -139,7 +139,7 @@ const RentalCartSection = () => {
 
               {/* Title */}
               <h1 className="text-2xl font-bold text-gray-800 mb-2">
-                Coming Soon 🚀
+                Coming Soon 
               </h1>
 
               {/* Message */}

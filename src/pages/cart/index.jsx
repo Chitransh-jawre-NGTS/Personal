@@ -165,7 +165,7 @@
 //       <ShoppingCart size={48} className="mx-auto mb-4 text-blue-500" />
 //       <p className="text-2xl font-semibold">Your cart is feeling lonely 😢</p>
 //       <p className="mt-2">Looks like you haven't added anything yet.</p>
-      
+
 //       <Link
 //         to="/"
 //         className="text-pink-600 hover:underline mt-4 block text-base font-medium"
@@ -375,12 +375,14 @@
 // };
 
 // export default Cart;
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SmallNavbar from "../../components/SmallNavbar";
 import AmazonStyleNavbar from "../../components/Navbar";
 
 const CartPage = () => {
+  // Original dummy data – will always show
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
@@ -440,20 +442,18 @@ const CartPage = () => {
 
   return (
     <>
-    <AmazonStyleNavbar />
+      <AmazonStyleNavbar showMobileBottom={false} showMobileTop={false} />
       <SmallNavbar logoText="My Cart" showSearch={false} showBottomNav={false} />
-      <div className="bg-gray-100 min-h-screen md:py-6 lg:mt-26  md:px-10 relative">
+      <div className="bg-gray-100 min-h-screen md:py-6 lg:mt-26 md:px-10 relative">
         <div className="grid md:grid-cols-3 gap-6 pb-24 md:pb-6">
           {/* Left Section - Cart Items */}
           <div className="md:col-span-2 bg-white shadow rounded-lg">
-            {/* Header Tabs */}
-            <div className="flex ">
-              <button className="flex-1  py-3 font-semibold text-gray-600 border-b-2 border-yellow-600">
+            <div className="flex">
+              <button className="flex-1 py-3 font-semibold text-gray-600 border-b-2 border-yellow-600">
                 Wishkart ({cartItems.length})
               </button>
             </div>
 
-            {/* Cart Items */}
             <div>
               {cartItems.length > 0 ? (
                 cartItems.map((item) => (
@@ -461,52 +461,49 @@ const CartPage = () => {
                     key={item.id}
                     className="flex flex-col sm:flex-row gap-4 p-4 border-b relative"
                   >
-                    {/* Stock Badge */}
                     {item.status === "Out Of Stock" && (
                       <span className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
                         Out of Stock
                       </span>
                     )}
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-28 h-28 object-cover rounded self-center"
-                    />
-                    <div className="flex-1 text-sm sm:text-base">
-                      <h2 className="font-semibold text-gray-800">{item.name}</h2>
-                      <p className="text-gray-500">{item.size}</p>
-                      <p className="text-yellow-700 font-bold mt-1">
-                        ₹{(item.price * item.qty).toLocaleString()}
-                      </p>
-
-                      {/* Quantity Control */}
-                      <div className="flex items-center gap-3 mt-2">
-                        <button
-                          onClick={() => handleQuantityChange(item.id, "decrease")}
-                          className="px-2 py-1 border rounded disabled:opacity-50"
-                          disabled={item.qty === 1 || item.status !== "In Stock"}
-                        >
-                          -
-                        </button>
-                        <span>{item.qty}</span>
-                        <button
-                          onClick={() => handleQuantityChange(item.id, "increase")}
-                          className="px-2 py-1 border rounded"
-                          disabled={item.status !== "In Stock"}
-                        >
-                          +
-                        </button>
-                      </div>
-
-                      {/* Actions */}
-                      <div className="flex gap-6 mt-3 text-xs sm:text-sm font-semibold">
-                        <button className="hover:text-blue-600">SAVE FOR LATER</button>
-                        <button
-                          onClick={() => handleRemove(item.id)}
-                          className="hover:text-red-600"
-                        >
-                          REMOVE
-                        </button>
+                    <div className="flex flex-row items-start gap-4 w-full">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-28 h-28 object-cover rounded flex-shrink-0"
+                      />
+                      <div className="flex-1 text-sm sm:text-base">
+                        <h2 className="font-semibold text-gray-800">{item.name}</h2>
+                        <p className="text-gray-500">{item.size}</p>
+                        <p className="text-yellow-700 font-bold mt-1">
+                          ₹{(item.price * item.qty).toLocaleString()}
+                        </p>
+                        <div className="flex items-center gap-3 mt-2">
+                          <button
+                            onClick={() => handleQuantityChange(item.id, "decrease")}
+                            className="px-2 py-1 border rounded disabled:opacity-50"
+                            disabled={item.qty === 1 || item.status !== "In Stock"}
+                          >
+                            -
+                          </button>
+                          <span>{item.qty}</span>
+                          <button
+                            onClick={() => handleQuantityChange(item.id, "increase")}
+                            className="px-2 py-1 border rounded"
+                            disabled={item.status !== "In Stock"}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <div className="flex gap-6 mt-3 text-xs sm:text-sm font-semibold">
+                          <button className="hover:text-blue-600">SAVE FOR LATER</button>
+                          <button
+                            onClick={() => handleRemove(item.id)}
+                            className="hover:text-red-600"
+                          >
+                            REMOVE
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
