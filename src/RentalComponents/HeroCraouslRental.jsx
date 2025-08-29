@@ -5,6 +5,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// ✅ Import images
+import img1 from "../assets/images/banner/img1.png";
+import img2 from "../assets/images/banner/img2.png";
+import img3 from "../assets/images/banner/img3.png";
+
 const HeroCarousel = () => {
   const sliderRef = React.useRef(null);
 
@@ -13,7 +18,7 @@ const HeroCarousel = () => {
     speed: 1500,
     autoplay: true,
     autoplaySpeed: 4000,
-    dots: true,
+    dots: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     cssEase: "ease-in-out",
@@ -30,7 +35,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <div className="relative w-full h-[280px] mt-30 sm:h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden">
+    <div className="relative w-full h-[180px] mt-30 sm:h-[150px] md:h-[200px] lg:h-[450px] overflow-hidden">
       {/* Custom Arrows */}
       <div
         onClick={goToPrev}
@@ -64,27 +69,15 @@ const HeroCarousel = () => {
 
       {/* Carousel */}
       <Slider ref={sliderRef} {...settings}>
-        <div className="w-full h-full">
-          <img
-            src="src/assets/images/banner/img1.png"
-            alt="E-commerce Banner 1"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="w-full h-full">
-          <img
-            src="src/assets/images/banner/img2.png"
-            alt="E-commerce Banner 2"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="w-full h-full">
-          <img
-            src="src/assets/images/banner/img3.png"
-            alt="E-commerce Banner 3"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {[img1, img2, img3].map((image, index) => (
+          <div className="w-full h-full" key={index}>
+            <img
+              src={image}
+              alt={`E-commerce Banner ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
       </Slider>
     </div>
   );

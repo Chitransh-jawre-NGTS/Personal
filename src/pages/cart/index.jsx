@@ -378,6 +378,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SmallNavbar from "../../components/SmallNavbar";
+import AmazonStyleNavbar from "../../components/Navbar";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([
@@ -439,6 +440,7 @@ const CartPage = () => {
 
   return (
     <>
+    <AmazonStyleNavbar />
       <SmallNavbar logoText="My Cart" showSearch={false} showBottomNav={false} />
       <div className="bg-gray-100 min-h-screen md:py-6 lg:mt-26  md:px-10 relative">
         <div className="grid md:grid-cols-3 gap-6 pb-24 md:pb-6">
