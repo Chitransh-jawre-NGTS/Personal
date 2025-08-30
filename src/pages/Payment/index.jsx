@@ -33,7 +33,7 @@ const PaymentPage = () => {
   return (
    <>
    {/* <AmazonStyleNavbar/> */}
-   <SmallNavbar showBottomNav={false} showCart={false} showSearch={false}/>
+   <SmallNavbar showBottomNav={false} showCart={false} showSearch={false} />
     <div className="bg-gradient-to-br from-blue-50 to-yellow-50 min-h-screen lg:mt-26 md:p-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Section - Payment Options */}

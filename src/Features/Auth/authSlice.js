@@ -1,25 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import httpClient from "../../utils/HttpClient";
+import { ApiRoutes } from "../../utils/endpoints"; // ✅ import endpoints
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post("https://reqres.in/api/login", credentials,{
-         headers: {
-          "Content-Type": "application/json",
-          "x-api-key": "reqres-free-v1",
-        },
+      const { Endpoint, Method } = ApiRoutes.Auth.Login; // use endpoints
+      const res = await httpClient({
+        url: Endpoint,
+        method: Method,
+        data: credentials,
       });
-      const token = response.data?.token;
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-      return response.data;
+      localStorage.setItem("token", res.data.token);
+      return res.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data?.message || error.message
-      );
+      return rejectWithValue(error.response?.data || "Login failed");
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { Endpoint, Method } = ApiRoutes.Auth.Register; // use endpoints
+      const res = await httpClient({
+        url: Endpoint,
+        method: Method,
+        data: userData,
+      });
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Registration failed");
     }
   }
 );
@@ -47,10 +60,20 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
         state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

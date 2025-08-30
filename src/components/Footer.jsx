@@ -12,16 +12,16 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1f2734] mb-14 lg:mb-0  mx-auto text-white px-6  py-10 ">
+    <footer className="bg-[#1f2734] hidden lg:flex mb-14 lg:mb-0  mx-auto text-white px-6  py-10 ">
 
       <div className="max-w-full mx-auto grid md:grid-cols-6 gap-10">
         {/* Logo & Description */}
         <div className="md:col-span-2">
-         <Link to="/" className="flex items-center">
-  <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
-    WishCart
-  </span>
-</Link>
+          <Link to="/" className="flex items-center">
+            <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
+              WishCart
+            </span>
+          </Link>
 
           <p className="text-gray-300 text-sm pt-5 leading-6 mb-6">
             The WishCart is the biggest market of grocery products. Get your daily
@@ -101,7 +101,7 @@ export default function Footer() {
             <li className="flex items-start gap-3">
               <FaMapMarkerAlt className="mt-1 text-lg" />
               <span>
-                Indore 
+                Indore
               </span>
             </li>
             <li className="flex items-center gap-3">

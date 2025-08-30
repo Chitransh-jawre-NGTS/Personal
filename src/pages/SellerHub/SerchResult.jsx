@@ -58,9 +58,9 @@ export default function SearchResults() {
 
 if (loading) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-yellow-400">
+    <div className="flex flex-col items-center justify-center min-h-screen ">
       {/* Spinner */}
-      <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+      <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
     </div>
   );
 }

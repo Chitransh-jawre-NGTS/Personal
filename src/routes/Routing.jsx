@@ -109,7 +109,6 @@ import { Toaster } from 'react-hot-toast';
 import BookNow from '../RentalComponents/BooNow';
 import RentalHub from '../pages/RentalHub/rental-hub/index.jsx';
 import Home from '../pages/SellerHub/home/index.jsx';
-import Login from '../pages/Login/index.jsx';
 import BecomeSeller from '../pages/SellerHub/becomeSeller';
 import AccountPage from '../pages/accountpage';
 import Favourate from '../pages/Favourate';
@@ -124,6 +123,7 @@ import ReelsPage from '../pages/Reels/index.jsx';
 import PaymentPage from '../pages/Payment/index.jsx';
 import OrderDetails from '../pages/OrderDetails/index.jsx';
 import RentNow from '../RentalComponents/RentalCheakout';
+import Login from '../pages/Login/index.jsx';
 
 const Routing = () => {
   return (
@@ -133,8 +133,8 @@ const Routing = () => {
       {/* <AmazonStyleNavbar /> */}
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/becomeseller" element={<BecomeSeller />} />
         <Route path="/newarrivals" element={<NewArrivals />} />
         <Route path="/accounts" element={<AccountPage />} />

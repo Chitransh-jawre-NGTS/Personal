@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Heart, Share2 } from "lucide-react"; // ✅ Icons
+import { Heart, Share2 } from "lucide-react";
 
 export default function ProductsPage() {
   const [productsData, setProductsData] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [visibleProducts, setVisibleProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [wishlist, setWishlist] = useState([]); // ✅ wishlist state
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 15;
 
-  // filters state
+  const [wishlist, setWishlist] = useState([]);
+
+  // ✅ filters state
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
   const [minRating, setMinRating] = useState(0);
   const [sortBy, setSortBy] = useState("");
 
+  // ✅ fetch products
   useEffect(() => {
     setLoading(true);
     axios
@@ -40,11 +47,61 @@ export default function ProductsPage() {
           image: p.image,
           bgColor: bgColors[Math.floor(Math.random() * bgColors.length)],
         }));
+
         setProductsData(productsWithRatings);
       })
       .catch((err) => console.error("Error fetching products:", err))
       .finally(() => setLoading(false));
   }, []);
+
+  // ✅ filtering & sorting logic
+  useEffect(() => {
+    let temp = [...productsData];
+
+    const matches = (p) => {
+      const matchesCategory =
+        selectedCategory === "All" || p.category === selectedCategory;
+      const matchesPrice = p.price >= minPrice && p.price <= maxPrice;
+      const matchesRating = p.rating >= minRating;
+      return matchesCategory && matchesPrice && matchesRating;
+    };
+
+    temp = temp.filter(matches);
+
+    if (sortBy === "priceLowHigh") temp.sort((a, b) => a.price - b.price);
+    if (sortBy === "priceHighLow") temp.sort((a, b) => b.price - a.price);
+    if (sortBy === "ratingHighLow") temp.sort((a, b) => b.rating - a.rating);
+
+    setFilteredProducts(temp);
+    setVisibleProducts(temp.slice(0, page * itemsPerPage)); // reset visible
+  }, [productsData, selectedCategory, minPrice, maxPrice, minRating, sortBy, page]);
+
+  // ✅ infinite scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 100 >=
+        document.documentElement.scrollHeight
+      ) {
+        loadMore();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [filteredProducts, visibleProducts]);
+
+  const loadMore = () => {
+    if (loadingMore) return;
+    if (visibleProducts.length >= filteredProducts.length) return;
+
+    setLoadingMore(true);
+    setTimeout(() => {
+      const nextPage = page + 1;
+      setPage(nextPage);
+      setVisibleProducts(filteredProducts.slice(0, nextPage * itemsPerPage));
+      setLoadingMore(false);
+    }, 800);
+  };
 
   // ✅ toggle wishlist
   const toggleWishlist = (productId) => {
@@ -73,56 +130,43 @@ export default function ProductsPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-yellow-400">
-        <h1 className="text-5xl font-extrabold text-white drop-shadow-lg animate-pulse">
-          Loading Products...
-        </h1>
-      </div>
-    );
-  }
-
-  // filtering logic
-  let filteredProducts = productsData.filter((product) => {
-    const matchesCategory =
-      selectedCategory === "All" || product.category === selectedCategory;
-    const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
-    const matchesRating = product.rating >= minRating;
-    return matchesCategory && matchesPrice && matchesRating;
-  });
-
-  // sorting logic
-  if (sortBy === "priceLowHigh") {
-    filteredProducts.sort((a, b) => a.price - b.price);
-  } else if (sortBy === "priceHighLow") {
-    filteredProducts.sort((a, b) => b.price - a.price);
-  } else if (sortBy === "ratingHighLow") {
-    filteredProducts.sort((a, b) => b.rating - a.rating);
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-yellow-400">
+  //       <h1 className="text-5xl font-extrabold text-white drop-shadow-lg animate-pulse">
+  //         Loading Products...
+  //       </h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
-     <h1 className=" text-3xl font-bold py-5 px-8">Here our some best products</h1>
-      <div className="flex gap-6  p-4 flex-col lg:flex-row">
-        
-        {/* Sidebar */}
+      <h1 className=" text-3xl max-w-350 mx-auto font-bold py-5 px-8">
+        Here are some of our best products
+      </h1>
+
+      <div className="flex gap-6 max-w-350 mx-auto p-4 flex-col lg:flex-row">
+        {/* ✅ Sidebar Filters */}
         <div className="hidden lg:block w-[20%] bg-white shadow rounded-lg p-4">
-          
           <h3 className="font-bold text-lg mb-4">Filters</h3>
 
-          {/* Category Filter */}
+          {/* Category */}
           <div className="mb-4">
             <h4 className="font-semibold mb-2">Category</h4>
             {["All", "men's clothing", "women's clothing", "jewelery", "electronics"].map(
               (cat) => (
                 <button
                   key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`block w-full text-left px-3 py-2 rounded mb-2 ${selectedCategory === cat
+                  onClick={() => {
+                    setPage(1); // reset pagination on filter
+                    setSelectedCategory(cat);
+                  }}
+                  className={`block w-full text-left px-3 py-2 rounded mb-2 ${
+                    selectedCategory === cat
                       ? "bg-yellow-500 text-white"
                       : "bg-gray-100 hover:bg-gray-200"
-                    }`}
+                  }`}
                 >
                   {cat}
                 </button>
@@ -130,33 +174,42 @@ export default function ProductsPage() {
             )}
           </div>
 
-          {/* Price Range */}
+          {/* Price */}
           <div className="mb-4">
             <h4 className="font-semibold mb-2">Price Range ($)</h4>
             <div className="flex gap-2 mb-2">
               <input
                 type="number"
                 value={minPrice}
-                onChange={(e) => setMinPrice(Number(e.target.value))}
+                onChange={(e) => {
+                  setPage(1);
+                  setMinPrice(Number(e.target.value));
+                }}
                 className="w-1/2 border rounded px-2 py-1"
                 placeholder="Min"
               />
               <input
                 type="number"
                 value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                onChange={(e) => {
+                  setPage(1);
+                  setMaxPrice(Number(e.target.value));
+                }}
                 className="w-1/2 border rounded px-2 py-1"
                 placeholder="Max"
               />
             </div>
           </div>
 
-          {/* Rating Filter */}
+          {/* Rating */}
           <div className="mb-4">
             <h4 className="font-semibold mb-2">Minimum Rating</h4>
             <select
               value={minRating}
-              onChange={(e) => setMinRating(Number(e.target.value))}
+              onChange={(e) => {
+                setPage(1);
+                setMinRating(Number(e.target.value));
+              }}
               className="w-full border rounded px-2 py-1"
             >
               <option value={0}>All Ratings</option>
@@ -167,12 +220,15 @@ export default function ProductsPage() {
             </select>
           </div>
 
-          {/* Sort Options */}
+          {/* Sort */}
           <div>
             <h4 className="font-semibold mb-2">Sort By</h4>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={(e) => {
+                setPage(1);
+                setSortBy(e.target.value);
+              }}
               className="w-full border rounded px-2 py-1"
             >
               <option value="">Default</option>
@@ -183,31 +239,27 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        {/* Products Grid */}
+        {/* ✅ Products Grid */}
         <div className="w-full px-2">
-         
           <h2 className="text-lg font-semibold mb-4">
-            {filteredProducts.length} Products Found
+            {visibleProducts.length} of {filteredProducts.length} Products
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
+            {visibleProducts.length > 0 ? (
+              visibleProducts.map((product) => (
                 <div
                   key={product.id}
                   className="bg-white lg:p-3 hover:shadow-xl transition relative rounded-xl"
                 >
                   {/* Wishlist + Share Icons */}
                   <div className="absolute top-2 right-2 flex flex-col gap-2">
-                    {/* Share */}
                     <button
                       onClick={() => handleShare(product)}
                       className="p-1 rounded-full bg-gray-100 hover:bg-blue-100"
                     >
                       <Share2 size={20} className="text-gray-600" />
                     </button>
-
-                    {/* Heart */}
                     <button
                       onClick={() => toggleWishlist(product.id)}
                       className="p-1 rounded-full bg-gray-100 hover:bg-red-100"
@@ -222,7 +274,6 @@ export default function ProductsPage() {
                       />
                     </button>
                   </div>
-
 
                   <Link to={`/productdeatilspage?id=${product.id}`}>
                     <img
@@ -262,15 +313,16 @@ export default function ProductsPage() {
                 <p className="text-gray-500 mb-6">
                   Try adjusting your filters to see more products.
                 </p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="px-5 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition"
-                >
-                  Reset Filters
-                </button>
               </div>
             )}
           </div>
+
+          {/* Loader */}
+          {loadingMore && (
+            <div className="flex justify-center py-6">
+              <div className="w-8 h-8 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          )}
         </div>
       </div>
     </>
