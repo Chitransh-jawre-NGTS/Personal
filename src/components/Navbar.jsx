@@ -69,7 +69,7 @@ const AmazonStyleNavbar = ({ showMobileTop = true, showMobileBottom = true }) =>
       <nav className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 hidden md:flex fixed top-0 w-full z-20 text-white px-4 py-3 shadow-lg">
         <div className="w-full items-center flex justify-between gap-6 flex-wrap">
           {/* Logo */}
-          <Link to="/" className="flex items-center group">
+          <Link to="/home" className="flex items-center group">
             <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
               WishCart
             </span>
@@ -148,7 +148,7 @@ const AmazonStyleNavbar = ({ showMobileTop = true, showMobileBottom = true }) =>
       {showMobileTop && (
         <div className="md:hidden w-full fixed top-0 z-20 bg-gradient-to-b from-yellow-900 to-gray-500">
           <div className="flex items-center p-4 justify-between">
-            <Link to="/" className="flex items-center">
+            <Link to="/home" className="flex items-center">
               <span className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-yellow-400 bg-clip-text text-transparent">
                 WishCart
               </span>

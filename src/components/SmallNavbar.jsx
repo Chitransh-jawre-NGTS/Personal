@@ -66,7 +66,7 @@ const SmallNavbar = ({
               </button>
 
               {/* Logo */}
-              <Link to="/" className="flex items-center group">
+              <Link to="/home" className="flex items-center group">
                 <span className="text-xl font-bold text-gray-800 bg-clip-text group-hover:scale-105 transition-transform duration-300">
                   {logoText}
                 </span>

@@ -71,69 +71,68 @@ const FashionCategoryPage = () => {
 
   return (
     <>
-    <SmallNavbar showSearch={false}/>
-    <div className="flex h-screen overflow-hidden bg-gray-50">
-      {/* Sidebar */}
-      <div className="w-30 bg-white shadow-md border-r border-gray-200 p-4 flex flex-col gap-4">
-        <h2 className="font-bold text-lg text-gray-700 mb-2">Categories</h2>
-        <ul className="flex flex-col gap-3">
-          {categories.map((cat) => (
-            <li
-              key={cat}
-              onClick={() => scrollToCategory(cat)}
-              className={`cursor-pointer px-3 py-2 rounded-xl font-medium transition-all duration-200
-                ${
-                  activeCategory === cat
-                    ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg"
-                    : "hover:bg-gray-100 text-gray-700"
-                }`}
-            >
-              {cat}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <SmallNavbar showSearch={false} />
+      <div className="flex h-screen overflow-hidden bg-gray-50">
+        {/* Sidebar */}
+        <div className="fixed top-10 left-0 h-full w-33 bg-white shadow-md border-r border-gray-200 p-4 flex flex-col gap-4 ">
+          {/* Top Image */}
+        
+          <h2 className="font-bold text-lg text-gray-700 mb-2">Categories</h2>
+          <ul className="flex flex-col gap-2 pb-25 overflow-y-auto">
+            {categories.map((cat) => (
+              
+              <li
+                key={cat}
+                onClick={() => scrollToCategory(cat)}
+                className={`cursor-pointer px-3 py-2 rounded-xl font-medium transition-all duration-200
+                  ${
+                    activeCategory === cat
+                      ? "border-l-6 border-yellow-700 text-gray-800 shadow-lg"
+                      : "border-l-6 border-yellow-200 text-gray-800"
+                  }`}
+              >
+                  <img src="https://picsum.photos/200?random=9" alt="Fashion" className="w-20 h-20 object-cover rounded-lg mb-4"/>
+                {cat}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      {/* Products */}
-      <div
-        ref={rightSideRef}
-        className="w-2/3 p-4 overflow-y-auto mb-10"
-      >
-        {categories.map((cat) => (
-          <div
-            key={cat}
-            ref={(el) => (categoryRefs.current[cat] = el)}
-            data-category={cat}
-            className=""
-          >
-            <h2 className="text-xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">{cat}</h2>
-            <div className="grid grid-cols-2 mb-4  gap-2">
-              {productsData[cat]?.map((product) => (
-                <div
-                  key={product.id}
-                  className=" rounded-2xl  hover:shadow-xl transition  flex flex-col gap-3"
-                >
-                  <div className="relative w-full h-36 rounded-2xl overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover transform hover:scale-105 transition duration-300"
-                    />
-                    {/* <div className="absolute top-2 right-2 bg-white/80 px-2 py-1 rounded-full text-xs font-semibold shadow">
-                      ₹{product.price}
-                    </div> */}
+        {/* Products */}
+        <div
+          ref={rightSideRef}
+          className="ml-33 flex-1 p-4 pb-50 overflow-y-auto"
+        >
+          {categories.map((cat) => (
+            <div
+              key={cat}
+              ref={(el) => (categoryRefs.current[cat] = el)}
+              data-category={cat}
+              className="mb-6"
+            >
+              <h2 className="text-xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">{cat}</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {productsData[cat]?.map((product) => (
+                  <div
+                    key={product.id}
+                    className="rounded-2xl hover:shadow-xl transition flex flex-col gap-3 bg-white p-2"
+                  >
+                    <div className="relative w-full h-36 rounded-2xl overflow-hidden">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover transform hover:scale-105 transition duration-300"
+                      />
+                    </div>
+                    <h3 className="font-semibold text-gray-800 text-sm truncate">{product.name}</h3>
+                    <p className="text-sm font-medium text-gray-600">₹{product.price}</p>
                   </div>
-                  <h3 className="font-semibold text-gray-800 text-sm truncate">{product.name}</h3>
-                  {/* <button className="mt-auto bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 rounded-xl text-sm font-medium hover:opacity-90 transition">
-                    Add to Cart
-                  </button> */}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 };
