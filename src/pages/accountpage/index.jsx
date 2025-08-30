@@ -98,7 +98,7 @@ const AccountDashboard = () => {
   return (
     <>
       {/* <AmazonStyleNavbar /> */}
-      <SmallNavbar showBottomNav={true} showTopNav={false}  showSearch={false} />
+      <SmallNavbar showBottomNav={true} logoText="Account's"   showSearch={false} />
 
       {/* Mobile sidebar toggle */}
       <div className="md:hidden flex justify-end px-4 mt-4">
@@ -116,7 +116,7 @@ const AccountDashboard = () => {
           className={`fixed md:relative top-0 left-0 h-auto w-full lg:w-84 max-wfull bg-white border-r p-5 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-300 md:translate-x-0`}
         >
-          <div className="flex items-center bg-amber-50 p-2 rounded-2xl gap-3 mb-6">
+          <div className="flex items-center mt-10 lg:mt-0 bg-amber-50 p-2 rounded-2xl gap-3 mb-6">
             <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-white font-bold">
               CJ
             </div>
