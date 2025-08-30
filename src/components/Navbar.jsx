@@ -154,7 +154,7 @@ const AmazonStyleNavbar = ({ showMobileTop = true, showMobileBottom = true }) =>
               </span>
             </Link>
             <div className="flex gap-2">
-              <Link to="/">
+              <Link to="/home">
                 <button
                   className={`text-sm font-semibold px-3 py-1 rounded-full shadow ${
                     location.pathname === "/"

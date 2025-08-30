@@ -76,30 +76,10 @@ const FashionCategoryPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b ">
-      {/* Category Carousel */}
-      <div className="max-w-full mx-auto px-4 py-6">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">Shop by Categories</h2>
-        <Slider {...categorySettings}>
-          {categories.map((cat) => (
-            <div key={cat.id} className="px-2">
-              <div className="group cursor-pointer bg-yellow-50 rounded-2xl shadow hover:shadow-lg transition p-4 flex flex-col items-center">
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="w-28 h-28 object-cover rounded-full border-4 border-yellow-200 group-hover:border-yellow-400 transition"
-                />
-                <p className="mt-3 font-medium text-gray-700 group-hover:text-yellow-600 transition">
-                  {cat.name}
-                </p>
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
+    <div className="min-h-auto bg-gradient-to-b ">
 
       {/* Products Grid */}
-      <div className="max-w-fulll mx-auto px-4 py-10">
+      <div className="max-w-350 mx-auto px-6 py-10">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">Featured Products</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 lg:gap-8">
           {products.map((product) => (
