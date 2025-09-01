@@ -2,44 +2,34 @@
 import httpClient from "../utils/HttpClient";
 import { ApiRoutes } from "../utils/endpoints";
 
-// Get cart items
-export const fetchCart = async () => {
-  const { Endpoint, Method } = ApiRoutes.Cart.All;
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-  });
-  return response.data;
+// Get all cart items
+export const fetchCartItems = async () => {
+  const { Endpoint, Method } = ApiRoutes.Cart.GetCart;
+  const res = await httpClient({ url: Endpoint, method: Method });
+  return res.data;
 };
 
 // Add item to cart
-export const addToCart = async (payload) => {
-  const { Endpoint, Method } = ApiRoutes.Cart.Add;
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-    data: payload,
-  });
-  return response.data;
+export const addCartItem = async (item) => {
+  const { Endpoint, Method } = ApiRoutes.Cart.AddToCart;
+  const res = await httpClient({ url: Endpoint, method: Method, data: item });
+  return res.data;
 };
 
 // Remove item from cart
-export const removeFromCart = async (id) => {
-  const { Endpoint, Method } = ApiRoutes.Cart.Remove(id);
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-  });
-  return response.data;
+export const removeCartItem = async (id) => {
+  const { Endpoint, Method } = ApiRoutes.Cart.RemoveFromCart;
+  const res = await httpClient({ url: `${Endpoint}/${id}`, method: Method });
+  return res.data;
 };
 
-// Update cart item
-export const updateCartItem = async (id, payload) => {
-  const { Endpoint, Method } = ApiRoutes.Cart.Update(id);
-  const response = await httpClient({
-    url: Endpoint,
+// Update quantity
+export const updateCartItem = async (id, quantity) => {
+  const { Endpoint, Method } = ApiRoutes.Cart.UpdateQuantity;
+  const res = await httpClient({
+    url: `${Endpoint}/${id}`,
     method: Method,
-    data: payload,
+    data: { quantity },
   });
-  return response.data;
+  return res.data;
 };

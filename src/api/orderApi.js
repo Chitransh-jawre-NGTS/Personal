@@ -1,45 +1,23 @@
-// src/api/orderApi.js
 import httpClient from "../utils/HttpClient";
-import { ApiRoutes } from "../utils/endpoints";
+import { ApiRoutes } from "../utils/apiRoutes"; // ✅ fix path
 
-// Fetch all orders
-export const fetchAllOrders = async () => {
-  const { Endpoint, Method } = ApiRoutes.Orders.All;
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-  });
-  return response.data;
+// Fetch all orders for a user
+export const fetchAllOrders = async (userId) => {
+  const { Endpoint, Method } = ApiRoutes.Orders.All(userId);
+  const res = await httpClient({ url: Endpoint, method: Method });
+  return res.data;
 };
 
-// Fetch single order
-export const fetchOrderById = async (id) => {
-  const { Endpoint, Method } = ApiRoutes.Orders.ById(id);
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-  });
-  return response.data;
+// Fetch single order by id & userId
+export const fetchOrderById = async (orderId, userId) => {
+  const { Endpoint, Method } = ApiRoutes.Orders.ById(orderId, userId);
+  const res = await httpClient({ url: Endpoint, method: Method });
+  return res.data;
 };
 
-// Create order
-export const createOrder = async (payload) => {
-  const { Endpoint, Method } = ApiRoutes.Orders.Create;
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-    data: payload,
-  });
-  return response.data;
-};
-
-// Update order
-export const updateOrder = async (id, payload) => {
-  const { Endpoint, Method } = ApiRoutes.Orders.Update(id);
-  const response = await httpClient({
-    url: Endpoint,
-    method: Method,
-    data: payload,
-  });
-  return response.data;
+// Update order status
+export const updateOrderStatus = async (orderId, userId, payload) => {
+  const { Endpoint, Method } = ApiRoutes.Orders.UpdateStatus(orderId, userId);
+  const res = await httpClient({ url: Endpoint, method: Method, data: payload });
+  return res.data;
 };

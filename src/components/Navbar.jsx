@@ -92,7 +92,7 @@ const AmazonStyleNavbar = ({ showMobileTop = true, showMobileBottom = true }) =>
             </button>
           </form>
 
-          <button className="border border-yellow-400 rounded-full px-6 py-2 font-semibold hover:bg-yellow-500 hover:text-black transition shadow-md">
+          <button className="border hidden lg:flex border-yellow-400 rounded-full px-6 py-2 font-semibold hover:bg-yellow-500 hover:text-black transition shadow-md">
             Download App
           </button>
 

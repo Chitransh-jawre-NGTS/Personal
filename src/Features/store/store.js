@@ -7,6 +7,7 @@ import buyNowReducer from '../BuyNow/buyNowSlice.js';
 import authReducer from '../Auth/authSlice.js';
 import cartReducer from '../carts/cartSlice.js';
 import orderReducer from '../Order/OrderSlice.js';
+import wishlistReducer from '../Wishlist/WishlistSlice.js';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     cart: cartReducer,         // cart management
     buyNow: buyNowReducer,     // direct buy functionality
     auth: authReducer,         // login/register
-    order: orderReducer,       // order history / details
+    orders: orderReducer,  
+    wishlist: wishlistReducer,    
   },
 });

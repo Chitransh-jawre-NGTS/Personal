@@ -3,13 +3,16 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import SmallNavbar from "../../components/SmallNavbar";
 import AmazonStyleNavbar from "../../components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCartAsync, getCart } from "../../Features/carts/cartSlice";
 
 export default function SearchResults() {
   const location = useLocation();
-
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const cartLoading = useSelector((state) => state.cart.loading);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(1000);
@@ -98,6 +101,18 @@ if (loading) {
     if (sortOption === "popular") return b.rating - a.rating;
     return 0;
   });
+
+   const handleAddToCart = (product) => {
+  // Send only the fields your API expects
+  const payload = {
+    productId: product.id,      // or product.productId if your backend uses that
+    name: product.name,
+    price: product.price,
+    quantity: 1,
+  };
+
+  dispatch(addToCartAsync(payload));
+};
 
   return (
     <>
@@ -248,8 +263,8 @@ if (loading) {
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
             {sortedProducts.length > 0 ? (
               sortedProducts.map((product) => (
-                <Link
-                  to={`/productdeatilspage?id=${product.id}`}
+                <div
+                  // to={`/productdeatilspage?id=${product.id}`}
                   key={product.id}
                 >
                   
@@ -271,9 +286,16 @@ if (loading) {
                     <p className="text-xs sm:text-sm text-gray-600">
                       ⭐ {product.rating} / 5
                     </p>
-                    <button className="px-2 py-2 w-full rounded m-2 text-center border border-blue-400 text-blue-400 hover:bg-yellow-500">Add to cart</button>
+                    
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    disabled={cartLoading}
+                    className="px-2 py-2 w-full rounded m-2 text-center border border-blue-400 text-blue-400 hover:bg-yellow-500 transition"
+                  >
+                    {cartLoading ? "Adding..." : "Add to Cart"}
+                  </button>
                   </div>
-                </Link>
+                </div>
               ))
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center col-span-2">

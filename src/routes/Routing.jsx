@@ -87,24 +87,16 @@
 // };
 
 // export default Routing;
-
-
 // src/Routing.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToTop from '../components/ScrollTop';
-// import PrivateRoute from './PrivateRouting';
-
-
+import PrivateRoute from './PrivateRouting';
 
 import SearchResults from '../pages/SellerHub/SerchResult';
 import Chatbot from '../components/ChatBot';
 import RentalCheckout from '../RentalComponents/RentalCheakout';
 import NewArrivals from '../components/NewArrival';
-import AmazonStyleNavbar from '../components/Navbar';
-
-import Footer from '../components/Footer';
-import RentalProductDetails from '../RentalComponents/RentalProductDetail';
 import { Toaster } from 'react-hot-toast';
 import BookNow from '../RentalComponents/BooNow';
 import RentalHub from '../pages/RentalHub/rental-hub/index.jsx';
@@ -124,39 +116,175 @@ import PaymentPage from '../pages/Payment/index.jsx';
 import OrderDetails from '../pages/OrderDetails/index.jsx';
 import RentNow from '../RentalComponents/RentalCheakout';
 import Login from '../pages/Login/index.jsx';
+import RentalProductDetails from '../RentalComponents/RentalProductDetail';
 
 const Routing = () => {
   return (
     <Router>
       <Toaster position="top-right" reverseOrder={false} />
       <ScrollToTop/>
-      {/* <AmazonStyleNavbar /> */}
+      
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/becomeseller" element={<BecomeSeller />} />
-        <Route path="/newarrivals" element={<NewArrivals />} />
-        <Route path="/accounts" element={<AccountPage />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/rental" element={<RentalHub />} />
-        <Route path="/rentalcheckout" element={<RentNow />} />
-        <Route path="/carts" element={<Cart />} />
-        <Route path="/wishlist" element={<Favourate />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/chatbot" element={<Chatbot />} />
-        <Route path="/rentalproduct/:id" element={<RentalProductDetails />} />
-        <Route path="/booknow" element={<BookNow />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/signup" element={<Signup/>} />
-         <Route path="/productdeatilspage" element={<ProductDetailPage/>} />
-         <Route path="/dashboard" element={<Dashboard/>} />
-         <Route path="/fashion" element={<FashionCategoryPage/>} />
-         <Route path="/reels" element={<ReelsPage/>} />
-         <Route path="/payment" element={<PaymentPage/>} />
-          <Route path="/order-details" element={<OrderDetails/>} />
+        <Route path="/signup" element={<Signup />} />
+         <Route path="/home" element={<Home />} />
+
+        {/* Protected Routes */}
+      
+        <Route
+          path="/becomeseller"
+          element={
+            <PrivateRoute>
+              <BecomeSeller />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/newarrivals"
+          element={
+            <PrivateRoute>
+              <NewArrivals />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/accounts"
+          element={
+            <PrivateRoute>
+              <AccountPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <PrivateRoute>
+              <SearchResults />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/rental"
+          element={
+            <PrivateRoute>
+              <RentalHub />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/rentalcheckout"
+          element={
+            <PrivateRoute>
+              <RentNow />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/carts"
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Favourate />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/chatbot"
+          element={
+            <PrivateRoute>
+              <Chatbot />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/rentalproduct/:id"
+          element={
+            <PrivateRoute>
+              <RentalProductDetails />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/booknow"
+          element={
+            <PrivateRoute>
+              <BookNow />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <PrivateRoute>
+              <Orders />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/productdeatilspage"
+          element={
+            <PrivateRoute>
+              <ProductDetailPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fashion"
+          element={
+            <PrivateRoute>
+              <FashionCategoryPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/reels"
+          element={
+            <PrivateRoute>
+              <ReelsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <PrivateRoute>
+              <PaymentPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/order-details"
+          element={
+            <PrivateRoute>
+              <OrderDetails />
+            </PrivateRoute>
+          }
+        />
       </Routes>
-      {/* <Footer /> */}
     </Router>
   );
 };
